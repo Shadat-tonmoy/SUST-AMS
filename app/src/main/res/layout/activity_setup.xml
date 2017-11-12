@@ -17,13 +17,42 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:gravity="center"
-                android:layout_centerVertical="true"
+
+            <RelativeLayout
+                android:id="@+id/no_course_found_msg"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible">
+
+                <ImageView
+                    android:id="@+id/no_course_found_img"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/nothing_found"
+                    android:scaleType="centerCrop"
+                    />
+                <TextView
+                    android:id="@+id/no_course_found_txt"
+                    android:layout_below="@id/no_course_found_img"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Sorry!! No Course Record Found\nTap the '+' button to add a course"
+                    android:textColor="@color/textRed"/>
+
+            </RelativeLayout>
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Srtup System Here"
-                android:textColor="@color/textBlack"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="16dp"
+                android:src="@drawable/add"
+
                 />
         </RelativeLayout>
     </LinearLayout>

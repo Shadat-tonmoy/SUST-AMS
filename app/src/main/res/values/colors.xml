@@ -6,4 +6,5 @@
     <color name="textBlack">#212121</color>
     <color name="textAsh">#757575</color>
     <color name="textWhite">#ffffff</color>
+    <color name="textRed">#e74c3c</color>
 </resources>
