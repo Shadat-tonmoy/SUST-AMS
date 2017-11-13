@@ -16,16 +16,33 @@ public class CourseAddActivity extends AppCompatActivity {
     private EditText courseCodeField,courseTitleField,courseSessionField;
     private FloatingActionButton courseAddDoneFab;
     private boolean isValid;
+    private SQLiteAdapter sqLiteAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_add);
         initialize();
+
+        /*
+        * add onclicklistener to courseAddDoneFab
+        * */
+        courseAddDoneFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateForm();
+                if(isValid)
+                {
+                    /*
+                    * insert data to sqlite
+                    * */
+                    insertData();
+                }
+            }
+        });
     }
 
     public void initialize()
     {
-
         /*
         * find toolbar by id and set title
         * */
@@ -38,21 +55,20 @@ public class CourseAddActivity extends AppCompatActivity {
         /*
         * set toolbar navigation Icon
         * */
-        toolbar.setNavigationIcon(R.drawable.back);
         toolbarStatic.setNavigationIcon(R.drawable.back);
 
 
         /*
         * set toolbar navigation Icon Click Listener
         * */
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarStatic.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        toolbarStatic.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -78,15 +94,11 @@ public class CourseAddActivity extends AppCompatActivity {
         * find course add done fab by id and set on click listener
         * */
         courseAddDoneFab = (FloatingActionButton) findViewById(R.id.course_add_done_fab);
-        courseAddDoneFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateForm();
 
-            }
-        });
-
-
+        /*
+        * method to established sqlite connection
+        * */
+        initSQLiteDB();
     }
 
 
@@ -126,7 +138,33 @@ public class CourseAddActivity extends AppCompatActivity {
         {
             Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show();
         }
+    }
 
+    /*
+   * method to initialize database connection
+   * */
+    public void initSQLiteDB()
+    {
+        sqLiteAdapter = new SQLiteAdapter(CourseAddActivity.this);
+    }
 
+    /*
+    * method to insert data in sqlite
+    * */
+    public void insertData()
+    {
+        String courseCode = courseCodeField.getText().toString();
+        String courseTitle = courseTitleField.getText().toString();
+        String session = courseSessionField.getText().toString();
+        long id = sqLiteAdapter.addCourseToDB(courseCode,courseTitle,session);
+        if(id>=0)
+        {
+            Toast.makeText(CourseAddActivity.this,"Course is added with id "+id,Toast.LENGTH_LONG).show();
+            Setup.courseAdapter.add(new Course(courseCode,courseTitle,session,id));
+        }
+        else
+        {
+            Toast.makeText(CourseAddActivity.this,"Error "+id,Toast.LENGTH_LONG).show();
+        }
     }
 }

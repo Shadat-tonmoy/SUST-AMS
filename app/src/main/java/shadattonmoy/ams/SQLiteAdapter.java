@@ -19,15 +19,16 @@ public class SQLiteAdapter {
         sqLiteHelper = new SQLiteHelper(context);
     }
 
-    /*public long insertData(String name, String regNo) {
+    public long addCourseToDB(String courseCode, String courseTitle, String session) {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(SQLiteHelper.NAME, name);
-        contentValues.put(SQLiteHelper.REG_NO,regNo);
-        return db.insert(SQLiteHelper.TABLE_NAME, null, contentValues);
+        contentValues.put(SQLiteHelper.COURSE_CODE, courseCode);
+        contentValues.put(SQLiteHelper.COURSE_TITLE,courseTitle);
+        contentValues.put(SQLiteHelper.COURSE_SESSION,session);
+        return db.insert(SQLiteHelper.COURSE, null, contentValues);
     }
 
-    public String getAllData()
+    /*public String getAllData()
     {
         StringBuffer stringBuffer = new StringBuffer();
         String detail = "";
@@ -51,19 +52,16 @@ public class SQLiteAdapter {
     public Cursor getCourse()
     {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
-        String[] columns = {sqLiteHelper.COURSE_ID,sqLiteHelper.COURSE_TITLE,sqLiteHelper.COURSE_SESSION};
-        Cursor cursor = db.query(sqLiteHelper.COURSE,columns,null,null,null,null,null,null);
-        String result = "";
-        while (cursor.moveToNext())
+        String[] columns = {sqLiteHelper.COURSE_ID,sqLiteHelper.COURSE_CODE,sqLiteHelper.COURSE_TITLE,sqLiteHelper.COURSE_SESSION};
+        Cursor cursor = null;
+        try{
+            cursor = db.query(sqLiteHelper.COURSE,columns,null,null,null,null,null,null);
+
+        } catch (Exception e)
         {
-            int indexOfCourseId = cursor.getColumnIndex(sqLiteHelper.COURSE_ID);
-            int indexOfCourseTitle = cursor.getColumnIndex(sqLiteHelper.COURSE_TITLE);
-            int indexOfCourseSession = cursor.getColumnIndex(sqLiteHelper.COURSE_SESSION);
-            int courseId = cursor.getInt(indexOfCourseId);
-            String courseTitle = cursor.getString(indexOfCourseTitle);
-            String courseSession = cursor.getString(indexOfCourseSession);
-            result = result + " ID : " + courseId + " Title " + courseTitle+ " Session : "+courseSession+"\n";
+
         }
+
         return cursor;
     }
 
@@ -90,27 +88,28 @@ public class SQLiteAdapter {
 
     static class SQLiteHelper extends SQLiteOpenHelper {
 
-        private static final String DATABASE_NAME = "PROJECT350DB";
-        private static final String STUDENT = "student";
-        private static final String COURSE = "course";
-        private static final String CLASS_INSTANCE = "class_instance";
-        private static final String ATTENDANCE = "attendance";
-        private static final int DATABASE_VERSION = 1;
-        private static final String STUDENT_ID = "student_id";
-        private static final String STUDENT_NAME = "student_name";
-        private static final String STUDENT_REG_NO = "student_reg_no";
-        private static final String IS_REGULAR = "isRegular";
-        private static final String COURSE_ID = "course_id";
-        private static final String COURSE_TITLE = "course_title";
-        private static final String COURSE_SESSION = "course_session";
-        private static final String CLASS_ID = "class_id";
-        private static final String CLASS_DATE = "class_date";
-        private static final String ATTENDANCE_ID = "attendance_id";
-        private static final String IS_PRESENT = "isPresent";
+         static final String DATABASE_NAME = "PROJECT350DB";
+         static final String STUDENT = "student";
+         static final String COURSE = "course";
+         static final String CLASS_INSTANCE = "class_instance";
+         static final String ATTENDANCE = "attendance";
+         static final int DATABASE_VERSION = 4;
+         static final String STUDENT_ID = "student_id";
+         static final String STUDENT_NAME = "student_name";
+         static final String STUDENT_REG_NO = "student_reg_no";
+         static final String IS_REGULAR = "isRegular";
+         static final String COURSE_ID = "course_id";
+         static final String COURSE_TITLE = "course_title";
+         static final String COURSE_CODE = "course_code";
+         static final String COURSE_SESSION = "course_session";
+         static final String CLASS_ID = "class_id";
+         static final String CLASS_DATE = "class_date";
+         static final String ATTENDANCE_ID = "attendance_id";
+         static final String IS_PRESENT = "isPresent";
 
         private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER, "+IS_REGULAR+" BOOLEAN);";
 
-        private static final String CREATE_TABLE_COURSE = "create table "+COURSE+"("+COURSE_ID+" INTEGER primary key autoincrement,"+COURSE_TITLE+" varchar(255),"+COURSE_SESSION+" varchar(255));";
+        private static final String CREATE_TABLE_COURSE = "create table "+COURSE+"("+COURSE_ID+" INTEGER primary key autoincrement,"+COURSE_CODE+" varchar(255), "+COURSE_TITLE+" varchar(255),"+COURSE_SESSION+" varchar(255));";
 
         private static final String CREATE_TABLE_ATTENDANCE = "create table "+ATTENDANCE+"("+ATTENDANCE_ID+" INTEGER primary key autoincrement,"+CLASS_ID+" INTEGER,"+STUDENT_ID+" INTEGER,"+IS_PRESENT+" BOOLEAN);";
 

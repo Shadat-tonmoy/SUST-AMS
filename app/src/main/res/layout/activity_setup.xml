@@ -44,6 +44,11 @@
 
             </RelativeLayout>
 
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/course_list"></ListView>
+
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/course_add_fab"
