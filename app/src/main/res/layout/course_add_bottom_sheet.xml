@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Class"
+        style="@style/addClassHeader"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/course_code_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <EditText
+            android:id="@+id/course_code_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course Code"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/course_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <EditText
+            android:id="@+id/course_title_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course Title"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/course_session_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <EditText
+            android:id="@+id/course_session_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Session"/>
+    </android.support.design.widget.TextInputLayout>
+
+
+
+
+
+
+</LinearLayout>

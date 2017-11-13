@@ -1,6 +1,8 @@
 package shadattonmoy.ams;
 
+import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ public class Setup extends AppCompatActivity {
     private SQLiteAdapter sqLiteAdapter;
     private Cursor courseCursor;
     private RelativeLayout noCourseFoundMsg;
+    private FloatingActionButton courseAddFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,20 @@ public class Setup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+
+        /*
+        * find fab by id and set click event listener
+        * */
+        courseAddFab = (FloatingActionButton) findViewById(R.id.course_add_fab);
+        courseAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Setup.this,CourseAddActivity.class);
+                startActivity(intent);
+
             }
         });
 
