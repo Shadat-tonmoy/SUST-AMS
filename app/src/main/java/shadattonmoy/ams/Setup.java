@@ -131,6 +131,7 @@ public class Setup extends AppCompatActivity {
                 courses.add(course);
             }
             courseAdapter = new CourseAdapter(Setup.this,R.layout.course_single_row,R.id.course_icon,courses);
+            courseAdapter.setFragmentManager(getSupportFragmentManager());
             courseList.setAdapter(courseAdapter);
         }
     }

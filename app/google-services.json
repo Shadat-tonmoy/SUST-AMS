@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "581110143237",
+    "firebase_url": "https://amsfirebaseproject-8d7a8.firebaseio.com",
+    "project_id": "amsfirebaseproject-8d7a8",
+    "storage_bucket": "amsfirebaseproject-8d7a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581110143237:android:ef8b25999653ea9f",
+        "android_client_info": {
+          "package_name": "shadattonmoy.ams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581110143237-5ge1ngqaiukn37lo5jbgg9qd694tfss4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "shadattonmoy.ams",
+            "certificate_hash": "b2c99a347b3c70767b7daf20183c9cf10724190f"
+          }
+        },
+        {
+          "client_id": "581110143237-k7p2l8a54a2olh42jl06jrdd24usrfr6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUS02wyqtlD-zk44tJIyMtcVlVWmLZ6zg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581110143237-k7p2l8a54a2olh42jl06jrdd24usrfr6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

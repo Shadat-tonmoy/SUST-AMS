@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:adroid="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -35,8 +36,7 @@
         android:id="@+id/course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/course_code"
-        android:layout_alignStart="@+id/course_code"
+        adroid:layout_alignStart="@+id/course_code"
         android:layout_below="@+id/course_code"
         android:text="Structured Programming Language"
         android:textColor="#7f8c8d"
@@ -56,7 +56,7 @@
         />
 
     <ImageView
-        android:id="@+id/edit_course_icon1"
+        android:id="@+id/course_more_vert_icon"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginRight="20dp"

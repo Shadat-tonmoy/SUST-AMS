@@ -36,6 +36,7 @@ public class CourseAddActivity extends AppCompatActivity {
                     * insert data to sqlite
                     * */
                     insertData();
+                    finish();
                 }
             }
         });
