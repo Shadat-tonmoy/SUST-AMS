@@ -17,7 +17,7 @@
         android:background="@drawable/round_light_green"
         android:textSize="16sp"
         android:textColor="#ffffff"
-        />
+        adroid:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/course_code"
@@ -30,36 +30,37 @@
         android:text="CSE133"
         android:textColor="#000000"
         android:textSize="16sp"
-        />
+        adroid:ignore="RtlHardcoded" />
 
     <TextView
         android:id="@+id/course_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         adroid:layout_alignStart="@+id/course_code"
-        android:layout_below="@+id/course_code"
         android:text="Structured Programming Language"
         android:textColor="#7f8c8d"
         android:textSize="12sp"
-        />
+        android:layout_below="@+id/course_code"
+        android:layout_alignLeft="@+id/course_session"
+        android:layout_alignStart="@+id/course_session" />
 
     <TextView
         android:id="@+id/course_session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/course_title"
-        android:layout_alignStart="@+id/course_title"
-        android:layout_below="@+id/course_title"
         android:text="2014-15 Session"
         android:textColor="#7f8c8d"
         android:textSize="12sp"
-        />
+        android:layout_below="@+id/course_title"
+        android:layout_alignLeft="@+id/course_code"
+        android:layout_alignStart="@+id/course_code" />
 
     <ImageView
         android:id="@+id/course_more_vert_icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginRight="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:layout_marginRight="10dp"
         app:srcCompat="@drawable/more_vert"
         android:layout_marginEnd="20dp"
         android:layout_above="@+id/course_session"

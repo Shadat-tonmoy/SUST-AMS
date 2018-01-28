@@ -79,6 +79,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
             @Override
             public void onClick(View v) {
                 CourseAddBottomSheet courseAddBottomSheet = new CourseAddBottomSheet();
+                courseAddBottomSheet.setCourse(course);
                 courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
             }
         });

@@ -23,7 +23,8 @@
         <activity android:name=".Setup" />
         <activity android:name=".PastRecord" />
         <activity android:name=".UserManual" />
-        <activity android:name=".CourseAddActivity"></activity>
+        <activity android:name=".CourseAddActivity" />
+        <activity android:name=".CourseEditActivity"></activity>
     </application>
 
 </manifest>
