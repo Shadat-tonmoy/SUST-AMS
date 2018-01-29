@@ -65,18 +65,24 @@ public class SQLiteAdapter {
         return cursor;
     }
 
-    /*public int update(String oldName, String newName)
+    public int update(Course course)
     {
+        String courseId = Long.toString(course.getCourseId());
+        String courseCode = course.getCourseCode();
+        String courseTitle = course.getCourseTitle();
+        String courseSession = course.getCourseSession();
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(sqLiteHelper.NAME,newName);
-        String whereClause = sqLiteHelper.NAME+"=?";
-        String[] whereArgs = {oldName};
-        int result = db.update(sqLiteHelper.TABLE_NAME,contentValues,whereClause,whereArgs);
+        contentValues.put(sqLiteHelper.COURSE_CODE,courseCode);
+        contentValues.put(sqLiteHelper.COURSE_TITLE,courseTitle);
+        contentValues.put(sqLiteHelper.COURSE_SESSION,courseSession);
+        String whereClause = sqLiteHelper.COURSE_ID+"=?";
+        String[] whereArgs = {courseId};
+        int result = db.update(sqLiteHelper.COURSE,contentValues,whereClause,whereArgs);
         return result;
     }
 
-    public int delete(String name)
+    /*public int delete(String name)
     {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         String whereClause = sqLiteHelper.NAME+"=?";

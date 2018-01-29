@@ -100,6 +100,7 @@ android:orientation="vertical">
                     android:id="@+id/course_code_edit_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
                     android:hint="Course Code"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -124,6 +125,7 @@ android:orientation="vertical">
                     android:id="@+id/course_title_edit_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
                     android:hint="Course Title"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
@@ -144,11 +146,13 @@ android:orientation="vertical">
                 android:id="@+id/course_session_edit_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <EditText
                     android:id="@+id/course_session_edit_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Session"/>
+                    android:inputType="phone"
+                    android:hint="Session" />
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 

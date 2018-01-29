@@ -1,12 +1,15 @@
 package shadattonmoy.ams;
 
+import java.io.Serializable;
+
 /**
  * Created by Shadat Tonmoy on 11/13/2017.
  */
 
-public class Course {
+public class Course implements Serializable{
     private String courseCode,courseTitle,courseSession;
     long courseId;
+    private boolean isUpdated;
 
     public Course()
     {
@@ -51,4 +54,24 @@ public class Course {
     public void setCourseId(long courseId) {
         this.courseId = courseId;
     }
+
+    public boolean isUpdated() {
+        return isUpdated;
+    }
+
+    public void setUpdated(boolean updated) {
+        isUpdated = updated;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseCode='" + courseCode + '\'' +
+                ", courseTitle='" + courseTitle + '\'' +
+                ", courseSession='" + courseSession + '\'' +
+                ", courseId=" + courseId +
+                '}';
+    }
+
+
 }

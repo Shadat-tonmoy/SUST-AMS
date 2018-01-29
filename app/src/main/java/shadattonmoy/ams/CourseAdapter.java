@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Shadat Tonmoy on 11/13/2017.
@@ -23,7 +24,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
 
     private FragmentManager fragmentManager;
     private TextView courseCodeView,courseTitleView,courseSessionView,courseDeptView;
-
+    private static CourseAddBottomSheet courseAddBottomSheet;
     public CourseAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<Course> objects) {
         super(context, resource, textViewResourceId, objects);
     }
@@ -75,16 +76,29 @@ public class CourseAdapter extends ArrayAdapter<Course> {
         courseTitleView.setText(courseTitle);
         courseSessionView.setText(courseSession);
 
+        if(course.isUpdated()) {
+            courseIconView.setBackgroundResource(R.drawable.round_blue);
+            //course.setUpdated(false);
+            Setup.setUpdatedCourseId(-1);
+
+        }
         moreVert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CourseAddBottomSheet courseAddBottomSheet = new CourseAddBottomSheet();
+                courseAddBottomSheet = new CourseAddBottomSheet();
                 courseAddBottomSheet.setCourse(course);
                 courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
+
             }
         });
 
         return row;
+
+    }
+
+    public static void hideBottomSheet()
+    {
+        courseAddBottomSheet.dismiss();
 
     }
 }

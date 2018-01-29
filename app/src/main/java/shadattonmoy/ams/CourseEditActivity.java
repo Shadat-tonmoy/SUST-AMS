@@ -19,7 +19,10 @@ public class CourseEditActivity extends AppCompatActivity {
     private FloatingActionButton courseEditDoneFab;
     private static Course courseToEdit;
     private EditText courseCodeEditField,courseTitleEditField,courseSessionEditField;
+    private boolean isValid;
     private TextInputLayout courseCodeEditLayout,courseTitleEditLayout,courseSessionEditLayout;
+    private SQLiteAdapter sqLiteAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +64,11 @@ public class CourseEditActivity extends AppCompatActivity {
         courseEditDoneFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Will Done",Toast.LENGTH_SHORT).show();
+                validateForm();
+                if(isValid)
+                {
+                    updateCourseDetail();
+                }
 
             }
         });
@@ -69,7 +76,7 @@ public class CourseEditActivity extends AppCompatActivity {
         /*
         * initialize sqite database
         * */
-        //initSQLiteDB();
+        initSQLiteDB();
 
 
 
@@ -101,5 +108,68 @@ public class CourseEditActivity extends AppCompatActivity {
         courseCodeEditField.setText(courseToEdit.getCourseCode());
         courseTitleEditField.setText(courseToEdit.getCourseTitle());
         courseSessionEditField.setText(courseToEdit.getCourseSession());
+    }
+
+    public void validateForm()
+    {
+        isValid = true;
+        if(courseCodeEditField.getText().toString().isEmpty())
+        {
+            isValid = false;
+            courseCodeEditLayout.setError("Course Code Field is empty");
+        }
+        else
+        {
+            courseCodeEditLayout.setErrorEnabled(false);
+        }
+
+        if(courseTitleEditField.getText().toString().isEmpty())
+        {
+            isValid = false;
+            courseTitleEditLayout.setError("Course Title Field is empty");
+        }
+        else
+        {
+            courseTitleEditLayout.setErrorEnabled(false);
+        }
+
+        if(courseSessionEditField.getText().toString().isEmpty())
+        {
+            isValid = false;
+            courseSessionEditLayout.setError("Session Field is empty");
+        }
+        else
+        {
+            courseSessionEditLayout.setErrorEnabled(false);
+        }
+        if(isValid)
+        {
+            Toast.makeText(this,"All Data are valied. Updating....",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void initSQLiteDB()
+    {
+        sqLiteAdapter = new SQLiteAdapter(CourseEditActivity.this);
+    }
+
+    public void updateCourseDetail()
+    {
+        String courseCode = courseCodeEditField.getText().toString();
+        String courseTitle = courseTitleEditField.getText().toString();
+        String courseSession = courseSessionEditField.getText().toString();
+        long id = courseToEdit.getCourseId();
+        Course updatedCourse = new Course(courseCode,courseTitle,courseSession,id);
+        Toast.makeText(this,"Will updated to "+updatedCourse.toString(),Toast.LENGTH_SHORT).show();
+        int updatedId = sqLiteAdapter.update(updatedCourse);
+        if(updatedId>0)
+        {
+            Toast.makeText(this,"Updated with ID "+updatedId,Toast.LENGTH_SHORT).show();
+            Setup.setIsUpdated(true);
+            Setup.setUpdatedCourseId(id);
+            finish();
+
+        }
+
     }
 }

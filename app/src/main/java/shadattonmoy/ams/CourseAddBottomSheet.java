@@ -59,7 +59,8 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
         bottomSheetDeleteMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Delete Course",Toast.LENGTH_SHORT).show();
+                CourseDeleteConfirmationDialog courseDeleteConfirmationDialog = new CourseDeleteConfirmationDialog();
+                courseDeleteConfirmationDialog.show(getActivity().getFragmentManager(),"Confirmation");
             }
         });
 
