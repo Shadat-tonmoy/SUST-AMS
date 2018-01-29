@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
         TextView courseCodeView = (TextView) row.findViewById(R.id.course_code);
         TextView courseTitleView = (TextView) row.findViewById(R.id.course_title);
         TextView courseSessionView = (TextView) row.findViewById(R.id.course_session);
-        ImageView moreVert = (ImageView) row.findViewById(R.id.course_more_vert_icon);
+        LinearLayout moreVert = (LinearLayout) row.findViewById(R.id.course_more_vert_layout);
 
 
         /*

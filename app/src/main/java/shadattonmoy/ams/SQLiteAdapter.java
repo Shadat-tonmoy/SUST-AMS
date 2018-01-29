@@ -65,6 +65,24 @@ public class SQLiteAdapter {
         return cursor;
     }
 
+    public Cursor getStudents(String courseId)
+    {
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.STUDENT_NAME,sqLiteHelper.STUDENT_REG_NO,sqLiteHelper.COURSE_ID};
+        String whereClause = sqLiteHelper.COURSE_ID+"=?";
+        String whereArgs[] = {courseId};
+        Cursor cursor = null;
+        try{
+            cursor = db.query(sqLiteHelper.STUDENT,columns,whereClause,whereArgs,null,null,null,null);
+
+        } catch (Exception e)
+        {
+
+        }
+
+        return cursor;
+    }
+
     public int update(Course course)
     {
         String courseId = Long.toString(course.getCourseId());

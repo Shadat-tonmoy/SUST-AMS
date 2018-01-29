@@ -36,11 +36,12 @@ tools:context="shadattonmoy.ams.StudentListActivity">
                 />
             <TextView
                 android:id="@+id/no_student_found_txt"
-                android:layout_below="@id/no_course_found_img"
+                android:layout_below="@id/no_student_found_img"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Sorry!! No Student Record Found\nTap the '+' button to add a course"
+                android:textSize="16sp"
                 android:textColor="@color/textRed"/>
 
         </RelativeLayout>
