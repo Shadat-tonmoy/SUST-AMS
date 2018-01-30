@@ -25,7 +25,8 @@
         <activity android:name=".UserManual" />
         <activity android:name=".CourseAddActivity" />
         <activity android:name=".CourseEditActivity" />
-        <activity android:name=".StudentListActivity"></activity>
+        <activity android:name=".StudentListActivity" />
+        <activity android:name=".CustomStudentAddActivity"></activity>
     </application>
 
 </manifest>

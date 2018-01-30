@@ -3,18 +3,19 @@ package shadattonmoy.ams;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.zip.CheckedOutputStream;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 public class StudentListActivity extends AppCompatActivity {
 
@@ -29,6 +30,11 @@ public class StudentListActivity extends AppCompatActivity {
     private static long updatedStudentId;
     private Course course;
     private TextView noStudentFoundText;
+    private RelativeLayout studentAddFabContainer;
+    private boolean menuIsOpen;
+    private FloatingActionMenu floatingActionMenu;
+    FloatingActionButton customStudentFab, csvFileFab, googleSheetFab;
+
 
 
 
@@ -45,6 +51,60 @@ public class StudentListActivity extends AppCompatActivity {
 
         course = (Course) getIntent().getSerializableExtra("Course");
 
+
+
+        floatingActionMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
+
+        floatingActionMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(StudentListActivity.this,"Inc",Toast.LENGTH_SHORT).show();
+                //floatingActionMenu.showMenu(true);
+                if(!menuIsOpen)
+                {
+                    floatingActionMenu.open(true);
+                    menuIsOpen = true;
+                }
+                else
+                {
+                    floatingActionMenu.close(true);
+                    menuIsOpen = false;
+                }
+
+
+            }
+        });
+
+        customStudentFab = (FloatingActionButton) findViewById(R.id.custom_student_fab);
+        csvFileFab = (FloatingActionButton) findViewById(R.id.csv_file_fab);
+        googleSheetFab= (FloatingActionButton) findViewById(R.id.google_sheet_fab);
+
+
+
+
+        customStudentFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                floatingActionMenu.close(true);
+                Intent intent = new Intent(StudentListActivity.this,CustomStudentAddActivity.class);
+                startActivity(intent);;
+
+
+
+            }
+        });
+        csvFileFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO something when floating action menu second item clicked
+
+            }
+        });
+        googleSheetFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //TODO something when floating action menu third item clicked
+
+            }
+        });
+
         /*
         * find toolbar by id and set title
         * */
@@ -52,9 +112,8 @@ public class StudentListActivity extends AppCompatActivity {
         toolbar.setTitle(course.getCourseCode());
 
         isUpdated = false;
+        menuIsOpen = false;
 
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.student_list_activity_layout);
         /*
         * set toolbar navigation Icon
         * */
@@ -75,14 +134,8 @@ public class StudentListActivity extends AppCompatActivity {
         /*
         * find fab by id and set click event listener
         * */
-        studentAddFab = (FloatingActionButton) findViewById(R.id.student_add_fab);
-        studentAddFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(StudentListActivity.this,"Will Add",Toast.LENGTH_SHORT).show();
 
-            }
-        });
+
 
         /*
         * initialize sqite database
@@ -94,11 +147,6 @@ public class StudentListActivity extends AppCompatActivity {
         * */
         noStudentFoundMsg = (RelativeLayout) findViewById(R.id.no_student_found_msg);
         noStudentFoundText = (TextView) findViewById(R.id.no_student_found_txt);
-
-        /*
-        * find course list view
-        * */
-        studentList = (ListView) findViewById(R.id.student_list);
 
         /*
         * initialize course array list

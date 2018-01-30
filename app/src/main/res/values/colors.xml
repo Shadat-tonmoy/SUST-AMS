@@ -7,4 +7,8 @@
     <color name="textAsh">#757575</color>
     <color name="textWhite">#ffffff</color>
     <color name="textRed">#e74c3c</color>
+    <color name="fabContainerBg">#bf2c3e50</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="blue">#2980b9</color>
+    <color name="teel">#16a085</color>
 </resources>
