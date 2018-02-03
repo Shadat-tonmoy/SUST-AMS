@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="shadattonmoy.ams.spreadsheetapi.SpreadSheetActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            layout="@layout/toolbar">
+        </include>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--<Button-->
+                <!--android:id="@+id/button"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="15dp"-->
+                <!--android:background="@color/colorAccent"-->
+                <!--android:text="Call API"-->
+                <!--android:textColor="#ffffff"-->
+                <!--android:textSize="18sp"-->
+                <!--android:layout_alignParentBottom="true"/>-->
+            <TextView
+                android:id="@+id/no_sheet_found_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please Wait..."
+                android:layout_centerInParent="true"
+                android:textSize="18sp"
+                android:textColor="#95a5a6"
+                />
+
+            <GridView
+                android:id="@+id/spread_sheet_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60dp"
+                android:numColumns="3"
+                android:stretchMode="columnWidth"
+                ></GridView>
+
+            <TextView
+                android:id="@+id/debugView"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:id="@+id/course_add_fab"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_margin="16dp"-->
+                <!--android:src="@drawable/add"-->
+
+                <!--/>-->
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

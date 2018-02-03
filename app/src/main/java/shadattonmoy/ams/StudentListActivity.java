@@ -17,6 +17,8 @@ import java.util.zip.CheckedOutputStream;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import shadattonmoy.ams.spreadsheetapi.SpreadSheetActivity;
+
 public class StudentListActivity extends AppCompatActivity {
 
     private SQLiteAdapter sqLiteAdapter;
@@ -100,6 +102,9 @@ public class StudentListActivity extends AppCompatActivity {
         });
         googleSheetFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent intent = new Intent(StudentListActivity.this, SpreadSheetActivity.class);
+                startActivity(intent);
+
                 //TODO something when floating action menu third item clicked
 
             }

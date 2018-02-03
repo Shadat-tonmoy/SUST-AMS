@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.zip.CheckedOutputStream;
+
 public class CourseAddActivity extends AppCompatActivity {
 
     private TextInputLayout courseCodeLayout,courseTitleLayout,courseSessionLayout;
@@ -161,7 +167,16 @@ public class CourseAddActivity extends AppCompatActivity {
         if(id>=0)
         {
             Toast.makeText(CourseAddActivity.this,"Course is added with id "+id,Toast.LENGTH_LONG).show();
+            ArrayList<Course> courses = new ArrayList<Course>();
+            courses.add(new Course(courseCode,courseTitle,session,id));
+            if(Setup.courseAdapter==null)
+            {
+                Setup.courseAdapter = new CourseAdapter(getApplicationContext(),R.layout.course_single_row,R.id.course_icon,courses);
+                Setup.setIsFirstData(true);
+            }
+            else Setup.setIsRandomAddedData(true);
             Setup.courseAdapter.add(new Course(courseCode,courseTitle,session,id));
+            Setup.setAddedCourse(courseCode);
         }
         else
         {

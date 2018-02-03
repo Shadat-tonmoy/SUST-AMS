@@ -31,8 +31,9 @@ public class Setup extends AppCompatActivity {
     boolean returnFlag = false;
     private CoordinatorLayout coordinatorLayout;
     static CourseAdapter courseAdapter;
-    private static boolean isUpdated;
+    private static boolean isUpdated,isFirstData,isRandomAddedData;
     private static long updatedCourseId;
+    private static String addedCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class Setup extends AppCompatActivity {
         toolbar.setTitle("Setup System");
 
         isUpdated = false;
+        isFirstData = false;
+        isRandomAddedData = false;
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.setup_activity_layout);
         /*
@@ -173,10 +176,27 @@ public class Setup extends AppCompatActivity {
             CourseAdapter.hideBottomSheet();
             initialize();
             getCourse(isUpdated);
-            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Course Info. is Updated",Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Course Info. is Updated",Snackbar.LENGTH_LONG);
             snackbar.show();
             isUpdated = false;
         }
+        else if(isFirstData)
+        {
+            initialize();
+            getCourse(isUpdated);
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,addedCourse+" is Added",Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+        else if(isRandomAddedData)
+        {
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,addedCourse+" is Added",Snackbar.LENGTH_LONG);
+            snackbar.show();
+            isRandomAddedData = false;
+
+
+        }
+
+
     }
 
     public static void setIsUpdated(boolean isUpdated) {
@@ -185,5 +205,29 @@ public class Setup extends AppCompatActivity {
 
     public static void setUpdatedCourseId(long updatedCourseId) {
         Setup.updatedCourseId = updatedCourseId;
+    }
+
+    public static boolean isFirstData() {
+        return isFirstData;
+    }
+
+    public static void setIsFirstData(boolean isFirstData) {
+        Setup.isFirstData = isFirstData;
+    }
+
+    public static String getAddedCourse() {
+        return addedCourse;
+    }
+
+    public static void setAddedCourse(String addedCourse) {
+        Setup.addedCourse = addedCourse;
+    }
+
+    public static boolean isRandomAddedData() {
+        return isRandomAddedData;
+    }
+
+    public static void setIsRandomAddedData(boolean isRandomAddedData) {
+        Setup.isRandomAddedData = isRandomAddedData;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:fab="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
@@ -58,9 +58,8 @@ tools:context="shadattonmoy.ams.StudentListActivity">
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_margin="0dp"
+                android:padding="8dp"
                 fab:menu_animationDelayPerItem="55"
                 fab:menu_backgroundColor="@color/fabContainerBg"
                 fab:menu_buttonSpacing="0dp"
@@ -127,5 +126,5 @@ tools:context="shadattonmoy.ams.StudentListActivity">
     </LinearLayout>
 
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
 
