@@ -103,6 +103,7 @@ public class StudentListActivity extends AppCompatActivity {
         googleSheetFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(StudentListActivity.this, SpreadSheetActivity.class);
+                intent.putExtra("Course",course);
                 startActivity(intent);
 
                 //TODO something when floating action menu third item clicked

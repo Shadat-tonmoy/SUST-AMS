@@ -31,11 +31,6 @@ public class CourseDeleteConfirmationDialog extends DialogFragment {
         textView.setText("This operation will permanently delete the course and all the related information with the course. Are you sure to proceed? ");
         //textView.setBackgroundColor(getResources().getColor(R.color.warningGreen));
 
-
-
-
-
-
         builder.setView(view);
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override

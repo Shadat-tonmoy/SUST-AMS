@@ -6,15 +6,18 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
@@ -40,10 +43,13 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.CheckedOutputStream;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import shadattonmoy.ams.Course;
 import shadattonmoy.ams.R;
+import shadattonmoy.ams.Student;
 
 public class DynamicTabActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks{
@@ -57,6 +63,8 @@ public class DynamicTabActivity extends AppCompatActivity
     private TextView totalSheetView;
     private TabHost tabs;
     private List<Sheet> sheetList;
+    private Course course;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +89,10 @@ public class DynamicTabActivity extends AppCompatActivity
         mProgress.setCancelable(false);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Spread Sheet List");
+
+        course = (Course) getIntent().getSerializableExtra("Course");
+
+        Toast.makeText(DynamicTabActivity.this,"Add Sudent For "+course.getCourseCode()+" with ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
 
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -126,10 +138,25 @@ public class DynamicTabActivity extends AppCompatActivity
 
         @Override
         public View createTabContent(String tag) {
-            ListView listView = new ListView(DynamicTabActivity.this);
+            LayoutInflater inflater = (LayoutInflater) DynamicTabActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View view = inflater.inflate(R.layout.tab_content_layout,null);
+            //ListView listView = new ListView(DynamicTabActivity.this);
+            ListView listView = (ListView) view.findViewById(R.id.spread_sheet_student_list);
             StudentAdapter studentAdapter = new StudentAdapter(DynamicTabActivity.this,R.layout.student_single_row,R.id.student_icon,  studentList);
             listView.setAdapter(studentAdapter);
-            return listView;
+            FloatingActionButton addFromSpreadSheetFab = (FloatingActionButton) view.findViewById(R.id.student_add_from_spread_sheet_fab);
+            addFromSpreadSheetFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AddFromSpreadSheetConfirmationDialog addFromSpreadSheetConfirmationDialog = new AddFromSpreadSheetConfirmationDialog();
+                    addFromSpreadSheetConfirmationDialog.show(DynamicTabActivity.this.getFragmentManager(),"Student From SpreadSheet Confirmation");
+                    addFromSpreadSheetConfirmationDialog.setCourse(course);
+                    addFromSpreadSheetConfirmationDialog.setStudentList(studentList);
+                    addFromSpreadSheetConfirmationDialog.setTabContentView(view);
+
+                }
+            });
+            return view;
         }
     }
 
@@ -404,7 +431,7 @@ public class DynamicTabActivity extends AppCompatActivity
                         boolean isRegular = false;
                         if(regular.equals("1"))
                             isRegular = true;
-                        results.add(new Student(name,regNo,email,isRegular));
+                        results.add(new Student(name,regNo,isRegular));
                     }
                 }
                 //spreadSheetData.setSheetList(sheetList);

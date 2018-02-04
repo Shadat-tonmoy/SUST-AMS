@@ -47,6 +47,7 @@ import java.util.Map;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import shadattonmoy.ams.Course;
 import shadattonmoy.ams.R;
 
 public class SpreadSheetActivity extends AppCompatActivity
@@ -56,6 +57,8 @@ public class SpreadSheetActivity extends AppCompatActivity
     private Button mCallApiButton;
     ProgressDialog mProgress;
     private GridView spreadSheetList;
+    private long courseID;
+    private Course course;
 
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
@@ -75,18 +78,6 @@ public class SpreadSheetActivity extends AppCompatActivity
         setContentView(R.layout.activity_spread_sheet);
         initialize();
         getResultsFromApi();
-//        mCallApiButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mCallApiButton.setEnabled(false);
-//                debugView.setText("");
-//
-//                mCallApiButton.setEnabled(true);
-//            }
-//        });
-
-
-
     }
 
 
@@ -364,9 +355,7 @@ public class SpreadSheetActivity extends AppCompatActivity
                 nothingFoundMsg.setText("No results returned.");
             } else {
                 nothingFoundMsg.setVisibility(View.GONE);
-                //SpreadSheetAdapter spreadSheetAdapter = new SpreadSheetAdapter(MainActivity.this,R.layout.spreadsheet_single_row,R.id.spread_sheet_logo,output);
                 SpreadSheetAdapter spreadSheetAdapter = new SpreadSheetAdapter(SpreadSheetActivity.this, output);
-                Toast.makeText(SpreadSheetActivity.this,"Hello",Toast.LENGTH_SHORT).show();
                 spreadSheetList.setAdapter(spreadSheetAdapter);
 
                 spreadSheetList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -376,6 +365,7 @@ public class SpreadSheetActivity extends AppCompatActivity
                         SpreadSheet currentSheet = (SpreadSheet) parent.getItemAtPosition(position);
                         Intent intent = new Intent(SpreadSheetActivity.this,DynamicTabActivity.class);
                         intent.putExtra("ID",currentSheet.getId());
+                        intent.putExtra("Course",course);
                         startActivity(intent);
 
 
@@ -412,6 +402,7 @@ public class SpreadSheetActivity extends AppCompatActivity
         //mCallApiButton = (Button) findViewById(R.id.button);
         spreadSheetList = (GridView) findViewById(R.id.spread_sheet_list);
         nothingFoundMsg = (TextView) findViewById(R.id.no_sheet_found_msg);
+        course = (Course) getIntent().getSerializableExtra("Course");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Spread Sheets");
 

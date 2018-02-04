@@ -5,7 +5,7 @@ package shadattonmoy.ams;
  */
 
 public class Student {
-    private String name,regNo;
+    private String name,regNo,email;
     private long studentId,courseId;
     private boolean regular;
 
@@ -53,5 +53,13 @@ public class Student {
 
     public void setRegular(boolean regular) {
         this.regular = regular;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

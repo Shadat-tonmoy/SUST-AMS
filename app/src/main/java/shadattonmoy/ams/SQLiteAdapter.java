@@ -2,6 +2,7 @@ package shadattonmoy.ams;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +27,18 @@ public class SQLiteAdapter {
         contentValues.put(SQLiteHelper.COURSE_TITLE,courseTitle);
         contentValues.put(SQLiteHelper.COURSE_SESSION,session);
         return db.insert(SQLiteHelper.COURSE, null, contentValues);
+    }
+
+    public long addStudentToDB(Student student,long courseId)
+    {
+
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLiteHelper.STUDENT_NAME, student.getName());
+        contentValues.put(SQLiteHelper.STUDENT_REG_NO,student.getRegNo());
+        contentValues.put(SQLiteHelper.IS_REGULAR,student.isRegular());
+        contentValues.put(SQLiteHelper.COURSE_ID, courseId);
+        return db.insert(SQLiteHelper.STUDENT, null, contentValues);
     }
 
     /*public String getAllData()
