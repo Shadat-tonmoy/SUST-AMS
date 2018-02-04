@@ -13,23 +13,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+                android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TakeAttendance" />
-        <activity android:name=".Setup" />
-        <activity android:name=".PastRecord" />
-        <activity android:name=".UserManual" />
-        <activity android:name=".CourseAddActivity" />
-        <activity android:name=".CourseEditActivity" />
-        <activity android:name=".StudentListActivity" />
-        <activity android:name=".CustomStudentAddActivity" />
-        <activity android:name=".spreadsheetapi.SpreadSheetActivity"></activity>
-        <activity android:name=".spreadsheetapi.DynamicTabActivity"></activity>
+        <activity android:name=".TakeAttendance"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Setup"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PastRecord"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".UserManual"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CourseAddActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".CourseEditActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".StudentListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".CustomStudentAddActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".spreadsheetapi.SpreadSheetActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".spreadsheetapi.DynamicTabActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
