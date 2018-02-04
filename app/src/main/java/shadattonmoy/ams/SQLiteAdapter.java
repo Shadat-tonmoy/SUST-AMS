@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -80,6 +81,7 @@ public class SQLiteAdapter {
 
     public Cursor getStudents(String courseId)
     {
+
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.STUDENT_NAME,sqLiteHelper.STUDENT_REG_NO,sqLiteHelper.COURSE_ID};
         String whereClause = sqLiteHelper.COURSE_ID+"=?";
@@ -92,7 +94,6 @@ public class SQLiteAdapter {
         {
 
         }
-
         return cursor;
     }
 
@@ -130,7 +131,7 @@ public class SQLiteAdapter {
          static final String COURSE = "course";
          static final String CLASS_INSTANCE = "class_instance";
          static final String ATTENDANCE = "attendance";
-         static final int DATABASE_VERSION = 4;
+         static final int DATABASE_VERSION = 5;
          static final String STUDENT_ID = "student_id";
          static final String STUDENT_NAME = "student_name";
          static final String STUDENT_REG_NO = "student_reg_no";
@@ -144,11 +145,11 @@ public class SQLiteAdapter {
          static final String ATTENDANCE_ID = "attendance_id";
          static final String IS_PRESENT = "isPresent";
 
-        private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER, "+IS_REGULAR+" BOOLEAN);";
+        private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER, "+IS_REGULAR+" INTEGER);";
 
         private static final String CREATE_TABLE_COURSE = "create table "+COURSE+"("+COURSE_ID+" INTEGER primary key autoincrement,"+COURSE_CODE+" varchar(255), "+COURSE_TITLE+" varchar(255),"+COURSE_SESSION+" varchar(255));";
 
-        private static final String CREATE_TABLE_ATTENDANCE = "create table "+ATTENDANCE+"("+ATTENDANCE_ID+" INTEGER primary key autoincrement,"+CLASS_ID+" INTEGER,"+STUDENT_ID+" INTEGER,"+IS_PRESENT+" BOOLEAN);";
+        private static final String CREATE_TABLE_ATTENDANCE = "create table "+ATTENDANCE+"("+ATTENDANCE_ID+" INTEGER primary key autoincrement,"+CLASS_ID+" INTEGER,"+STUDENT_ID+" INTEGER,"+IS_PRESENT+" INTEGER);";
 
         private static final String CREATE_TABLE_CLASS_INSTANCE = "create table "+CLASS_INSTANCE+"("+CLASS_ID+" INTEGER primary key autoincrement,"+CLASS_DATE+" varchar(255),"+COURSE_ID+" INTEGER);";
 

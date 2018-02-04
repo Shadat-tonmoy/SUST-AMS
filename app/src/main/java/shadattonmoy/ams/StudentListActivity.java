@@ -3,11 +3,13 @@ package shadattonmoy.ams;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +20,9 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import shadattonmoy.ams.spreadsheetapi.SpreadSheetActivity;
+import shadattonmoy.ams.spreadsheetapi.StudentAdapter;
+
+import static shadattonmoy.ams.Setup.courseAdapter;
 
 public class StudentListActivity extends AppCompatActivity {
 
@@ -36,6 +41,7 @@ public class StudentListActivity extends AppCompatActivity {
     private boolean menuIsOpen;
     private FloatingActionMenu floatingActionMenu;
     FloatingActionButton customStudentFab, csvFileFab, googleSheetFab;
+    static StudentAdapter studentAdapter;
 
 
 
@@ -52,8 +58,6 @@ public class StudentListActivity extends AppCompatActivity {
     {
 
         course = (Course) getIntent().getSerializableExtra("Course");
-
-
 
         floatingActionMenu = (FloatingActionMenu) findViewById(R.id.material_design_android_floating_action_menu);
 
@@ -138,12 +142,6 @@ public class StudentListActivity extends AppCompatActivity {
 
 
         /*
-        * find fab by id and set click event listener
-        * */
-
-
-
-        /*
         * initialize sqite database
         * */
         initSQLiteDB();
@@ -158,6 +156,8 @@ public class StudentListActivity extends AppCompatActivity {
         * initialize course array list
         * */
         students = new ArrayList<Student>();
+
+        studentList = (ListView) findViewById(R.id.student_list);
     }
 
 
@@ -182,7 +182,49 @@ public class StudentListActivity extends AppCompatActivity {
         else
         {
             noStudentFoundMsg.setVisibility(View.GONE);
-            //initCourses(isUpdated);
+            initStudents(isUpdated);
+        }
+    }
+
+    public void initStudents(boolean isUpdated)
+    {
+        if(studentCursor!=null)
+        {
+
+            while (studentCursor.moveToNext())
+            {
+                Log.e("Student Cursor Column ",studentCursor.getColumnCount()+"");
+
+                int indexOfStudentId = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_ID);
+                int indexOfStudentName = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_NAME);
+                int indexOfStudentRegNo = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_REG_NO);
+                int indexOfStudentRegular = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.IS_REGULAR);
+                int studentId = studentCursor.getInt(indexOfStudentId);
+                String studentName = studentCursor.getString(indexOfStudentName);
+                String studentRegNo = studentCursor.getString(indexOfStudentRegNo);
+                Log.e("Index ",indexOfStudentRegular+"");
+                int isStudentRegular = studentCursor.getInt(3);
+                Student student= new Student(studentName,studentRegNo,isStudentRegular);
+//                if(courseId == updatedCourseId)
+//                    course.setUpdated(true);
+//                else course.setUpdated(false);
+                students.add(student);
+            }
+            studentAdapter = new StudentAdapter(StudentListActivity.this,R.layout.student_single_row,R.id.student_icon,students);
+            studentAdapter.setFragmentManager(getSupportFragmentManager());
+            studentList.setAdapter(studentAdapter);
+            /*courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Course course = (Course) parent.getItemAtPosition(position);
+                    Toast.makeText(Setup.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Setup.this,StudentListActivity.class);
+                    intent.putExtra("Course", course);
+                    startActivity(intent);
+
+                }
+            });*/
         }
     }
 

@@ -428,9 +428,9 @@ public class DynamicTabActivity extends AppCompatActivity
                             else if(i==2)
                                 regular = row.get(i).toString();
                         }
-                        boolean isRegular = false;
+                        int isRegular = 0;
                         if(regular.equals("1"))
-                            isRegular = true;
+                            isRegular = 1;
                         results.add(new Student(name,regNo,isRegular));
                     }
                 }

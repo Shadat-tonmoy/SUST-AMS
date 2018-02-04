@@ -7,9 +7,9 @@ package shadattonmoy.ams;
 public class Student {
     private String name,regNo,email;
     private long studentId,courseId;
-    private boolean regular;
+    private int regular;
 
-    public Student(String name, String regNo, boolean regular) {
+    public Student(String name, String regNo, int regular) {
         this.name = name;
         this.regNo = regNo;
         this.regular = regular;
@@ -47,11 +47,11 @@ public class Student {
         this.courseId = courseId;
     }
 
-    public boolean isRegular() {
+    public int isRegular() {
         return regular;
     }
 
-    public void setRegular(boolean regular) {
+    public void setRegular(int regular) {
         this.regular = regular;
     }
 

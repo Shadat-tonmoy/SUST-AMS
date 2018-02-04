@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import shadattonmoy.ams.Student;
  */
 
 public class StudentAdapter extends ArrayAdapter<Student> {
+
+    private FragmentManager fragmentManager;
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
             super(context, resource, textViewResourceId, objects);
@@ -54,14 +57,14 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         String studentName = student.getName();
         String studentRegNo = student.getRegNo();
         String studentEmail = student.getEmail();
-        boolean isRegular = student.isRegular();
+        int isRegular = student.isRegular();
         String regular = "Dropper";
-        if(isRegular)
+        if(isRegular==1)
             regular = "Regular";
 
 
         String iconText = String.valueOf(studentName.charAt(0));
-        if(isRegular)
+        if(isRegular==1)
             studentIconView.setBackgroundResource(R.drawable.round_light_green);
         else studentIconView.setBackgroundResource(R.drawable.round_red);
 
@@ -75,5 +78,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
         return row;
 
+    }
+
+    public FragmentManager getFragmentManager() {
+        return fragmentManager;
+    }
+
+    public void setFragmentManager(FragmentManager fragmentManager) {
+        this.fragmentManager = fragmentManager;
     }
 }
