@@ -60,14 +60,14 @@ android:orientation="vertical">
     </android.support.design.widget.CollapsingToolbarLayout>
 </android.support.design.widget.AppBarLayout>
 
-<android.support.design.widget.FloatingActionButton
-    android:id="@+id/custom_student_add_done_fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/done"
-    app:layout_anchor="@id/appbar"
-    app:layout_anchorGravity="bottom|end"
-    android:layout_margin="16dp"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/custom_student_add_done_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/done"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="16dp" />
 
 
     <android.support.v4.widget.NestedScrollView
@@ -130,7 +130,7 @@ android:orientation="vertical">
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Registration Number"
-                        android:inputType="textCapWords" />
+                        android:inputType="number" />
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
@@ -172,5 +172,7 @@ android:orientation="vertical">
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+
 </android.support.design.widget.CoordinatorLayout>
 
