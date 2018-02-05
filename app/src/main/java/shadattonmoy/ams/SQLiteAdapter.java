@@ -33,6 +33,7 @@ public class SQLiteAdapter {
     public long addStudentToDB(Student student,long courseId)
     {
 
+        Log.e("Adding TO DB","Regular :"+student.isRegular());
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(SQLiteHelper.STUDENT_NAME, student.getName());
@@ -83,7 +84,7 @@ public class SQLiteAdapter {
     {
 
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
-        String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.STUDENT_NAME,sqLiteHelper.STUDENT_REG_NO,sqLiteHelper.COURSE_ID};
+        String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.STUDENT_NAME,sqLiteHelper.STUDENT_REG_NO,sqLiteHelper.COURSE_ID,sqLiteHelper.IS_REGULAR};
         String whereClause = sqLiteHelper.COURSE_ID+"=?";
         String whereArgs[] = {courseId};
         Cursor cursor = null;
@@ -131,11 +132,11 @@ public class SQLiteAdapter {
          static final String COURSE = "course";
          static final String CLASS_INSTANCE = "class_instance";
          static final String ATTENDANCE = "attendance";
-         static final int DATABASE_VERSION = 5;
+         static final int DATABASE_VERSION = 10;
          static final String STUDENT_ID = "student_id";
          static final String STUDENT_NAME = "student_name";
          static final String STUDENT_REG_NO = "student_reg_no";
-         static final String IS_REGULAR = "isRegular";
+         static final String IS_REGULAR = "is_regular";
          static final String COURSE_ID = "course_id";
          static final String COURSE_TITLE = "course_title";
          static final String COURSE_CODE = "course_code";
@@ -143,9 +144,9 @@ public class SQLiteAdapter {
          static final String CLASS_ID = "class_id";
          static final String CLASS_DATE = "class_date";
          static final String ATTENDANCE_ID = "attendance_id";
-         static final String IS_PRESENT = "isPresent";
+         static final String IS_PRESENT = "is_present";
 
-        private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER, "+IS_REGULAR+" INTEGER);";
+        private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER,"+IS_REGULAR+" INTEGER);";
 
         private static final String CREATE_TABLE_COURSE = "create table "+COURSE+"("+COURSE_ID+" INTEGER primary key autoincrement,"+COURSE_CODE+" varchar(255), "+COURSE_TITLE+" varchar(255),"+COURSE_SESSION+" varchar(255));";
 

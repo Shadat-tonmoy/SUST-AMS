@@ -3,6 +3,7 @@ package shadattonmoy.ams;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class StudentListActivity extends AppCompatActivity {
     private FloatingActionMenu floatingActionMenu;
     FloatingActionButton customStudentFab, csvFileFab, googleSheetFab;
     static StudentAdapter studentAdapter;
+    private static boolean isCustomStudentAdded,isFirstStudent;
+    private static String customStudentAddedRegNo;
 
 
 
@@ -92,6 +95,7 @@ public class StudentListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 floatingActionMenu.close(true);
                 Intent intent = new Intent(StudentListActivity.this,CustomStudentAddActivity.class);
+                intent.putExtra("Course",course);
                 startActivity(intent);;
 
 
@@ -122,6 +126,8 @@ public class StudentListActivity extends AppCompatActivity {
         toolbar.setTitle(course.getCourseCode());
 
         isUpdated = false;
+        isCustomStudentAdded = false;
+        isFirstStudent = false;
         menuIsOpen = false;
 
         /*
@@ -158,6 +164,8 @@ public class StudentListActivity extends AppCompatActivity {
         students = new ArrayList<Student>();
 
         studentList = (ListView) findViewById(R.id.student_list);
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.student_list_activity_layout);
     }
 
 
@@ -193,7 +201,11 @@ public class StudentListActivity extends AppCompatActivity {
 
             while (studentCursor.moveToNext())
             {
-                Log.e("Student Cursor Column ",studentCursor.getColumnCount()+"");
+                String[] columns = studentCursor.getColumnNames();
+                String log = "";
+                for(String column : columns)
+                    log+=column;
+                Log.e("Student Cursor Column ",log);
 
                 int indexOfStudentId = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_ID);
                 int indexOfStudentName = studentCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_NAME);
@@ -203,7 +215,8 @@ public class StudentListActivity extends AppCompatActivity {
                 String studentName = studentCursor.getString(indexOfStudentName);
                 String studentRegNo = studentCursor.getString(indexOfStudentRegNo);
                 Log.e("Index ",indexOfStudentRegular+"");
-                int isStudentRegular = studentCursor.getInt(3);
+                int isStudentRegular = studentCursor.getInt(indexOfStudentRegular);
+                Log.e("From ListActivity ","Regular "+isStudentRegular);
                 Student student= new Student(studentName,studentRegNo,isStudentRegular);
 //                if(courseId == updatedCourseId)
 //                    course.setUpdated(true);
@@ -228,5 +241,46 @@ public class StudentListActivity extends AppCompatActivity {
         }
     }
 
+    public static boolean isCustomStudentAdded() {
+        return isCustomStudentAdded;
+    }
 
+    public static void setIsCustomStudentAdded(boolean isCustomStudentAdded) {
+        StudentListActivity.isCustomStudentAdded = isCustomStudentAdded;
+    }
+
+    public static boolean isFirstStudent() {
+        return isFirstStudent;
+    }
+
+    public static void setIsFirstStudent(boolean isFirstStudent) {
+        StudentListActivity.isFirstStudent = isFirstStudent;
+    }
+
+    public static String getCustomStudentAddedRegNo() {
+        return customStudentAddedRegNo;
+    }
+
+    public static void setCustomStudentAddedRegNo(String customStudentAddedRegNo) {
+        StudentListActivity.customStudentAddedRegNo = customStudentAddedRegNo;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isCustomStudentAdded)
+        {
+            isCustomStudentAdded = false;
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Student with Reg. No "+customStudentAddedRegNo+" is Added",Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+        if(isFirstStudent)
+        {
+            initialize();
+            getStudents(isUpdated);
+            Snackbar snackbar = Snackbar.make(coordinatorLayout,"Student with Reg. No"+customStudentAddedRegNo+" is Added",Snackbar.LENGTH_LONG);
+            snackbar.show();
+
+        }
+    }
 }

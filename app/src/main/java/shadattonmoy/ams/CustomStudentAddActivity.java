@@ -1,15 +1,21 @@
 package shadattonmoy.ams;
 
+import android.database.Cursor;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.SubMenuBuilder;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+
+import shadattonmoy.ams.spreadsheetapi.StudentAdapter;
 
 public class CustomStudentAddActivity extends AppCompatActivity {
 
@@ -18,6 +24,7 @@ public class CustomStudentAddActivity extends AppCompatActivity {
     private EditText studentNameField,studentRegNoField;
     private RadioGroup studentRegularRadioButton;
     private boolean isValid;
+    private Course course;
     private int isRegular;
     private SQLiteAdapter sqLiteAdapter;
 
@@ -25,6 +32,7 @@ public class CustomStudentAddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_student_add);
+        course = (Course) getIntent().getSerializableExtra("Course");
         initialize();
     }
 
@@ -67,13 +75,32 @@ public class CustomStudentAddActivity extends AppCompatActivity {
                 {
                     String studentName = studentNameField.getText().toString();
                     String studentRegNo = studentRegNoField.getText().toString();
-                    String regular = "Regular";
+                    int regular = 1;
                     if(studentRegularRadioButton.getCheckedRadioButtonId()==R.id.radio_dropper)
-                        regular = "Dropper";
+                        regular = 0;
                     Toast.makeText(CustomStudentAddActivity.this,"Name : "+studentName+" RegNo : "+ studentRegNo + " and "+regular,Toast.LENGTH_SHORT).show();
+                    Student student = new Student(studentName,studentRegNo,regular);
+                    long id = sqLiteAdapter.addStudentToDB(student,course.getCourseId());
+                    if(id>0)
+                    {
+
+                        ArrayList<Student> students= new ArrayList<Student>();
+                        students.add(student);
+                        if(StudentListActivity.studentAdapter == null)
+                        {
+                            StudentListActivity.studentAdapter = new StudentAdapter(getApplicationContext(),R.layout.student_single_row,R.id.student_icon,students);
+                            StudentListActivity.setIsFirstStudent(true);
+                        }
+                        else StudentListActivity.setIsCustomStudentAdded(true);
+                        StudentListActivity.studentAdapter.add(student);
+                        StudentListActivity.setCustomStudentAddedRegNo(studentRegNo);
+                        finish();
+                    }
                 }
             }
         });
+
+        initSQLiteDB();
 
 
     }
@@ -102,4 +129,9 @@ public class CustomStudentAddActivity extends AppCompatActivity {
             studentRegNoLayout.setErrorEnabled(false);
         }
     }
+    public void initSQLiteDB()
+    {
+        sqLiteAdapter = new SQLiteAdapter(CustomStudentAddActivity.this);
+    }
+
 }
