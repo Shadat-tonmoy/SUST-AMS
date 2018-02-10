@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:adroid="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/date_icon"
+                android:layout_width="60dp"
+                android:layout_height="65dp"
+                app:cardElevation="4dp"
+                android:layout_margin="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/numeric_date_view"
+                        style="@style/homeIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="7"
+                        android:text="07"
+                        android:textSize="24sp"/>
+                    <TextView
+                        android:id="@+id/month_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:text="February"
+                        android:background="#1F7244"
+                        android:textColor="#ffffff"
+                        android:gravity="center"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/date_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/date_icon"
+                android:layout_toEndOf="@+id/date_icon"
+                android:layout_toRightOf="@+id/date_icon"
+                android:text="Wednesday"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/total_student_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Number of Student : 65"
+                android:textColor="#7f8c8d"
+                android:textSize="12sp"
+                android:layout_below="@+id/date_view"
+                android:layout_toRightOf="@+id/date_icon"
+                android:layout_toEndOf="@+id/date_icon" />
+
+            <TextView
+                android:id="@+id/absent_present_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present : 45 | Absent : 24"
+                android:textColor="#7f8c8d"
+                android:textSize="12sp"
+                android:layout_below="@+id/total_student_view"
+                android:layout_alignLeft="@+id/date_view"
+                android:layout_alignStart="@+id/date_view" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/class_instance_more_vert_layout"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/class_instance_more_vert_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:src="@drawable/more_vert"
+            android:layout_above="@+id/absent_present_view"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </LinearLayout>
+
+</LinearLayout>
+

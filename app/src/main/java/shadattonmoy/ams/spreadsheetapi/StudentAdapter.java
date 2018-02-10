@@ -10,12 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import shadattonmoy.ams.CourseAddBottomSheet;
 import shadattonmoy.ams.R;
 import shadattonmoy.ams.Student;
+import shadattonmoy.ams.StudentBottomSheet;
 
 /**
  * Created by Shadat Tonmoy on 2/1/2018.
@@ -24,9 +29,14 @@ import shadattonmoy.ams.Student;
 public class StudentAdapter extends ArrayAdapter<Student> {
 
     private FragmentManager fragmentManager;
+    private Context context;
+    private static StudentBottomSheet studentBottomSheet;
+    private boolean showVertIcon;
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
             super(context, resource, textViewResourceId, objects);
+        this.context = context;
+        showVertIcon = true;
     }
 
 @NonNull
@@ -49,6 +59,29 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         TextView studentNameView = (TextView) row.findViewById(R.id.student_name);
         TextView studentRegNoView = (TextView) row.findViewById(R.id.student_reg_no);
         TextView studentEmailView = (TextView) row.findViewById(R.id.student_email);
+
+
+        if(showVertIcon)
+        {
+            LinearLayout moreVert = (LinearLayout) row.findViewById(R.id.student_more_vert_layout);
+            ImageView moreVertIcon = (ImageView) row.findViewById(R.id.student_more_vert_icon);
+            moreVertIcon.setImageResource(R.drawable.more_vert);
+            moreVert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    studentBottomSheet = new StudentBottomSheet();
+                    studentBottomSheet.setStudent(student);
+                    studentBottomSheet.show(fragmentManager,studentBottomSheet.getTag());
+//            courseAddBottomSheet = new CourseAddBottomSheet();
+//            courseAddBottomSheet.setCourse(course);
+//            courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
+
+                }
+            });
+
+
+        }
+
 
 
         /*
@@ -86,5 +119,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
     public void setFragmentManager(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;
+    }
+
+    public boolean isShowVertIcon() {
+        return showVertIcon;
+    }
+
+    public void setShowVertIcon(boolean showVertIcon) {
+        this.showVertIcon = showVertIcon;
     }
 }

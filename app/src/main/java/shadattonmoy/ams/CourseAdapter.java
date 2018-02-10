@@ -26,8 +26,10 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     private FragmentManager fragmentManager;
     private TextView courseCodeView,courseTitleView,courseSessionView,courseDeptView;
     private static CourseAddBottomSheet courseAddBottomSheet;
+    private boolean showVertIcon;
     public CourseAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<Course> objects) {
         super(context, resource, textViewResourceId, objects);
+        showVertIcon = true;
     }
 
     public FragmentManager getFragmentManager() {
@@ -57,7 +59,6 @@ public class CourseAdapter extends ArrayAdapter<Course> {
         TextView courseCodeView = (TextView) row.findViewById(R.id.course_code);
         TextView courseTitleView = (TextView) row.findViewById(R.id.course_title);
         TextView courseSessionView = (TextView) row.findViewById(R.id.course_session);
-        LinearLayout moreVert = (LinearLayout) row.findViewById(R.id.course_more_vert_layout);
 
 
         /*
@@ -83,15 +84,22 @@ public class CourseAdapter extends ArrayAdapter<Course> {
             Setup.setUpdatedCourseId(-1);
 
         }
-        moreVert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                courseAddBottomSheet = new CourseAddBottomSheet();
-                courseAddBottomSheet.setCourse(course);
-                courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
 
-            }
-        });
+        if(showVertIcon)
+        {
+            LinearLayout moreVert = (LinearLayout) row.findViewById(R.id.course_more_vert_layout);
+            ImageView moreVertIcon = (ImageView) moreVert.findViewById(R.id.course_more_vert_icon);
+            moreVertIcon.setImageResource(R.drawable.more_vert);
+            moreVert.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    courseAddBottomSheet = new CourseAddBottomSheet();
+                    courseAddBottomSheet.setCourse(course);
+                    courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
+
+                }
+            });
+        }
 
         return row;
 
@@ -101,5 +109,13 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     {
         courseAddBottomSheet.dismiss();
 
+    }
+
+    public boolean isShowVertIcon() {
+        return showVertIcon;
+    }
+
+    public void setShowVertIcon(boolean showVertIcon) {
+        this.showVertIcon = showVertIcon;
     }
 }

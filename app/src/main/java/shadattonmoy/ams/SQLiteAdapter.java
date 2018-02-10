@@ -10,13 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import shadattonmoy.ams.attendance.ClassInstance;
+
 /**
  * Created by Shadat Tonmoy on 11/13/2017.
  */
 
 public class SQLiteAdapter {
 
-    SQLiteHelper sqLiteHelper;
+    public SQLiteHelper sqLiteHelper;
     public SQLiteAdapter(Context context) {
         sqLiteHelper = new SQLiteHelper(context);
     }
@@ -41,6 +43,16 @@ public class SQLiteAdapter {
         contentValues.put(SQLiteHelper.IS_REGULAR,student.isRegular());
         contentValues.put(SQLiteHelper.COURSE_ID, courseId);
         return db.insert(SQLiteHelper.STUDENT, null, contentValues);
+    }
+
+    public long addClassInstanceToDB(ClassInstance classInstance, long courseId)
+    {
+
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLiteHelper.CLASS_DATE, classInstance.getDate());
+        contentValues.put(SQLiteHelper.COURSE_ID,courseId);
+        return db.insert(SQLiteHelper.CLASS_INSTANCE, null, contentValues);
     }
 
     /*public String getAllData()
@@ -98,6 +110,25 @@ public class SQLiteAdapter {
         return cursor;
     }
 
+    public Cursor getClassInstances(String courseId)
+    {
+
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        Cursor cursor = null;
+        try{
+            cursor = db.rawQuery(SQLiteHelper.GET_CLASS_INSTANCE_QUERY, new String[]{courseId});
+            Log.e("Course ID ",courseId);
+            Log.e("Query ","Size "+cursor.getCount());
+
+        } catch (Exception e)
+        {
+            Log.e("Exception ",e.getMessage());
+
+        }
+        return cursor;
+    }
+
+
     public int update(Course course)
     {
         String courseId = Long.toString(course.getCourseId());
@@ -125,7 +156,7 @@ public class SQLiteAdapter {
 
     }*/
 
-    static class SQLiteHelper extends SQLiteOpenHelper {
+    public static class SQLiteHelper extends SQLiteOpenHelper {
 
          static final String DATABASE_NAME = "PROJECT350DB";
          static final String STUDENT = "student";
@@ -153,6 +184,8 @@ public class SQLiteAdapter {
         private static final String CREATE_TABLE_ATTENDANCE = "create table "+ATTENDANCE+"("+ATTENDANCE_ID+" INTEGER primary key autoincrement,"+CLASS_ID+" INTEGER,"+STUDENT_ID+" INTEGER,"+IS_PRESENT+" INTEGER);";
 
         private static final String CREATE_TABLE_CLASS_INSTANCE = "create table "+CLASS_INSTANCE+"("+CLASS_ID+" INTEGER primary key autoincrement,"+CLASS_DATE+" varchar(255),"+COURSE_ID+" INTEGER);";
+
+        private static final String GET_CLASS_INSTANCE_QUERY = "SELECT * FROM class_instance WHERE course_id=?";
 
         private static final String DROP_TABLE_STUDENT = "drop table if exists "+STUDENT+" ";
         private static final String DROP_TABLE_COURSE = "drop table if exists "+COURSE+"";

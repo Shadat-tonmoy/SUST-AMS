@@ -143,6 +143,7 @@ public class DynamicTabActivity extends AppCompatActivity
             //ListView listView = new ListView(DynamicTabActivity.this);
             ListView listView = (ListView) view.findViewById(R.id.spread_sheet_student_list);
             StudentAdapter studentAdapter = new StudentAdapter(DynamicTabActivity.this,R.layout.student_single_row,R.id.student_icon,  studentList);
+            studentAdapter.setShowVertIcon(false);
             listView.setAdapter(studentAdapter);
             FloatingActionButton addFromSpreadSheetFab = (FloatingActionButton) view.findViewById(R.id.student_add_from_spread_sheet_fab);
             addFromSpreadSheetFab.setOnClickListener(new View.OnClickListener() {
