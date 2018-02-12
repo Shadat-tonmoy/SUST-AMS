@@ -3,7 +3,9 @@ package shadattonmoy.ams;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +37,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private ClassInstanceAdapter classInstanceAdapter;
     private static ArrayList<Student> students;
     private int totalStudent;
+    private CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
 
         noClassInstancFoundMsg = (RelativeLayout) findViewById(R.id.no_class_instance_found_msg);
 
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.class_instance_list_activity_layout);
+
         /*
         * find class instance list view
         * */
@@ -107,6 +112,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
 
                 }
                 else classInstanceAdapter.add(classInstance);
+                Snackbar snackbar = Snackbar.make(coordinatorLayout,"Class Instance Added",Snackbar.LENGTH_LONG);
+                snackbar.show();
             }
         });
 
@@ -181,6 +188,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 String studentName = studentCursor.getString(indexOfStudentName);
                 String studentRegNo = studentCursor.getString(indexOfStudentRegNo);
                 Student student = new Student(studentName,studentRegNo,isRegular);
+                student.setPresent(0);
+                student.setStudentId(studentId);
                 students.add(student);
             }
         }
@@ -208,6 +217,7 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
         Toast.makeText(context,"Opening : ",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(context,TakeAttendanceStudentList.class);
         intent.putExtra("Course", course);
+        intent.putExtra("ClassInstanceId",classInstance.getClassInstanceid());
         TakeAttendanceStudentList.setStudents(students);
         context.startActivity(intent);
 

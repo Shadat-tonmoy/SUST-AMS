@@ -7,7 +7,7 @@ package shadattonmoy.ams;
 public class Student {
     private String name,regNo,email;
     private long studentId,courseId;
-    private int regular;
+    private int regular,present;
 
     public Student(String name, String regNo, int regular) {
         this.name = name;
@@ -61,5 +61,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getPresent() {
+        return present;
+    }
+
+    public void setPresent(int present) {
+        this.present = present;
     }
 }

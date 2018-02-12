@@ -1,6 +1,7 @@
 package shadattonmoy.ams.spreadsheetapi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -13,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import shadattonmoy.ams.CourseAddBottomSheet;
 import shadattonmoy.ams.R;
@@ -34,12 +38,14 @@ public class StudentAdapter extends ArrayAdapter<Student> {
     private Context context;
     private static StudentBottomSheet studentBottomSheet;
     private boolean showVertIcon,showPresentAbsentRadio;
+    private Map flagMap,presentFlagMap;
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
             super(context, resource, textViewResourceId, objects);
         this.context = context;
         showVertIcon = true;
         showPresentAbsentRadio = false;
+        flagMap = new HashMap();
     }
 
 @NonNull
@@ -85,28 +91,18 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
         }
 
-        if(showPresentAbsentRadio)
-        {
-            LinearLayout presentAbsentRadio = (LinearLayout) row.findViewById(R.id.student_present_absent_layout);
-            presentAbsentRadio.setVisibility(View.VISIBLE);
-
-
-        }
-
-
 
         /*
         * get the specific attributes for a particular course
         * */
         String studentName = student.getName();
-        String studentRegNo = student.getRegNo();
-        String studentEmail = student.getEmail();
+        final String studentRegNo = student.getRegNo();
+        final String studentEmail = student.getEmail();
         int isRegular = student.isRegular();
+        long studentId = student.getStudentId();
         String regular = "Dropper";
         if(isRegular==1)
             regular = "Regular";
-    Log.e("Name ",studentName);
-
 
         String iconText = String.valueOf(studentName.charAt(0));
         if(isRegular==1)
@@ -120,6 +116,60 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         studentNameView.setText(studentName);
         studentRegNoView.setText(studentRegNo);
         studentEmailView.setText(regular);
+
+        if(showPresentAbsentRadio)
+        {
+            LinearLayout presentAbsentRadio = (LinearLayout) row.findViewById(R.id.student_present_absent_layout);
+            presentAbsentRadio.setVisibility(View.VISIBLE);
+            RadioButton presentRadio = (RadioButton) row.findViewById(R.id.present_radio);
+            RadioButton absentRadio = (RadioButton) row.findViewById(R.id.absent_radio);
+            RadioGroup presentAbsentRadioGroup = (RadioGroup) row.findViewById(R.id.radio_present_absent);
+
+            if(presentFlagMap.size()>0)
+            {
+                if(presentFlagMap.get(studentId).equals(new Integer(0)))
+                    absentRadio.setChecked(true);
+                else presentRadio.setChecked(true);
+            }
+            if(flagMap.get(studentRegNo)!=null)
+            {
+                boolean present = (boolean) flagMap.get(studentRegNo);
+                Log.e("Reg No ",studentRegNo+" present : "+present);
+                if(present)
+                    presentRadio.setChecked(true);
+                else {
+
+                    absentRadio.setChecked(true);
+                }
+            }
+            else if(presentFlagMap.size()==0)
+            {
+                Log.e("Reg No ",studentRegNo+" NULL");
+                presentAbsentRadioGroup.clearCheck();
+            }
+            presentRadio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(context,"Present : "+studentRegNo,Toast.LENGTH_SHORT).show();
+                    flagMap.put(studentRegNo,true);
+                    student.setPresent(1);
+                    Log.e("Putting True ",studentRegNo);
+
+                }
+            });
+
+            absentRadio.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"Absent : "+student.getRegNo(),Toast.LENGTH_SHORT).show();
+                    flagMap.put(studentRegNo,false);
+                    student.setPresent(0);
+                    Log.e("Putting False ",studentRegNo);
+
+                }
+            });
+        }
 
         return row;
 
@@ -147,5 +197,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
     public void setShowPresentAbsentRadio(boolean showPresentAbsentRadio) {
         this.showPresentAbsentRadio = showPresentAbsentRadio;
+    }
+
+    public Map getPresentFlagMap() {
+        return presentFlagMap;
+    }
+
+    public void setPresentFlagMap(Map presentFlagMap) {
+        this.presentFlagMap = presentFlagMap;
     }
 }

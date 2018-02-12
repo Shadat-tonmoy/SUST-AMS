@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/student_list_activity_layout"
+    android:id="@+id/class_instance_list_activity_layout"
     tools:context="shadattonmoy.ams.ClassInstanceListActivity">
 
     <LinearLayout

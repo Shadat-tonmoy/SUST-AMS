@@ -55,26 +55,16 @@ public class SQLiteAdapter {
         return db.insert(SQLiteHelper.CLASS_INSTANCE, null, contentValues);
     }
 
-    /*public String getAllData()
+    public long addAttendanceToDB(int classId,long studentId, int isPresent)
     {
-        StringBuffer stringBuffer = new StringBuffer();
-        String detail = "";
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
-        String[] columns = {SQLiteHelper.UID,SQLiteHelper.NAME,SQLiteHelper.REG_NO};
-        Cursor cursor = db.query(SQLiteHelper.TABLE_NAME,columns,null,null,null,null,null);
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLiteHelper.CLASS_ID, classId);
+        contentValues.put(SQLiteHelper.STUDENT_ID,studentId);
+        contentValues.put(SQLiteHelper.IS_PRESENT,isPresent);
+        return db.insert(SQLiteHelper.ATTENDANCE, null, contentValues);
+    }
 
-        while (cursor.moveToNext()) {
-            int idIndex = cursor.getColumnIndex(SQLiteHelper.UID);
-            int nameIndex = cursor.getColumnIndex(SQLiteHelper.NAME);
-            int regNoIndex = cursor.getColumnIndex(SQLiteHelper.REG_NO);
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String regNo = cursor.getString(2);
-            detail = detail + " "+ id + " " + name + " " + regNo + "\n";
-            //stringBuffer.append(name + " " + regNo + "\n");
-        }
-        return detail;
-    }*/
 
     public Cursor getCourse()
     {
@@ -128,6 +118,23 @@ public class SQLiteAdapter {
         return cursor;
     }
 
+    public Cursor getAttendance(String classInstanceId)
+    {
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        Cursor cursor = null;
+        String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.IS_PRESENT,sqLiteHelper.ATTENDANCE_ID};
+        String whereClause = sqLiteHelper.CLASS_ID+"=?";
+        String whereArgs[] = {classInstanceId};
+        try{
+            cursor = db.query(sqLiteHelper.ATTENDANCE,columns,whereClause,whereArgs,null,null,null,null);
+
+        } catch (Exception e)
+        {
+
+        }
+        return cursor;
+    }
+
 
     public int update(Course course)
     {
@@ -143,6 +150,17 @@ public class SQLiteAdapter {
         String whereClause = sqLiteHelper.COURSE_ID+"=?";
         String[] whereArgs = {courseId};
         int result = db.update(sqLiteHelper.COURSE,contentValues,whereClause,whereArgs);
+        return result;
+    }
+
+    public int updateAttendance(int classId,long studentId, int isPresent)
+    {
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(sqLiteHelper.IS_PRESENT,isPresent);
+        String whereClause = sqLiteHelper.CLASS_ID+"=? and "+sqLiteHelper.STUDENT_ID+"=?";
+        String[] whereArgs = {String.valueOf(classId),String.valueOf(studentId)};
+        int result = db.update(sqLiteHelper.ATTENDANCE,contentValues,whereClause,whereArgs);
         return result;
     }
 
