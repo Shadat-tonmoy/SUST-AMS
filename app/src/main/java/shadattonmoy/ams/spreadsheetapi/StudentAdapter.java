@@ -6,12 +6,14 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +33,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
     private FragmentManager fragmentManager;
     private Context context;
     private static StudentBottomSheet studentBottomSheet;
-    private boolean showVertIcon;
+    private boolean showVertIcon,showPresentAbsentRadio;
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
             super(context, resource, textViewResourceId, objects);
         this.context = context;
         showVertIcon = true;
+        showPresentAbsentRadio = false;
     }
 
 @NonNull
@@ -82,6 +85,14 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
         }
 
+        if(showPresentAbsentRadio)
+        {
+            LinearLayout presentAbsentRadio = (LinearLayout) row.findViewById(R.id.student_present_absent_layout);
+            presentAbsentRadio.setVisibility(View.VISIBLE);
+
+
+        }
+
 
 
         /*
@@ -94,6 +105,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         String regular = "Dropper";
         if(isRegular==1)
             regular = "Regular";
+    Log.e("Name ",studentName);
 
 
         String iconText = String.valueOf(studentName.charAt(0));
@@ -127,5 +139,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
     public void setShowVertIcon(boolean showVertIcon) {
         this.showVertIcon = showVertIcon;
+    }
+
+    public boolean isShowPresentAbsentRadio() {
+        return showPresentAbsentRadio;
+    }
+
+    public void setShowPresentAbsentRadio(boolean showPresentAbsentRadio) {
+        this.showPresentAbsentRadio = showPresentAbsentRadio;
     }
 }

@@ -65,7 +65,8 @@
         android:id="@+id/student_more_vert_layout"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:visibility="gone">
         <ImageView
             android:id="@+id/student_more_vert_icon"
             android:layout_width="30dp"
@@ -75,6 +76,35 @@
             android:layout_above="@+id/student_email"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/student_present_absent_layout"
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Present"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Absent"/>
+        </RadioGroup>
+
+
+
     </LinearLayout>
 
 

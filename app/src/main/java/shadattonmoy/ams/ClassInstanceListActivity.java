@@ -1,6 +1,7 @@
 package shadattonmoy.ams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.zip.CheckedOutputStream;
 
 import shadattonmoy.ams.attendance.ClassDate;
 import shadattonmoy.ams.attendance.ClassInstance;
@@ -31,7 +33,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private Course course;
     private FloatingActionButton classInstanceAddFab;
     private ClassInstanceAdapter classInstanceAdapter;
-    private ArrayList<Student> students;
+    private static ArrayList<Student> students;
     private int totalStudent;
 
     @Override
@@ -51,7 +53,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
         * find toolbar by id and set title
         * */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Attendance");
+        toolbar.setTitle("Class Instance");
 
         /*
         * set toolbar navigation Icon
@@ -100,7 +102,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                     classInstances.add(classInstance);
                     classInstanceAdapter = new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
                     classInstanceList.setAdapter(classInstanceAdapter);
-                    classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this));
+                    classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
                     noClassInstancFoundMsg.setVisibility(View.GONE);
 
                 }
@@ -157,7 +159,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
             }
             classInstanceAdapter= new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
             classInstanceList.setAdapter(classInstanceAdapter);
-            classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this));
+            classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
         }
     }
 
@@ -189,9 +191,13 @@ public class ClassInstanceListActivity extends AppCompatActivity {
 class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
 
     private Context context;
-    public ClassInstanceClickHandler(Context context)
+    private Course course;
+    private ArrayList<Student> students;
+    public ClassInstanceClickHandler(Context context, Course course, ArrayList<Student> students)
     {
         this.context = context;
+        this.course = course;
+        this.students = students;
     }
 
     @Override
@@ -200,9 +206,10 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
 
         ClassInstance classInstance= (ClassInstance) parent.getItemAtPosition(position);
         Toast.makeText(context,"Opening : ",Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(Setup.this,StudentListActivity.class);
-//                    intent.putExtra("Course", course);
-//                    startActivity(intent);
+        Intent intent = new Intent(context,TakeAttendanceStudentList.class);
+        intent.putExtra("Course", course);
+        TakeAttendanceStudentList.setStudents(students);
+        context.startActivity(intent);
 
     }
 }
