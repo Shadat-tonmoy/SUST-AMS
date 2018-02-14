@@ -9,6 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -19,9 +23,14 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
+import shadattonmoy.ams.attendance.ClassInstance;
+import shadattonmoy.ams.attendance.ClassInstanceStudentList;
 import shadattonmoy.ams.spreadsheetapi.SpreadSheetActivity;
 import shadattonmoy.ams.spreadsheetapi.StudentAdapter;
 
@@ -32,13 +41,15 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
     private RelativeLayout noStudentFoundMsg;
     private FloatingActionButton studentAddFab;
     private ListView studentList;
-    private static ArrayList<Student> students;
+    private ArrayList<Student> students;
     private CoordinatorLayout coordinatorLayout;
     private Course course;
     private TextView noStudentFoundText;
     private int classInstanceId;
     private Cursor attendanceCursor;
     private Map presentMap;
+    private StudentAdapter studentAdapter;
+    private ClassInstanceStudentList classInstanceStudentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +57,18 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         setContentView(R.layout.activity_take_attendance_student_list);
         course = (Course) getIntent().getSerializableExtra("Course");
         classInstanceId = getIntent().getIntExtra("ClassInstanceId",-1);
+        classInstanceStudentList = (ClassInstanceStudentList) getIntent().getSerializableExtra("StudentList");
+        classInstanceDate = getIntent().getStringExtra("Date");
+        students = classInstanceStudentList.getStudents();
         Log.e("Class ID",classInstanceId+"");
         initialize();
         initStudents();
+        String studentStatus = "";
+        for(Student student:students)
+        {
+            studentStatus+=student.getStudentId()+" "+student.getPresent()+" : ";
+        }
+        Log.e("Students ",studentStatus);
     }
 
     public void initialize()
@@ -58,13 +78,15 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         * find toolbar by id and set title
         * */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Take Attendance");
+        toolbar.setTitle(classInstanceDate);
 
 
         /*
         * set toolbar navigation Icon
         * */
         toolbar.setNavigationIcon(R.drawable.back);
+
+        setSupportActionBar(toolbar);
 
 
         /*
@@ -112,21 +134,21 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         else
         {
             noStudentFoundMsg.setVisibility(View.GONE);
-            StudentAdapter studentAdapter = new StudentAdapter(TakeAttendanceStudentList.this,R.layout.student_single_row,R.id.student_icon,students);
+            studentAdapter = new StudentAdapter(TakeAttendanceStudentList.this,R.layout.student_single_row,R.id.student_icon,students);
             studentAdapter.setPresentFlagMap(presentMap);
 
             studentAdapter.setFragmentManager(getSupportFragmentManager());
             studentAdapter.setShowVertIcon(false);
             studentAdapter.setShowPresentAbsentRadio(true);
             studentList.setAdapter(studentAdapter);
-
         }
     }
 
     public void getAttendance()
     {
         attendanceCursor = sqLiteAdapter.getAttendance(String.valueOf(classInstanceId));
-        Log.e("Total Attendance","Found "+attendanceCursor.getCount());
+        Log.e("Total Attendance","From Get Attendance Found "+attendanceCursor.getCount());
+        presentMap.clear();
         while (attendanceCursor.moveToNext())
         {
             int indexOfStudentId = attendanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_ID);
@@ -135,8 +157,19 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
             int studentId = attendanceCursor.getInt(indexOfStudentId);
             int isPresent = attendanceCursor.getInt(indexOfStudentPresent);
             int attendanceId = attendanceCursor.getInt(indexOfAttendanceId);
+            //Pair<Integer,Integer> key = new Pair<>(new Integer(studentId),new Integer(classInstanceId));
+            //presentMap.put(key,isPresent);
             presentMap.put((long)studentId,isPresent);
+            for(Student student:students)
+            {
+                if(student.getStudentId()==studentId){
+                    student.setPresent(isPresent);
+                    break;
+                }
+            }
+            //Log.e("Present ","ID "+studentId+" Present "+presentMap.get(studentId));
         }
+        Log.e("Mapping",presentMap.toString());
     }
 
     public void insertAttendance()
@@ -157,35 +190,38 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
 
     public void updateAttendance()
     {
-        Log.e("Method","Update Attendance");
+        //Log.e("Method","Update Attendance "+presentMap.toString());
+        String studentIDs = "";
         for(Student student : students)
         {
-            int present = (int) presentMap.get(student.getStudentId());
-            int newValue;
-            if(present==1)
-                newValue=0;
-            else newValue=1;
-            if(student.getPresent()==present)
+            int present = student.getPresent();
+            int mapPresent = (int) presentMap.get(student.getStudentId());
+            studentIDs += student.getStudentId()+" : "+present+" , ";
+            if(mapPresent==present){
                 Log.e("Not Changed ",student.getRegNo());
+            }
             else
             {
-                Log.e("Changed ",student.getRegNo());
-                presentMap.put(student.getStudentId(),newValue);
-                int res = sqLiteAdapter.updateAttendance(classInstanceId,student.getStudentId(),newValue);
+                Log.e("Changed ",student.getRegNo()+" Changed to "+student.getPresent());
+                presentMap.put(student.getStudentId(),present);
+                int res = sqLiteAdapter.updateAttendance(classInstanceId,student.getStudentId(),present);
                 if(res>0)
                 {
-                    Log.e("Updated Messaage",student.getRegNo()+" is updated with "+newValue);
+                    Log.e("Updated Messaage",student.getRegNo()+" is updated with "+present+" For class instane "+classInstanceId);
+                    int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstanceId));
+                    Log.e("From Other ","Total Present "+totalPresent);
                 }
             }
         }
+        //Log.e("Student IDS ",studentIDs);
     }
 
-    public static ArrayList<Student> getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
-    public static void setStudents(ArrayList<Student> students) {
-        TakeAttendanceStudentList.students = students;
+    public void setStudents(ArrayList<Student> students) {
+        this.students = students;
     }
 
     public void initSQLiteDB()
@@ -195,13 +231,54 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
 
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.e("Total Attendacne","Size "+attendanceCursor.getCount());
+    protected void onPause() {
+        super.onPause();
+        //Log.e("Total Attendacne","Size "+attendanceCursor.getCount());
         if(attendanceCursor.getCount()==0)
             insertAttendance();
         else updateAttendance();
         Toast.makeText(TakeAttendanceStudentList.this,"All Changes are saved",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.take_attendance_student_list_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.search_menu:
+                Toast.makeText(TakeAttendanceStudentList.this,"Search",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.sort_menu:
+            {
+                Toast.makeText(TakeAttendanceStudentList.this,"Sort",Toast.LENGTH_SHORT).show();
+                Collections.sort(students, new Comparator<Student>() {
+                    @Override
+                    public int compare(Student o1, Student o2) {
+                        if(o1.getRegNo().compareTo(o2.getRegNo())>0)
+                            return 1;
+                        else if(o1.getRegNo().compareTo(o2.getRegNo())<0)
+                            return -1;
+                        else return 0;
+                    }
+                });
+                studentAdapter = new StudentAdapter(TakeAttendanceStudentList.this,R.layout.student_single_row,R.id.student_reg_no,students);
+                studentAdapter.setPresentFlagMap(presentMap);
+                studentAdapter.setFragmentManager(getSupportFragmentManager());
+                studentAdapter.setShowVertIcon(false);
+                studentAdapter.setShowPresentAbsentRadio(true);
+                studentList.setAdapter(studentAdapter);
+                studentAdapter.notifyDataSetChanged();
+            }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 

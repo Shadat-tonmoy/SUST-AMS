@@ -1,10 +1,14 @@
 package shadattonmoy.ams;
 
+import android.support.annotation.NonNull;
+
+import java.io.Serializable;
+
 /**
  * Created by Shadat Tonmoy on 1/30/2018.
  */
 
-public class Student {
+public class Student implements Serializable, Comparable<Student>{
     private String name,regNo,email;
     private long studentId,courseId;
     private int regular,present;
@@ -69,5 +73,12 @@ public class Student {
 
     public void setPresent(int present) {
         this.present = present;
+    }
+
+
+    @Override
+    public int compareTo(Student student) {
+
+        return 0;
     }
 }

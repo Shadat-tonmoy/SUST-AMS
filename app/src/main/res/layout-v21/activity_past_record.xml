@@ -17,14 +17,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:gravity="center"
-                android:layout_centerVertical="true"
+            <CalendarView
+                android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Previous Record Here"
-                android:textColor="@color/textBlack"
-                />
+                android:layout_height="match_parent"></CalendarView>
         </RelativeLayout>
     </LinearLayout>
 

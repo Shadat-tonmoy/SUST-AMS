@@ -135,6 +135,26 @@ public class SQLiteAdapter {
         return cursor;
     }
 
+    public int getPresentStudentNum(String classId)
+    {
+
+        int count = -1;
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        Cursor cursor = null;
+        try{
+            cursor = db.rawQuery(SQLiteHelper.GET_NUM_OF_PRESENT_STUDENT, new String[]{classId});
+            cursor.moveToFirst();
+            count = cursor.getInt(0);
+            Log.e("Total Present ","For ClassID"+classId);
+
+        } catch (Exception e)
+        {
+            Log.e("Exception ",e.getMessage());
+
+        }
+        return count;
+    }
+
 
     public int update(Course course)
     {
@@ -158,7 +178,7 @@ public class SQLiteAdapter {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(sqLiteHelper.IS_PRESENT,isPresent);
-        String whereClause = sqLiteHelper.CLASS_ID+"=? and "+sqLiteHelper.STUDENT_ID+"=?";
+        String whereClause = sqLiteHelper.CLASS_ID+"=? AND "+sqLiteHelper.STUDENT_ID+"=?";
         String[] whereArgs = {String.valueOf(classId),String.valueOf(studentId)};
         int result = db.update(sqLiteHelper.ATTENDANCE,contentValues,whereClause,whereArgs);
         return result;
@@ -204,6 +224,8 @@ public class SQLiteAdapter {
         private static final String CREATE_TABLE_CLASS_INSTANCE = "create table "+CLASS_INSTANCE+"("+CLASS_ID+" INTEGER primary key autoincrement,"+CLASS_DATE+" varchar(255),"+COURSE_ID+" INTEGER);";
 
         private static final String GET_CLASS_INSTANCE_QUERY = "SELECT * FROM class_instance WHERE course_id=?";
+
+        private static final String GET_NUM_OF_PRESENT_STUDENT = "SELECT COUNT(*) FROM attendance WHERE class_id=? and is_present=1";
 
         private static final String DROP_TABLE_STUDENT = "drop table if exists "+STUDENT+" ";
         private static final String DROP_TABLE_COURSE = "drop table if exists "+COURSE+"";

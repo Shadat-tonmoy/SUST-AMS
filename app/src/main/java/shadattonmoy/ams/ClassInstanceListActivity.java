@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import java.util.zip.CheckedOutputStream;
 import shadattonmoy.ams.attendance.ClassDate;
 import shadattonmoy.ams.attendance.ClassInstance;
 import shadattonmoy.ams.attendance.ClassInstanceAdapter;
+import shadattonmoy.ams.attendance.ClassInstanceStudentList;
 
 public class ClassInstanceListActivity extends AppCompatActivity {
 
@@ -35,7 +37,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private Course course;
     private FloatingActionButton classInstanceAddFab;
     private ClassInstanceAdapter classInstanceAdapter;
-    private static ArrayList<Student> students;
+    private ArrayList<Student> students;
     private int totalStudent;
     private CoordinatorLayout coordinatorLayout;
 
@@ -145,6 +147,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     {
         if(classInstanceCursor!=null)
         {
+            Log.e("Cursor Size","ClassInstanceCursor "+classInstanceCursor.getCount());
             while (classInstanceCursor.moveToNext())
             {
                 int indexOfClassInstanceId = classInstanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_ID);
@@ -153,8 +156,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
 
                 int classInstanceId = classInstanceCursor.getInt(indexOfClassInstanceId);
                 int courseId = classInstanceCursor.getInt(indexOfCourseId);
-                int totalPresent = -1;
-                int totalAbsent = -1;
+                int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstanceId));
+                int totalAbsent = totalStudent - totalPresent;
                 String classInstanceDate = classInstanceCursor.getString(indexOfClassInstanceDate);
                 ClassInstance classInstance= new ClassInstance();
                 classInstance.setClassInstanceid(classInstanceId);
@@ -193,8 +196,34 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 students.add(student);
             }
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateView();
+        Log.e("Method","onResume of Class Instance List Activity is called");
+    }
 
+    public void updateView()
+    {
+        Log.e("From Update View", "Class instance list Size "+classInstanceList.getCount());
+        for(int i=0;i<classInstanceList.getCount();i++)
+        {
+            ClassInstance classInstance = (ClassInstance) classInstanceList.getAdapter().getItem(i);
+            Log.e("Total Present","At Instance "+i+" "+classInstance.getTotalPresent()+" ID "+classInstance.getClassInstanceid());
+            int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstance.getClassInstanceid()));
+            int totalAbsent = totalStudent - totalPresent;
+            Log.e("Debug "+i,"Present "+totalPresent+" Absent "+totalAbsent);
+            try {
+                TextView presentAbsentView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view);
+                presentAbsentView.setText("Total Present "+totalPresent+"\nTotal Absent "+totalAbsent);
+                Log.e("Finding Child...",classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view)+"");
+            }catch (Exception e)
+            {
+
+            }
+        }
     }
 }
 class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
@@ -215,10 +244,17 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
 
         ClassInstance classInstance= (ClassInstance) parent.getItemAtPosition(position);
         Toast.makeText(context,"Opening : ",Toast.LENGTH_SHORT).show();
+        ClassInstanceStudentList classInstanceStudentList = new ClassInstanceStudentList();
+        classInstanceStudentList.setStudents(students);
+        String[] dateArray = classInstance.getDate().split(",");
+        String formattedDate = dateArray[3].substring(0,3)+" , "+dateArray[0]+" "+dateArray[1].substring(0,3)+" "+dateArray[2];
         Intent intent = new Intent(context,TakeAttendanceStudentList.class);
         intent.putExtra("Course", course);
         intent.putExtra("ClassInstanceId",classInstance.getClassInstanceid());
-        TakeAttendanceStudentList.setStudents(students);
+        intent.putExtra("StudentList",classInstanceStudentList);
+        intent.putExtra("Date",formattedDate);
+        //TakeAttendanceStudentList.setStudents(students);
+
         context.startActivity(intent);
 
     }

@@ -36,9 +36,10 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
     private FragmentManager fragmentManager;
     private Context context;
-    private static StudentBottomSheet studentBottomSheet;
+    static StudentBottomSheet studentBottomSheet;
     private boolean showVertIcon,showPresentAbsentRadio;
     private Map flagMap,presentFlagMap;
+
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
             super(context, resource, textViewResourceId, objects);
@@ -70,11 +71,13 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         TextView studentEmailView = (TextView) row.findViewById(R.id.student_email);
 
 
+
         if(showVertIcon)
         {
             LinearLayout moreVert = (LinearLayout) row.findViewById(R.id.student_more_vert_layout);
             ImageView moreVertIcon = (ImageView) row.findViewById(R.id.student_more_vert_icon);
             moreVertIcon.setImageResource(R.drawable.more_vert);
+
             moreVert.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -128,18 +131,28 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             if(presentFlagMap.size()>0)
             {
                 if(presentFlagMap.get(studentId).equals(new Integer(0)))
+                {
                     absentRadio.setChecked(true);
-                else presentRadio.setChecked(true);
+                    student.setPresent(0);
+                }
+                else
+                {
+                    presentRadio.setChecked(true);
+                    student.setPresent(1);
+                }
             }
             if(flagMap.get(studentRegNo)!=null)
             {
                 boolean present = (boolean) flagMap.get(studentRegNo);
                 Log.e("Reg No ",studentRegNo+" present : "+present);
-                if(present)
+                if(present){
                     presentRadio.setChecked(true);
+                    student.setPresent(1);
+                }
                 else {
 
                     absentRadio.setChecked(true);
+                    student.setPresent(0);
                 }
             }
             else if(presentFlagMap.size()==0)
@@ -151,9 +164,10 @@ public class StudentAdapter extends ArrayAdapter<Student> {
                 @Override
                 public void onClick(View v) {
 
-                    Toast.makeText(context,"Present : "+studentRegNo,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"Present : "+studentRegNo,Toast.LENGTH_SHORT).show();
                     flagMap.put(studentRegNo,true);
                     student.setPresent(1);
+                    Log.e("Updated to","Present "+student.getPresent());
                     Log.e("Putting True ",studentRegNo);
 
                 }
@@ -162,7 +176,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             absentRadio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,"Absent : "+student.getRegNo(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"Absent : "+student.getRegNo(),Toast.LENGTH_SHORT).show();
                     flagMap.put(studentRegNo,false);
                     student.setPresent(0);
                     Log.e("Putting False ",studentRegNo);
