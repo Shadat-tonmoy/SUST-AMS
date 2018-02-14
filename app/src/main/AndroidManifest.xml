@@ -56,7 +56,9 @@
             android:name=".spreadsheetapi.DynamicTabActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".ClassInstanceListActivity" />
-        <activity android:name=".TakeAttendanceStudentList"></activity>
+        <activity android:name=".TakeAttendanceStudentList" />
+        <activity android:name=".PastRecordStudentList" />
+        <activity android:name=".PastRecordCalendarActivity"></activity>
     </application>
 
 </manifest>

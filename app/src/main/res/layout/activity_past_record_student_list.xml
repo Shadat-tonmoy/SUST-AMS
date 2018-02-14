@@ -4,56 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="shadattonmoy.ams.PastRecord">
+    tools:context="shadattonmoy.ams.PastRecordStudentList">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            layout="@layout/toolbar">
-        </include>
+
+        <include layout="@layout/toolbar"></include>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/past_record_student_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></ListView>
+
             <RelativeLayout
-                android:id="@+id/past_record_no_course_found_msg"
+                android:id="@+id/past_record_no_student_found_msg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <ImageView
-                    android:id="@+id/past_record_no_course_found_img"
+                    android:id="@+id/past_record_no_student_found_img"
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/nothing_found"
                     android:scaleType="centerCrop"
-                    />
+                    android:src="@drawable/nothing_found" />
                 <TextView
-                    android:id="@+id/past_record_no_course_found_txt"
-                    android:layout_below="@id/past_record_no_course_found_img"
-                    android:gravity="center_horizontal"
+                    android:id="@+id/past_record_no_student_found_txt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Sorry!! No Course Record Found"
-                    android:textColor="@color/textRed"/>
-
+                    android:layout_below="@id/past_record_no_student_found_img"
+                    android:gravity="center_horizontal"
+                    android:text="Sorry!! No Student Record Found"
+                    android:textColor="@color/textRed"
+                    android:textSize="16sp" />
             </RelativeLayout>
 
-            <ListView
-                android:id="@+id/course_list_for_past_record"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></ListView>
         </RelativeLayout>
+
     </LinearLayout>
 
-
 </android.support.design.widget.CoordinatorLayout>
-
-
-
-

@@ -63,12 +63,6 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         Log.e("Class ID",classInstanceId+"");
         initialize();
         initStudents();
-        String studentStatus = "";
-        for(Student student:students)
-        {
-            studentStatus+=student.getStudentId()+" "+student.getPresent()+" : ";
-        }
-        Log.e("Students ",studentStatus);
     }
 
     public void initialize()
