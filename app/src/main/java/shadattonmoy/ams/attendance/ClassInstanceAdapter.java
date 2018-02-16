@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import shadattonmoy.ams.ClassInstanceBottomsheet;
 import shadattonmoy.ams.Course;
 import shadattonmoy.ams.CourseAddBottomSheet;
 import shadattonmoy.ams.R;
@@ -30,7 +31,7 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
 
     private FragmentManager fragmentManager;
     private TextView courseCodeView,courseTitleView,courseSessionView,courseDeptView;
-    private static CourseAddBottomSheet courseAddBottomSheet;
+    private static ClassInstanceBottomsheet classInstanceBottomsheet;
     private boolean showVertIcon;
     public ClassInstanceAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<ClassInstance> objects) {
         super(context, resource, textViewResourceId, objects);
@@ -58,7 +59,7 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
         /*
         * find views by their IDs
         * */
-        ClassInstance classInstance = getItem(position);
+        final ClassInstance classInstance = getItem(position);
         TextView numericDateView = (TextView) row.findViewById(R.id.numeric_date_view);
         TextView monthView = (TextView) row.findViewById(R.id.month_view);
         TextView totalStudentView = (TextView) row.findViewById(R.id.total_student_view);
@@ -70,7 +71,7 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
         * get the specific attributes for a particular course
         * */
 
-        ClassDate classDate = classInstance.getClassDate();
+        final ClassDate classDate = classInstance.getClassDate();
         String numericDate = classDate.getDateValue();
         if(Integer.parseInt(numericDate)<=9){
             numericDate = "0"+numericDate;
@@ -104,6 +105,10 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
             moreVert.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.e("Clicked","More Vert");
+                    classInstanceBottomsheet = new ClassInstanceBottomsheet();
+                    classInstanceBottomsheet.setClassInstance(classInstance);
+                    classInstanceBottomsheet.show(fragmentManager,classInstanceBottomsheet.getTag());
 
 
                 }
@@ -116,8 +121,7 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
 
     public static void hideBottomSheet()
     {
-        courseAddBottomSheet.dismiss();
-
+        classInstanceBottomsheet.dismiss();
     }
 
     public boolean isShowVertIcon() {

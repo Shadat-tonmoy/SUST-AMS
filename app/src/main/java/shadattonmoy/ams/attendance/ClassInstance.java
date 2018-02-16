@@ -12,6 +12,7 @@ public class ClassInstance {
     private String date,month,year,numericDate;
     private int totalStudent,totalPresent,classInstanceid,totalAbsent;
     private ClassDate classDate;
+    private int weight=1;
 
     public ClassInstance(ClassDate date) {
         this.classDate= date;
@@ -77,5 +78,13 @@ public class ClassInstance {
 
     public void setClassDate(ClassDate classDate) {
         this.classDate = classDate;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

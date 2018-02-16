@@ -45,13 +45,14 @@ public class SQLiteAdapter {
         return db.insert(SQLiteHelper.STUDENT, null, contentValues);
     }
 
-    public long addClassInstanceToDB(ClassInstance classInstance, long courseId)
+    public long addClassInstanceToDB(ClassInstance classInstance, long courseId,int classWeight)
     {
 
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(SQLiteHelper.CLASS_DATE, classInstance.getDate());
         contentValues.put(SQLiteHelper.COURSE_ID,courseId);
+        contentValues.put(SQLiteHelper.CLASS_WEIGHT,classWeight);
         return db.insert(SQLiteHelper.CLASS_INSTANCE, null, contentValues);
     }
 
@@ -201,7 +202,7 @@ public class SQLiteAdapter {
          static final String COURSE = "course";
          static final String CLASS_INSTANCE = "class_instance";
          static final String ATTENDANCE = "attendance";
-         static final int DATABASE_VERSION = 10;
+         static final int DATABASE_VERSION = 11;
          static final String STUDENT_ID = "student_id";
          static final String STUDENT_NAME = "student_name";
          static final String STUDENT_REG_NO = "student_reg_no";
@@ -214,6 +215,8 @@ public class SQLiteAdapter {
          static final String CLASS_DATE = "class_date";
          static final String ATTENDANCE_ID = "attendance_id";
          static final String IS_PRESENT = "is_present";
+        static final String CLASS_WEIGHT = "class_weight";
+
 
         private static final String CREATE_TABLE_STUDENT = "create table "+STUDENT+"("+STUDENT_ID+" INTEGER primary key autoincrement,"+STUDENT_NAME+" varchar(255),"+STUDENT_REG_NO+" varchar(255),"+COURSE_ID+" INTEGER,"+IS_REGULAR+" INTEGER);";
 
@@ -221,7 +224,7 @@ public class SQLiteAdapter {
 
         private static final String CREATE_TABLE_ATTENDANCE = "create table "+ATTENDANCE+"("+ATTENDANCE_ID+" INTEGER primary key autoincrement,"+CLASS_ID+" INTEGER,"+STUDENT_ID+" INTEGER,"+IS_PRESENT+" INTEGER);";
 
-        private static final String CREATE_TABLE_CLASS_INSTANCE = "create table "+CLASS_INSTANCE+"("+CLASS_ID+" INTEGER primary key autoincrement,"+CLASS_DATE+" varchar(255),"+COURSE_ID+" INTEGER);";
+        private static final String CREATE_TABLE_CLASS_INSTANCE = "create table "+CLASS_INSTANCE+"("+CLASS_ID+" INTEGER primary key autoincrement,"+CLASS_DATE+" varchar(255),"+COURSE_ID+" INTEGER, "+CLASS_WEIGHT+" INTEGER DEFAULT 1);";
 
         private static final String GET_CLASS_INSTANCE_QUERY = "SELECT * FROM class_instance WHERE course_id=?";
 
@@ -246,10 +249,10 @@ public class SQLiteAdapter {
         public void onCreate(SQLiteDatabase db) {
             Toast.makeText(context,"OnCreate was called",Toast.LENGTH_SHORT).show();
             try {
-                db.execSQL(CREATE_TABLE_STUDENT);
-                db.execSQL(CREATE_TABLE_COURSE);
+                //db.execSQL(CREATE_TABLE_STUDENT);
+                //db.execSQL(CREATE_TABLE_COURSE);
                 db.execSQL(CREATE_TABLE_CLASS_INSTANCE);
-                db.execSQL(CREATE_TABLE_ATTENDANCE);
+                //db.execSQL(CREATE_TABLE_ATTENDANCE);
             } catch (SQLException e) {
                 Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();
                 //e.printStackTrace();
@@ -260,10 +263,10 @@ public class SQLiteAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Toast.makeText(context,"onUpgrade was called",Toast.LENGTH_SHORT).show();
             try {
-                db.execSQL(DROP_TABLE_STUDENT);
-                db.execSQL(DROP_TABLE_COURSE);
+                //db.execSQL(DROP_TABLE_STUDENT);
+                //db.execSQL(DROP_TABLE_COURSE);
                 db.execSQL(DROP_TABLE_CLASS_INSTANCE);
-                db.execSQL(DROP_TABLE_ATTENDANCE);
+                //db.execSQL(DROP_TABLE_ATTENDANCE);
                 onCreate(db);
             } catch (SQLException e) {
                 Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG).show();

@@ -1,6 +1,7 @@
 package shadattonmoy.ams;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.design.widget.CoordinatorLayout;
@@ -102,20 +103,35 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 String month = classDate.getMonthValue();
                 String year = classDate.getYearValue();
                 ClassInstance classInstance = new ClassInstance(classDate);
-                long id = sqLiteAdapter.addClassInstanceToDB(classInstance,course.getCourseId());
-                Toast.makeText(ClassInstanceListActivity.this,"Class instance added...",Toast.LENGTH_SHORT).show();
-                if(classInstanceAdapter==null)
-                {
-                    classInstances.add(classInstance);
-                    classInstanceAdapter = new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
-                    classInstanceList.setAdapter(classInstanceAdapter);
-                    classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
-                    noClassInstancFoundMsg.setVisibility(View.GONE);
+                classInstance.setTotalStudent(students.size());
+                classInstance.setTotalAbsent(students.size());
+                ClassInstanceWeightSetDialog classInstanceWeightSetDialog= new ClassInstanceWeightSetDialog(classInstance);
+                classInstanceWeightSetDialog.setClassInstance(classInstance);
+                classInstanceWeightSetDialog.setClassInstances(classInstances);
+                classInstanceWeightSetDialog.setClassInstanceList(classInstanceList);
+                classInstanceWeightSetDialog.setSqLiteAdapter(sqLiteAdapter);
+                classInstanceWeightSetDialog.setClassInstanceAdapter(classInstanceAdapter);
+                classInstanceWeightSetDialog.setCourse(course);
+                classInstanceWeightSetDialog.setStudents(students);
+                classInstanceWeightSetDialog.setNoClassInstancFoundMsg(noClassInstancFoundMsg);
+                classInstanceWeightSetDialog.setCancelable(false);
+                classInstanceWeightSetDialog.show(getFragmentManager(),"Dialog");
 
-                }
-                else classInstanceAdapter.add(classInstance);
-                Snackbar snackbar = Snackbar.make(coordinatorLayout,"Class Instance Added",Snackbar.LENGTH_LONG);
-                snackbar.show();
+
+//                long id = sqLiteAdapter.addClassInstanceToDB(classInstance,course.getCourseId());
+//                Toast.makeText(ClassInstanceListActivity.this,"Class instance added...",Toast.LENGTH_SHORT).show();
+//                if(classInstanceAdapter==null)
+//                {
+//                    classInstances.add(classInstance);
+//                    classInstanceAdapter = new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
+//                    classInstanceList.setAdapter(classInstanceAdapter);
+//                    classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
+//                    noClassInstancFoundMsg.setVisibility(View.GONE);
+//
+//                }
+//                else classInstanceAdapter.add(classInstance);
+//                Snackbar snackbar = Snackbar.make(coordinatorLayout,"Class Instance Added",Snackbar.LENGTH_LONG);
+//                snackbar.show();
             }
         });
 
@@ -153,8 +169,10 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 int indexOfClassInstanceId = classInstanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_ID);
                 int indexOfClassInstanceDate = classInstanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_DATE);
                 int indexOfCourseId = classInstanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.COURSE_ID);
+                int indexOfClassWeight= classInstanceCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_WEIGHT);
 
                 int classInstanceId = classInstanceCursor.getInt(indexOfClassInstanceId);
+                int classWeight = classInstanceCursor.getInt(indexOfClassWeight);
                 int courseId = classInstanceCursor.getInt(indexOfCourseId);
                 int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstanceId));
                 int totalAbsent = totalStudent - totalPresent;
@@ -162,13 +180,18 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 ClassInstance classInstance= new ClassInstance();
                 classInstance.setClassInstanceid(classInstanceId);
                 classInstance.setTotalPresent(totalPresent);
+                classInstance.setWeight(classWeight);
                 classInstance.setTotalStudent(totalStudent);
                 classInstance.setTotalAbsent(totalAbsent);
                 classInstance.setDate(classInstanceDate);
                 classInstances.add(classInstance);
             }
             classInstanceAdapter= new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
+            classInstanceAdapter.setShowVertIcon(true);
+            classInstanceAdapter.setFragmentManager(getSupportFragmentManager());
             classInstanceList.setAdapter(classInstanceAdapter);
+
+
             classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
         }
     }

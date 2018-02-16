@@ -58,7 +58,8 @@
         <activity android:name=".ClassInstanceListActivity" />
         <activity android:name=".TakeAttendanceStudentList" />
         <activity android:name=".PastRecordStudentList" />
-        <activity android:name=".PastRecordCalendarActivity"></activity>
+        <activity android:name=".PastRecordCalendarActivity" />
+        <activity android:name=".ClassInstanceEditActivity"></activity>
     </application>
 
 </manifest>
