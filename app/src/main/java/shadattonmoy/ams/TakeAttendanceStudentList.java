@@ -50,6 +50,7 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
     private Map presentMap;
     private StudentAdapter studentAdapter;
     private ClassInstanceStudentList classInstanceStudentList;
+    private int classInstanceWeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         setContentView(R.layout.activity_take_attendance_student_list);
         course = (Course) getIntent().getSerializableExtra("Course");
         classInstanceId = getIntent().getIntExtra("ClassInstanceId",-1);
+        classInstanceWeight = getIntent().getIntExtra("Weight",1);
+        Log.e("Weight",classInstanceWeight+"");
         classInstanceStudentList = (ClassInstanceStudentList) getIntent().getSerializableExtra("StudentList");
         classInstanceDate = getIntent().getStringExtra("Date");
         students = classInstanceStudentList.getStudents();
@@ -176,8 +179,8 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
             if(student.getPresent()==1)
                 totalPresent++;
             else totalAbsent++;
-            Log.e("Insert Info","Student ID "+student.getStudentId()+" Course ID "+course.getCourseId()+" Present "+student.getPresent());
-            sqLiteAdapter.addAttendanceToDB(classInstanceId,student.getStudentId(),student.getPresent());
+            Log.e("Insert Info","Student ID "+student.getStudentId()+" Course ID "+course.getCourseId()+" Present "+student.getPresent()*classInstanceWeight);
+            sqLiteAdapter.addAttendanceToDB(classInstanceId,student.getStudentId(),student.getPresent()*classInstanceWeight);
         }
 
     }
@@ -197,11 +200,11 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
             else
             {
                 Log.e("Changed ",student.getRegNo()+" Changed to "+student.getPresent());
-                presentMap.put(student.getStudentId(),present);
-                int res = sqLiteAdapter.updateAttendance(classInstanceId,student.getStudentId(),present);
+                presentMap.put(student.getStudentId(),present*classInstanceWeight);
+                int res = sqLiteAdapter.updateAttendance(classInstanceId,student.getStudentId(),present*classInstanceWeight);
                 if(res>0)
                 {
-                    Log.e("Updated Messaage",student.getRegNo()+" is updated with "+present+" For class instane "+classInstanceId);
+                    Log.e("Updating....",student.getRegNo()+" is updated with "+present*classInstanceWeight+" For class instane "+classInstanceId);
                     int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstanceId));
                     Log.e("From Other ","Total Present "+totalPresent);
                 }
@@ -231,6 +234,7 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         if(attendanceCursor.getCount()==0)
             insertAttendance();
         else updateAttendance();
+        ClassInstanceListActivity.setReturnFlag(true);
         Toast.makeText(TakeAttendanceStudentList.this,"All Changes are saved",Toast.LENGTH_SHORT).show();
     }
 

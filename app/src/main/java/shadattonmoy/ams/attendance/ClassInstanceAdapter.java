@@ -121,7 +121,12 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
 
     public static void hideBottomSheet()
     {
-        classInstanceBottomsheet.dismiss();
+        try {
+            classInstanceBottomsheet.dismiss();
+        }catch (Exception e)
+        {
+            //Log.e("Exception",e.getMessage());
+        }
     }
 
     public boolean isShowVertIcon() {

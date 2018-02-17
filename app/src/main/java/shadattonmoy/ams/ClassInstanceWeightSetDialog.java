@@ -102,12 +102,7 @@ public class ClassInstanceWeightSetDialog extends DialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.class_weight_set_dialog,null);
         weightSpinner = (Spinner) view.findViewById(R.id.course_weight_spinner);
-        weights = new ArrayList<String>();
-        weights.add("1");
-        weights.add("2");
-        weights.add("3");
-        weights.add("4");
-        weights.add("5");
+
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity().getApplicationContext(),R.array.class_instance_weight,R.layout.spinner_layout);
         adapter.setDropDownViewResource(R.layout.spinner_layout);
         weightSpinner.setAdapter(adapter);

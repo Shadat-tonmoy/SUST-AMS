@@ -174,6 +174,21 @@ public class SQLiteAdapter {
         return result;
     }
 
+    public int updateClassInstance(ClassInstance classInstance)
+    {
+        String classInstanceId = Long.toString(classInstance.getClassInstanceid());
+        String classInstanceDate = classInstance.getDate();
+        int classInstanceWeight = classInstance.getWeight();
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(sqLiteHelper.CLASS_DATE,classInstanceDate);
+        contentValues.put(sqLiteHelper.CLASS_WEIGHT,classInstanceWeight);
+        String whereClause = sqLiteHelper.CLASS_ID+"=?";
+        String[] whereArgs = {String.valueOf(classInstance.getClassInstanceid())};
+        int result = db.update(sqLiteHelper.CLASS_INSTANCE,contentValues,whereClause,whereArgs);
+        return result;
+    }
+
     public int updateAttendance(int classId,long studentId, int isPresent)
     {
         SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
@@ -228,7 +243,7 @@ public class SQLiteAdapter {
 
         private static final String GET_CLASS_INSTANCE_QUERY = "SELECT * FROM class_instance WHERE course_id=?";
 
-        private static final String GET_NUM_OF_PRESENT_STUDENT = "SELECT COUNT(*) FROM attendance WHERE class_id=? and is_present=1";
+        private static final String GET_NUM_OF_PRESENT_STUDENT = "SELECT COUNT(*) FROM attendance WHERE class_id=? and is_present>=1";
 
         private static final String DROP_TABLE_STUDENT = "drop table if exists "+STUDENT+" ";
         private static final String DROP_TABLE_COURSE = "drop table if exists "+COURSE+"";

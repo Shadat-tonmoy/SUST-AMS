@@ -41,6 +41,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private ArrayList<Student> students;
     private int totalStudent;
     private CoordinatorLayout coordinatorLayout;
+    private static boolean returnFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
         * */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Class Instance");
+
+        returnFlag = false;
 
         /*
         * set toolbar navigation Icon
@@ -224,29 +227,45 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateView();
-        Log.e("Method","onResume of Class Instance List Activity is called");
+        if(returnFlag)
+            updateView();
+        //Log.e("Method","onResume of Class Instance List Activity is called");
     }
 
     public void updateView()
     {
-        Log.e("From Update View", "Class instance list Size "+classInstanceList.getCount());
-        for(int i=0;i<classInstanceList.getCount();i++)
-        {
-            ClassInstance classInstance = (ClassInstance) classInstanceList.getAdapter().getItem(i);
-            Log.e("Total Present","At Instance "+i+" "+classInstance.getTotalPresent()+" ID "+classInstance.getClassInstanceid());
-            int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstance.getClassInstanceid()));
-            int totalAbsent = totalStudent - totalPresent;
-            Log.e("Debug "+i,"Present "+totalPresent+" Absent "+totalAbsent);
-            try {
-                TextView presentAbsentView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view);
-                presentAbsentView.setText("Total Present "+totalPresent+"\nTotal Absent "+totalAbsent);
-                Log.e("Finding Child...",classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view)+"");
-            }catch (Exception e)
-            {
+        Log.e("Called","Update View was called");
+        classInstanceAdapter.clear();
+        getClassInstances();
+        classInstanceAdapter.hideBottomSheet();
+        //Log.e("From Update View", "Class instance list Size "+classInstanceList.getCount());
+//        for(int i=0;i<classInstanceList.getCount();i++)
+//        {
+//            ClassInstance classInstance = (ClassInstance) classInstanceList.getAdapter().getItem(i);
+//            //Log.e("Total Present","At Instance "+i+" "+classInstance.getTotalPresent()+" ID "+classInstance.getClassInstanceid());
+//            int totalPresent = sqLiteAdapter.getPresentStudentNum(String.valueOf(classInstance.getClassInstanceid()));
+//            int totalAbsent = totalStudent - totalPresent;
+//            //Log.e("Debug "+i,"Present "+totalPresent+" Absent "+totalAbsent);
+//            try {
+//                TextView presentAbsentView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view);
+//                presentAbsentView.setText("Total Present "+totalPresent+"\nTotal Absent "+totalAbsent);
+//                TextView dateView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.date_view);
+//                TextView numericDateView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.numeric_date_view);
+//                TextView monthView = (TextView) classInstanceList.getChildAt(i).findViewById(R.id.month_view);
+//                //Log.e("Finding Child...",classInstanceList.getChildAt(i).findViewById(R.id.absent_present_view)+"");
+//            }catch (Exception e)
+//            {
+//
+//            }
+//        }
+    }
 
-            }
-        }
+    public static boolean isReturnFlag() {
+        return returnFlag;
+    }
+
+    public static void setReturnFlag(boolean returnFlag) {
+        ClassInstanceListActivity.returnFlag = returnFlag;
     }
 }
 class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
@@ -276,6 +295,7 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
         intent.putExtra("ClassInstanceId",classInstance.getClassInstanceid());
         intent.putExtra("StudentList",classInstanceStudentList);
         intent.putExtra("Date",formattedDate);
+        intent.putExtra("Weight",classInstance.getWeight());
         //TakeAttendanceStudentList.setStudents(students);
 
         context.startActivity(intent);
