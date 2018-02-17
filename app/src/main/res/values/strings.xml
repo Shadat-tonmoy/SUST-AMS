@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">AMS</string>
     <string name="home_title">SUST\nAttendance Management System</string>
+    <string name="search_hint">Name,Reg No</string>
     <string-array name="class_instance_weight">
         <item>1</item>
         <item>2</item>
