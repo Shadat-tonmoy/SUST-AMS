@@ -4,28 +4,37 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:gravity="center"
-        style="@style/addClassHeader">
+        android:padding="12dp"
+        style="@style/addClassHeader"
+        >
 
-        <ImageView
-            android:id="@+id/sort_icon"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/swap_vert" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sort By"
-            android:textColor="@color/textWhite"
-            android:layout_toRightOf="@id/sort_icon"
-            android:padding="5dp"
-            />
+            <ImageView
+                android:id="@+id/sort_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/swap_vert" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort By"
+                android:textStyle="bold"
+                android:textColor="@color/textWhite"
+                android:textSize="18sp"/>
+        </LinearLayout>
 
     </LinearLayout>
+
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_marginTop="10dp"
@@ -38,7 +47,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:padding="20dp">
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -59,7 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Registration Number"
-                    android:textSize="20sp"/>
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -69,7 +78,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:padding="20dp">
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -90,38 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name"
-                    android:textSize="20sp"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sort_bottom_sheet_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:padding="20dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/sort_bottom_sheet_type_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:visibility="gone"
-                    android:src="@drawable/edit"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dropper First"
-                    android:textSize="20sp"/>
+                    android:textSize="18sp"/>
             </LinearLayout>
         </LinearLayout>
 

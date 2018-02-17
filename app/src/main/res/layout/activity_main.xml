@@ -31,13 +31,13 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="256dp"
+                        android:layout_height="226dp"
                         android:src="@drawable/home_image"
                         android:scaleType="centerCrop"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="256dp"
+                        android:layout_height="226dp"
                         android:orientation="vertical"
                         android:background="@drawable/ractangle">
 
@@ -132,7 +132,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

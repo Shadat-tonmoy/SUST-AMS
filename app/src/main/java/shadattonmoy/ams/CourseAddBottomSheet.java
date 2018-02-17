@@ -32,7 +32,7 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
     {
         bottomSheetEditMenu = (LinearLayout) view.findViewById(R.id.bottom_sheet_edit_menu);
         bottomSheetDeleteMenu = (LinearLayout) view.findViewById(R.id.bottom_sheet_delete_menu);
-        bottomSheetCloneMenu = (LinearLayout) view.findViewById(R.id.bottom_sheet_clone_menu);
+        //bottomSheetCloneMenu = (LinearLayout) view.findViewById(R.id.bottom_sheet_clone_menu);
     }
 
 
@@ -65,12 +65,12 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
         });
 
 
-        bottomSheetCloneMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Clone Course",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        bottomSheetCloneMenu.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getActivity().getApplicationContext(),"Clone Course",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
     }

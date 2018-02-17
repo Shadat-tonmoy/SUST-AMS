@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     * method to open UserManual activity
     * */
-    public void openUserManualActivity()
+    public void openUserManualActivity(View view)
     {
         Intent intent = new Intent(this,UserManual.class);
         startActivity(intent);
