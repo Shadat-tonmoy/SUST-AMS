@@ -15,7 +15,7 @@ import shadattonmoy.ams.attendance.ClassInstance;
 
 public class SortingOptionBottomSheet extends BottomSheetDialogFragment {
 
-    private LinearLayout bottomSheetRegNoMenu,bottomSheetNameMenu,bottomSheetTypeMenu;
+    private LinearLayout bottomSheetRegNoMenu,bottomSheetNameMenu;
     private Course course;
     private ClassInstance classInstance;
     private TakeAttendanceStudentList takeAttendanceStudentList;
@@ -36,8 +36,6 @@ public class SortingOptionBottomSheet extends BottomSheetDialogFragment {
     {
         bottomSheetRegNoMenu = (LinearLayout) view.findViewById(R.id.sort_bottom_sheet_reg_no);
         bottomSheetNameMenu = (LinearLayout) view.findViewById(R.id.sort_bottom_sheet_name);
-
-        bottomSheetTypeMenu = (LinearLayout) view.findViewById(R.id.sort_bottom_sheet_type);
     }
 
 
@@ -65,15 +63,6 @@ public class SortingOptionBottomSheet extends BottomSheetDialogFragment {
                 //Toast.makeText(getActivity().getApplicationContext(),"Sort By Name ",Toast.LENGTH_SHORT).show();
                 takeAttendanceStudentList.setSortingParameter("Name");
                 //takeAttendanceStudentList.sortStudentList("Name");
-            }
-        });
-
-        bottomSheetTypeMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Toast.makeText(getActivity().getApplicationContext(),"Sort By Type ",Toast.LENGTH_SHORT).show();
-                takeAttendanceStudentList.setSortingParameter("Type");
             }
         });
     }

@@ -136,6 +136,23 @@ public class SQLiteAdapter {
         return cursor;
     }
 
+    public Cursor getAttendance(String classInstanceId,String studentId)
+    {
+        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+        Cursor cursor = null;
+        String[] columns = {sqLiteHelper.STUDENT_ID,sqLiteHelper.IS_PRESENT,sqLiteHelper.ATTENDANCE_ID};
+        String whereClause = sqLiteHelper.CLASS_ID+"=?"+" AND "+sqLiteHelper.STUDENT_ID+"=?";
+        String whereArgs[] = {classInstanceId,studentId};
+        try{
+            cursor = db.query(sqLiteHelper.ATTENDANCE,columns,whereClause,whereArgs,null,null,null,null);
+
+        } catch (Exception e)
+        {
+
+        }
+        return cursor;
+    }
+
     public int getPresentStudentNum(String classId)
     {
 
@@ -155,6 +172,24 @@ public class SQLiteAdapter {
         }
         return count;
     }
+
+//    public Cursor getAttendanceInfo(String classInstanceId, String studentId)
+//    {
+//
+//        SQLiteDatabase db = sqLiteHelper.getWritableDatabase();
+//        Cursor cursor = null;
+//        try{
+//            cursor = db.rawQuery(SQLiteHelper.GET_STUDENT_PRESENT_INFO, new String[]{classInstanceId});
+//            Log.e("Class instance ID ",classInstanceId);
+//            Log.e("Query ","Size "+cursor.getCount());
+//
+//        } catch (Exception e)
+//        {
+//            Log.e("Exception ",e.getMessage());
+//
+//        }
+//        return cursor;
+//    }
 
 
     public int update(Course course)
@@ -244,6 +279,10 @@ public class SQLiteAdapter {
         private static final String GET_CLASS_INSTANCE_QUERY = "SELECT * FROM class_instance WHERE course_id=?";
 
         private static final String GET_NUM_OF_PRESENT_STUDENT = "SELECT COUNT(*) FROM attendance WHERE class_id=? and is_present>=1";
+
+        //private static final String GET_STUDENT_PRESENT_INFO = "SELECT student_id,is_present FROM class_instance JOIN attendance ON class_instance.class_id = attendance.class_id WHERE attendance.class_id=?";
+
+        private static final String GET_STUDENT_PRESENT_INFO = "SELECT is_present FROM attendance WHERE class_id=? and student_id=?";
 
         private static final String DROP_TABLE_STUDENT = "drop table if exists "+STUDENT+" ";
         private static final String DROP_TABLE_COURSE = "drop table if exists "+COURSE+"";

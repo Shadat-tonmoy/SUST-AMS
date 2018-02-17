@@ -1,27 +1,38 @@
 package shadattonmoy.ams;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.zip.CheckedOutputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import shadattonmoy.ams.attendance.ClassDate;
 import shadattonmoy.ams.attendance.ClassInstance;
@@ -35,6 +46,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private RelativeLayout noClassInstancFoundMsg;
     private ListView classInstanceList;
     private ArrayList<ClassInstance> classInstances;
+    private List<ClassInstance> filteredClassInstance;
     private Course course;
     private FloatingActionButton classInstanceAddFab;
     private ClassInstanceAdapter classInstanceAdapter;
@@ -42,6 +54,13 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     private int totalStudent;
     private CoordinatorLayout coordinatorLayout;
     private static boolean returnFlag;
+    private SearchView searchView;
+    private String filename;
+    private String filepath = "SUSTAMSExportedFiles";
+    private Map studentInfoMap;
+    File myExternalFile;
+    String myData = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +80,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
         * */
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Class Instance");
+
+        setSupportActionBar(toolbar);
 
         returnFlag = false;
 
@@ -138,6 +159,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
             }
         });
 
+        studentInfoMap = new HashMap();
+        filename = course.getCourseCode()+".csv";
         initSQLiteDB();
     }
 
@@ -219,6 +242,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 Student student = new Student(studentName,studentRegNo,isRegular);
                 student.setPresent(0);
                 student.setStudentId(studentId);
+                studentInfoMap.put(studentId,studentRegNo);
                 students.add(student);
             }
         }
@@ -267,6 +291,188 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     public static void setReturnFlag(boolean returnFlag) {
         ClassInstanceListActivity.returnFlag = returnFlag;
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.class_instance_menu, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.class_instance_search_menu);
+        searchView = new SearchView(ClassInstanceListActivity.this);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setQueryHint("Search Here");
+        searchView.setQueryHint(Html.fromHtml("<font color = #95a5a6>Day,Month,Year</font>"));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterData(newText);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    public void filterData(String query)
+    {
+        filteredClassInstance= new ArrayList<ClassInstance>();
+        if(searchView!=null)
+        {
+            for(ClassInstance classInstance:classInstances)
+            {
+                //Log.e("Logging","Matched");
+                if(classInstance.getClassDate().getDayValue().toLowerCase().startsWith(query.toLowerCase()) || classInstance.getClassDate().getDayValue().toLowerCase().endsWith(query.toLowerCase())|| classInstance.getClassDate().getDateValue().toLowerCase().startsWith(query.toLowerCase()) || classInstance.getClassDate().getDateValue().toLowerCase().endsWith(query.toLowerCase()) || classInstance.getClassDate().getMonthValue().toLowerCase().startsWith(query.toLowerCase()) || classInstance.getClassDate().getMonthValue().toLowerCase().endsWith(query.toLowerCase()))
+                {
+                    filteredClassInstance.add(classInstance);
+                }
+                //else filteredVendors=vendors;
+                classInstanceAdapter= new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,filteredClassInstance);
+                classInstanceAdapter.setShowVertIcon(true);
+                classInstanceAdapter.setFragmentManager(getSupportFragmentManager());
+                classInstanceList.setAdapter(classInstanceAdapter);
+
+
+                classInstanceList.setOnItemClickListener(new ClassInstanceClickHandler(ClassInstanceListActivity.this,course,students));
+            }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.export_menu:
+                exportAsCSV();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void exportAsCSV()
+    {
+        Toast.makeText(ClassInstanceListActivity.this,"Export s CSV",Toast.LENGTH_SHORT).show();
+        //File file = new File(ClassInstanceListActivity.this.getFilesDir(), "myFile");
+
+        if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            myExternalFile = new File(ClassInstanceListActivity.this.getFilesDir(),"SUSTAMSExportedFiles");
+            if(!myExternalFile.exists()){
+                myExternalFile.mkdir();
+            }
+        }
+        else {
+            filename = course.getCourseCode()+".csv";
+            myExternalFile = new File(getExternalFilesDir(filepath), filename);
+        }
+        try {
+            Toast.makeText(ClassInstanceListActivity.this,myExternalFile.toString(),Toast.LENGTH_SHORT).show();
+
+            Log.e("Path",myExternalFile.toString());
+            CSVWriter writer = new CSVWriter(new FileWriter(myExternalFile));
+            List<String[]> data = new ArrayList<String[]>();
+            String[] csvHeader = new String [400];
+            int j = 0;
+            csvHeader[j++]="Registration Number";
+            for(ClassInstance classInstance:classInstances)
+                csvHeader[j++]=classInstance.getDate();
+            data.add(csvHeader);
+
+            Collections.sort(students, new Comparator<Student>() {
+                @Override
+                public int compare(Student o1, Student o2) {
+                    String regNo1 = o1.getRegNo();
+                    String regNo2 = o2.getRegNo();
+                    int roll1 = Integer.parseInt(regNo1.substring(regNo1.length()-3,regNo1.length()));
+                    int roll2 = Integer.parseInt(regNo2.substring(regNo2.length()-3,regNo2.length()));
+                    String session1 = regNo1.substring(0,5);
+                    String session2 = regNo2.substring(0,5);
+                    if(session1.compareTo(session2)==0)
+                    {
+                        if(roll1>roll2)
+                            return 1;
+                        else return -1;
+                    }
+                    if(session1.compareTo(session2)>=0)
+                        return -1;
+                    else return 1;
+                }
+            });
+
+
+            for(Student student:students)
+            {
+                long student_id = student.getStudentId();
+                //Log.e("Stat","For Student "+student.getStudentId()+" "+student.getRegNo());
+                int i=0;
+                String[] infoToExport = new String[500];
+                infoToExport[i++]=student.getRegNo();
+                for(ClassInstance classInstance:classInstances)
+                {
+                    int classInstanceId = classInstance.getClassInstanceid();
+                    Cursor attendanceInfo = sqLiteAdapter.getAttendance(String.valueOf(classInstanceId),String.valueOf(student_id));
+                    while (attendanceInfo.moveToNext())
+                    {
+                        int indexOfStudentId = attendanceInfo.getColumnIndex(sqLiteAdapter.sqLiteHelper.STUDENT_ID);
+                        int indexOfPresent = attendanceInfo.getColumnIndex(sqLiteAdapter.sqLiteHelper.IS_PRESENT);
+                        int studentId = attendanceInfo.getInt(indexOfStudentId);
+                        int isPresent = attendanceInfo.getInt(indexOfPresent);
+                        //Log.e("Detail","Class ID = "+classInstanceId+" Date = "+classInstance.getDate()+" isPresent = "+isPresent);
+                        infoToExport[i++]=String.valueOf(isPresent);
+                        //infoToExport[i++]=
+                    }
+                }
+                data.add(infoToExport);
+            }
+
+            writer.writeAll(data);
+            writer.close();
+            openFolder();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    public void openFolder()
+    {
+        Uri uri = Uri.parse(ClassInstanceListActivity.this.getFilesDir()
+                + "/SUSTAMSExportedFiles/");
+        Log.e("Opening",ClassInstanceListActivity.this.getFilesDir()
+                + "/SUSTAMSExportedFiles/");
+//        intent.setDataAndType(uri, "text/csv");
+//        startActivity(Intent.createChooser(intent, "Open folder"));
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "*/*");
+        startActivity(Intent.createChooser(intent,"Open File"));
+
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 }
 class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
 
