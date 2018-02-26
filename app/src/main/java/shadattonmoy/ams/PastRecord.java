@@ -66,6 +66,7 @@ public class PastRecord extends AppCompatActivity {
         * */
         courseList = (ListView) findViewById(R.id.course_list_for_past_record);
 
+
         /*
         * initialize course array list
         * */
@@ -80,15 +81,19 @@ public class PastRecord extends AppCompatActivity {
     public void initSQLiteDB()
     {
         sqLiteAdapter = new SQLiteAdapter(PastRecord.this);
+        Log.e("Init","SQLITE ADAPTER");
     }
 
     public void getCourse()
     {
+
         courseCursor = sqLiteAdapter.getCourse();
+
 
         if(courseCursor.getCount()<=0)
         {
             noCourseFoundMsg.setVisibility(View.VISIBLE);
+
         }
         else
         {

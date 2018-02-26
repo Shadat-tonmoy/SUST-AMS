@@ -133,6 +133,7 @@ public class PastRecordStudentList extends AppCompatActivity {
                 int isStudentRegular = studentCursor.getInt(indexOfStudentRegular);
                 Log.e("From ListActivity ","Regular "+isStudentRegular);
                 Student student= new Student(studentName,studentRegNo,isStudentRegular);
+                student.setStudentId(studentId);
                 students.add(student);
             }
             studentAdapter = new StudentAdapter(PastRecordStudentList.this,R.layout.student_single_row,R.id.student_icon,students);
@@ -145,6 +146,7 @@ public class PastRecordStudentList extends AppCompatActivity {
                     Student student = (Student) parent.getItemAtPosition(position);
                     Intent intent = new Intent(PastRecordStudentList.this,PastRecordCalendarActivity.class);
                     intent.putExtra("Student",student);
+                    intent.putExtra("Course",course);
                     startActivity(intent);
                 }
             });

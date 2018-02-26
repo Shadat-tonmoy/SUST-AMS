@@ -5,130 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="shadattonmoy.ams.PastRecordCalendarActivity">
-    <LinearLayout
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/past_record_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/past_record_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/past_record_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <include layout="@layout/toolbar"></include>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <CalendarView
-                android:id="@+id/calendar_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </CalendarView>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/calendar_view">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/present_indicator"
-                            android:layout_margin="16dp"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/round_green"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Present"
-                            android:layout_marginTop="16dp"
-                            android:layout_toRightOf="@id/present_indicator"
-                            android:textSize="18sp"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_marginLeft="48dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/holiday_indicator"
-                            android:layout_margin="16dp"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/round_blue"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Holiday"
-                            android:layout_marginTop="16dp"
-                            android:layout_toRightOf="@id/holiday_indicator"
-                            android:textSize="18sp"/>
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/absent_indicator"
-                            android:layout_margin="16dp"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/round_red"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Absent"
-                            android:layout_marginTop="16dp"
-                            android:layout_toRightOf="@id/absent_indicator"
-                            android:textSize="18sp"/>
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_marginLeft="52dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <ImageView
-                            android:id="@+id/current_day_indicator"
-                            android:layout_margin="16dp"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/round_yellow"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Current Day"
-                            android:layout_marginTop="16dp"
-                            android:layout_toRightOf="@id/current_day_indicator"
-                            android:textSize="18sp"/>
-                    </RelativeLayout>
-
-
-
-                </LinearLayout>
-
-
-
-
-
-
-            </LinearLayout>
-
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 </android.support.design.widget.CoordinatorLayout>
