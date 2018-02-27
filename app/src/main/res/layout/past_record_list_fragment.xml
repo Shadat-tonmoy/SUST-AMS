@@ -6,14 +6,6 @@
     <ListView
         android:id="@+id/past_record_list_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        ></ListView>
-
-    <TextView
-        android:id="@+id/bal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello World"/>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

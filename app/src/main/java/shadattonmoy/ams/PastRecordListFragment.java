@@ -8,7 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Shadat Tonmoy on 2/26/2018.
@@ -21,6 +25,8 @@ public class PastRecordListFragment extends Fragment {
     private Cursor pastRecordCursor;
     private SQLiteAdapter sqLiteAdapter;
     private Context context;
+    private ArrayList<StudentPastRecord> pastRecords;
+    private ListView classInstanceList;
 
     public PastRecordListFragment() {
         // Required empty public constructor
@@ -31,6 +37,7 @@ public class PastRecordListFragment extends Fragment {
         this.student = student;
         this.context = context;
         initSQLiteDB();
+        pastRecords = new ArrayList<StudentPastRecord>();
     }
 
     @Override
@@ -43,9 +50,11 @@ public class PastRecordListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.past_record_list_fragment, container, false);
-        TextView bal = (TextView) view.findViewById(R.id.bal);
+        classInstanceList = (ListView) view.findViewById(R.id.past_record_list_view);
+
         pastRecordCursor = sqLiteAdapter.getStudentPastInfo(String.valueOf(course.getCourseId()),String.valueOf(student.getStudentId()));
-        String log = "";
+
+
         while (pastRecordCursor.moveToNext())
         {
             String[] columns = pastRecordCursor.getColumnNames();
@@ -55,16 +64,11 @@ public class PastRecordListFragment extends Fragment {
             String classDate = pastRecordCursor.getString(indexOfClassDate);
             int classWeight = pastRecordCursor.getInt(indexOfClassWeight);
             int isPresent = pastRecordCursor.getInt(indexOfIsPresent);
-            log+="Date : "+classDate+"\nWeight : "+classWeight+"\nisPresent : "+isPresent+"\n\n";
-
-//            Student student= new Student(studentName,studentRegNo,isStudentRegular);
-//            student.setStudentId(studentId);
-//            students.add(student);
+            StudentPastRecord studentPastRecord = new StudentPastRecord(classWeight,isPresent,classDate);
+            pastRecords.add(studentPastRecord);
         }
-        bal.setText(log);
-
-
-        // Inflate the layout for this fragment
+        PastRecordClassInstanceAdapter pastRecordClassInstanceAdapter = new PastRecordClassInstanceAdapter(context,R.layout.past_record_class_instance_single_row,R.id.past_record_absent_present_view,pastRecords);
+        classInstanceList.setAdapter(pastRecordClassInstanceAdapter);
         return view;
     }
 
