@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 /**
@@ -15,6 +16,8 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
 
     private LinearLayout bottomSheetEditMenu,bottomSheetDeleteMenu,bottomSheetCloneMenu;
     private Course course;
+    private int viewPosition;
+    private ListView courseList;
     @Override
     public void setupDialog(final Dialog dialog, int style) {
         super.setupDialog(dialog, style);
@@ -60,7 +63,12 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 CourseDeleteConfirmationDialog courseDeleteConfirmationDialog = new CourseDeleteConfirmationDialog();
+                courseDeleteConfirmationDialog.setCourse(course);
+                courseDeleteConfirmationDialog.setViewPosition(viewPosition);
+                courseDeleteConfirmationDialog.setCourseList(courseList);
                 courseDeleteConfirmationDialog.show(getActivity().getFragmentManager(),"Confirmation");
+
+
             }
         });
 
@@ -73,5 +81,23 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
 //        });
 
 
+
+
+    }
+
+    public int getViewPosition() {
+        return viewPosition;
+    }
+
+    public void setViewPosition(int viewPosition) {
+        this.viewPosition = viewPosition;
+    }
+
+    public ListView getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(ListView courseList) {
+        this.courseList = courseList;
     }
 }

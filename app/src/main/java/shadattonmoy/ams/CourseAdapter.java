@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
     private FragmentManager fragmentManager;
     private TextView courseCodeView,courseTitleView,courseSessionView,courseDeptView;
     private static CourseAddBottomSheet courseAddBottomSheet;
+    private ListView courseList;
     private boolean showVertIcon;
     public CourseAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull List<Course> objects) {
         super(context, resource, textViewResourceId, objects);
@@ -42,7 +44,7 @@ public class CourseAdapter extends ArrayAdapter<Course> {
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable final View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable final View convertView, @NonNull ViewGroup parent) {
 
         View row = convertView;
         if(row==null)
@@ -95,7 +97,12 @@ public class CourseAdapter extends ArrayAdapter<Course> {
                 public void onClick(View v) {
                     courseAddBottomSheet = new CourseAddBottomSheet();
                     courseAddBottomSheet.setCourse(course);
+                    courseAddBottomSheet.setViewPosition(position);
+                    courseAddBottomSheet.setCourseList(courseList);
                     courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
+
+
+
 
                 }
             });
@@ -117,5 +124,13 @@ public class CourseAdapter extends ArrayAdapter<Course> {
 
     public void setShowVertIcon(boolean showVertIcon) {
         this.showVertIcon = showVertIcon;
+    }
+
+    public ListView getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(ListView courseList) {
+        this.courseList = courseList;
     }
 }

@@ -151,6 +151,7 @@ public class Setup extends AppCompatActivity {
             }
             courseAdapter = new CourseAdapter(Setup.this,R.layout.course_single_row,R.id.course_icon,courses);
             courseAdapter.setFragmentManager(getSupportFragmentManager());
+            courseAdapter.setCourseList(courseList);
             courseList.setAdapter(courseAdapter);
             courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
