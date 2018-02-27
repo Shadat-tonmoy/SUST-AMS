@@ -39,6 +39,7 @@ dependencies {
     }
     compile 'com.google.android.gms:play-services-auth:11.4.0'
     compile 'pub.devrel:easypermissions:0.3.0'
+    compile files('libs/opencsv-4.1.jar')
     compile 'com.google.android.gms:play-services-auth:11.4.0'
     compile 'pub.devrel:easypermissions:0.3.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -49,5 +50,4 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.github.clans:fab:1.6.2'
     testCompile 'junit:junit:4.12'
-    compile files('libs/opencsv-4.1.jar')
 }

@@ -18,11 +18,6 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".TakeAttendance"
@@ -57,11 +52,25 @@
         <activity
             android:name=".spreadsheetapi.DynamicTabActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ClassInstanceListActivity" />
-        <activity android:name=".TakeAttendanceStudentList" />
-        <activity android:name=".PastRecordStudentList" />
-        <activity android:name=".PastRecordCalendarActivity" />
-        <activity android:name=".ClassInstanceEditActivity"></activity>
+        <activity android:name=".ClassInstanceListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".TakeAttendanceStudentList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PastRecordStudentList"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PastRecordCalendarActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ClassInstanceEditActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".spreadsheetapi.SplashScreen"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
