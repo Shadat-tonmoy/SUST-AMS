@@ -214,6 +214,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
             }
             classInstanceAdapter= new ClassInstanceAdapter(ClassInstanceListActivity.this,R.layout.class_instance_single_row,R.id.numeric_date_view,classInstances);
             classInstanceAdapter.setShowVertIcon(true);
+            classInstanceAdapter.setClassInstanceList(classInstanceList);
             classInstanceAdapter.setFragmentManager(getSupportFragmentManager());
             classInstanceList.setAdapter(classInstanceAdapter);
 
