@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shadat Tonmoy on 11/13/2017.
  */
@@ -18,6 +20,8 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
     private Course course;
     private int viewPosition;
     private ListView courseList;
+    private CourseAdapter adapter;
+    private ArrayList<Course> courses;
     @Override
     public void setupDialog(final Dialog dialog, int style) {
         super.setupDialog(dialog, style);
@@ -66,11 +70,16 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
                 courseDeleteConfirmationDialog.setCourse(course);
                 courseDeleteConfirmationDialog.setViewPosition(viewPosition);
                 courseDeleteConfirmationDialog.setCourseList(courseList);
+                courseDeleteConfirmationDialog.setCourses(courses);
+                courseDeleteConfirmationDialog.setAdapter(adapter);
                 courseDeleteConfirmationDialog.show(getActivity().getFragmentManager(),"Confirmation");
+
 
 
             }
         });
+
+
 
 
 //        bottomSheetCloneMenu.setOnClickListener(new View.OnClickListener() {
@@ -99,5 +108,21 @@ public class CourseAddBottomSheet extends BottomSheetDialogFragment {
 
     public void setCourseList(ListView courseList) {
         this.courseList = courseList;
+    }
+
+    public CourseAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(CourseAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
     }
 }

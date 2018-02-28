@@ -479,6 +479,7 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
     private Context context;
     private Course course;
     private ArrayList<Student> students;
+    private int FLAG_ACTIVITY_NEW_TASK=1;
     public ClassInstanceClickHandler(Context context, Course course, ArrayList<Student> students)
     {
         this.context = context;
@@ -502,6 +503,7 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
         intent.putExtra("StudentList",classInstanceStudentList);
         intent.putExtra("Date",formattedDate);
         intent.putExtra("Weight",classInstance.getWeight());
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
         //TakeAttendanceStudentList.setStudents(students);
 
         context.startActivity(intent);

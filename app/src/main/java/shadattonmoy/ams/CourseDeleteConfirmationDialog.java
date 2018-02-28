@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shadat Tonmoy on 1/29/2018.
  */
@@ -24,6 +26,8 @@ public class CourseDeleteConfirmationDialog extends DialogFragment {
     private SQLiteAdapter sqLiteAdapter;
     private int viewPosition;
     private ListView courseList;
+    private ArrayList<Course> courses;
+    private CourseAdapter adapter;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,7 +62,8 @@ public class CourseDeleteConfirmationDialog extends DialogFragment {
         if(result>0)
         {
             CourseAdapter.hideBottomSheet();
-            courseList.removeViewAt(viewPosition);
+            courses.remove(viewPosition);
+            adapter.notifyDataSetChanged();
             Toast.makeText(getActivity().getApplicationContext(),"Course Records Deleted",Toast.LENGTH_SHORT).show();
 
         }
@@ -91,5 +96,21 @@ public class CourseDeleteConfirmationDialog extends DialogFragment {
 
     public void setCourseList(ListView courseList) {
         this.courseList = courseList;
+    }
+
+    public ArrayList<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(ArrayList<Course> courses) {
+        this.courses = courses;
+    }
+
+    public CourseAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(CourseAdapter adapter) {
+        this.adapter = adapter;
     }
 }
