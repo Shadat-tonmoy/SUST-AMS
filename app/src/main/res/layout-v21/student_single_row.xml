@@ -1,114 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:adroid="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:adroid="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="9"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
 
-            <TextView
-                android:id="@+id/student_icon"
-                android:textColor="#ecf0f1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/round_black"
-                android:text="S"
-                android:gravity="center"
-                android:textSize="18sp"
-                />
+                <TextView
+                    android:id="@+id/student_icon"
+                    android:textColor="#ecf0f1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/round_black"
+                    android:text="S"
+                    android:gravity="center"
+                    android:textSize="18sp"
+                    />
 
-            <TextView
-                android:id="@+id/student_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/student_icon"
-                android:layout_toEndOf="@+id/student_icon"
-                android:layout_toRightOf="@+id/student_icon"
-                android:textSize="18sp"
-                android:textColor="#34495e"
-                android:text="Shadat Tonmoy" />
+                <TextView
+                    android:id="@+id/student_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/student_icon"
+                    android:layout_toEndOf="@+id/student_icon"
+                    android:layout_toRightOf="@+id/student_icon"
+                    android:textSize="18sp"
+                    android:textColor="#34495e"
+                    android:text="Shadat Tonmoy" />
 
-            <TextView
-                android:id="@+id/student_reg_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/student_name"
-                android:layout_alignLeft="@+id/student_name"
-                android:layout_below="@+id/student_name"
-                android:text="2014331070" />
+                <TextView
+                    android:id="@+id/student_reg_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/student_name"
+                    android:layout_alignLeft="@+id/student_name"
+                    android:layout_below="@+id/student_name"
+                    android:text="2014331070" />
 
-            <TextView
-                android:id="@+id/student_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/student_reg_no"
-                android:layout_alignLeft="@+id/student_reg_no"
-                android:layout_below="@+id/student_reg_no"
-                android:text="shadat.tonmoy@gmail.com" />
-        </RelativeLayout>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/student_regular_dropper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/student_reg_no"
+                    android:layout_alignLeft="@+id/student_reg_no"
+                    android:layout_below="@+id/student_reg_no"
+                    android:text="shadat.tonmoy@gmail.com" />
+            </RelativeLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/student_more_vert_layout"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-        <ImageView
-            android:id="@+id/student_more_vert_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:padding="5dp"
-            android:layout_above="@+id/student_email"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/student_present_absent_layout"
-        android:layout_width="0dp"
-        android:layout_weight="3"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp">
 
-        <RadioGroup
-            android:id="@+id/radio_present_absent"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/student_more_vert_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
-            <RadioButton
-                android:id="@+id/present_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="Present"/>
-            <RadioButton
-                android:id="@+id/absent_radio"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:layout_marginTop="10dp"
-                android:text="Absent"/>
-        </RadioGroup>
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/student_more_vert_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:layout_above="@+id/student_regular_dropper"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/student_present_absent_layout"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <RadioGroup
+                android:id="@+id/radio_present_absent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+                <RadioButton
+                    android:id="@+id/present_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:text="Present"/>
+                <RadioButton
+                    android:id="@+id/absent_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Absent"/>
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
 
     </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/previous_record_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/student_regular_dropper"
+        android:layout_margin="8dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Previous Records : "
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/blue"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/card_view_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+                </LinearLayout>
+            </HorizontalScrollView>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
 
 
 </LinearLayout>
-

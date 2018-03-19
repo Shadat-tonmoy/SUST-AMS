@@ -1,9 +1,5 @@
 package shadattonmoy.ams.attendance;
 
-import android.widget.Toast;
-
-import shadattonmoy.ams.ClassInstanceListActivity;
-
 /**
  * Created by Shadat Tonmoy on 2/7/2018.
  */

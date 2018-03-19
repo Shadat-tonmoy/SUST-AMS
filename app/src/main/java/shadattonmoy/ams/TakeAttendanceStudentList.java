@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -138,13 +139,32 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         }
         else
         {
+            for(Student student:students)
+            {
+                Cursor studentPastInfo = sqLiteAdapter.getStudentPastInfo(String.valueOf(course.getCourseId()),String.valueOf(student.getStudentId()));
+                ArrayList<StudentPreviousRecord> pastRecord = new ArrayList<StudentPreviousRecord>();
+                while (studentPastInfo.moveToNext())
+                {
+                    int indexOfIsPresent = studentPastInfo.getColumnIndex(sqLiteAdapter.sqLiteHelper.IS_PRESENT);
+                    int indexOfClassDate = studentPastInfo.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_DATE);
+                    int indexOfClassWeight = studentPastInfo.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_WEIGHT);
+                    int isPresent = studentPastInfo.getInt(indexOfIsPresent);
+                    int classWeight = studentPastInfo.getInt(indexOfClassWeight);
+                    StudentPreviousRecord studentPreviousRecord = new StudentPreviousRecord(classWeight,isPresent);
+                    String classDate = studentPastInfo.getString(indexOfClassDate);
+                    pastRecord.add(studentPreviousRecord);
+                }
+                student.setPastRecord(pastRecord);
+            }
             noStudentFoundMsg.setVisibility(View.GONE);
             studentAdapter = new StudentAdapter(TakeAttendanceStudentList.this,R.layout.student_single_row,R.id.student_icon,students);
             studentAdapter.setPresentFlagMap(presentMap);
             studentAdapter.setFragmentManager(getSupportFragmentManager());
             studentAdapter.setShowVertIcon(false);
             studentAdapter.setShowPresentAbsentRadio(true);
+            studentAdapter.setShowPreviousRecordCard(true);
             studentList.setAdapter(studentAdapter);
+
         }
     }
 

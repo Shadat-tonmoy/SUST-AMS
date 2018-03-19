@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/single_dot"
+    android:layout_width="15dp"
+    android:layout_height="15dp"
+    android:layout_gravity="center"
+    android:layout_margin="6dp"
+    android:background="@drawable/round_red"
+    android:gravity="center"
+    android:text="A"
+    android:textSize="8sp"
+    android:textColor="@color/textWhite" />

@@ -310,6 +310,7 @@ public class SpreadSheetActivity extends AppCompatActivity
         @Override
         protected List<SpreadSheet> doInBackground(Void... params) {
             try {
+                Log.e("Task","Doing in bg");
                 return getSpreadSheets();
             } catch (Exception e) {
                 mLastError = e;
@@ -324,6 +325,7 @@ public class SpreadSheetActivity extends AppCompatActivity
         private List<SpreadSheet> getSpreadSheets() throws IOException {
 
             List<SpreadSheet> spreadsheets = new ArrayList<SpreadSheet>();
+            Log.e("Task","Start Getting...");
             FileList sheets = driveService.files().list().setQ("mimeType = 'application/vnd.google-apps.spreadsheet'").execute();
             Log.e("MEs","Getting...");
             List<File> files = sheets.getFiles();

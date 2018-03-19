@@ -72,6 +72,7 @@ public class ClassInstanceAdapter extends ArrayAdapter<ClassInstance> {
         * find views by their IDs
         * */
         ClassInstance classInstance = getItem(position);
+
         TextView numericDateView = (TextView) row.findViewById(R.id.numeric_date_view);
         TextView monthView = (TextView) row.findViewById(R.id.month_view);
         TextView totalStudentView = (TextView) row.findViewById(R.id.total_student_view);

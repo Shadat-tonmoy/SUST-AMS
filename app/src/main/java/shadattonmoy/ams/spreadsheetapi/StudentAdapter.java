@@ -1,32 +1,36 @@
 package shadattonmoy.ams.spreadsheetapi;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import shadattonmoy.ams.CourseAddBottomSheet;
 import shadattonmoy.ams.R;
 import shadattonmoy.ams.Student;
 import shadattonmoy.ams.StudentBottomSheet;
+import shadattonmoy.ams.StudentPreviousRecord;
 
 /**
  * Created by Shadat Tonmoy on 2/1/2018.
@@ -37,8 +41,10 @@ public class StudentAdapter extends ArrayAdapter<Student> {
     private FragmentManager fragmentManager;
     private Context context;
     static StudentBottomSheet studentBottomSheet;
-    private boolean showVertIcon,showPresentAbsentRadio;
-    private Map flagMap,presentFlagMap;
+    private boolean showVertIcon,showPresentAbsentRadio,showPreviousRecordCard;
+    private Map flagMap,presentFlagMap,previousRecordFlagMap;
+    private CardView previosRecordCard;
+    private LinearLayout pastRecordContainer;
 
 
     public StudentAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int         textViewResourceId, @NonNull List<Student> objects) {
@@ -46,13 +52,18 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         this.context = context;
         showVertIcon = true;
         showPresentAbsentRadio = false;
+        showPreviousRecordCard = false;
         flagMap = new HashMap();
+        previousRecordFlagMap = new HashMap();
     }
 
 @NonNull
 @Override
     public View getView(int position, @Nullable final View convertView, @NonNull
         ViewGroup parent) {
+
+
+
 
         View row = convertView;
         if(row==null)
@@ -68,7 +79,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         TextView studentIconView = (TextView) row.findViewById(R.id.student_icon);
         TextView studentNameView = (TextView) row.findViewById(R.id.student_name);
         TextView studentRegNoView = (TextView) row.findViewById(R.id.student_reg_no);
-        TextView studentEmailView = (TextView) row.findViewById(R.id.student_email);
+        TextView studentRegularDropper = (TextView) row.findViewById(R.id.student_regular_dropper);
 
 
 
@@ -84,9 +95,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
                     studentBottomSheet = new StudentBottomSheet();
                     studentBottomSheet.setStudent(student);
                     studentBottomSheet.show(fragmentManager,studentBottomSheet.getTag());
-//            courseAddBottomSheet = new CourseAddBottomSheet();
-//            courseAddBottomSheet.setCourse(course);
-//            courseAddBottomSheet.show(fragmentManager,courseAddBottomSheet.getTag());
 
                 }
             });
@@ -100,7 +108,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         * */
         String studentName = student.getName();
         final String studentRegNo = student.getRegNo();
-        final String studentEmail = student.getEmail();
         int isRegular = student.isRegular();
         long studentId = student.getStudentId();
         String regular = "Dropper";
@@ -118,7 +125,7 @@ public class StudentAdapter extends ArrayAdapter<Student> {
         studentIconView.setText(iconText);
         studentNameView.setText(studentName);
         studentRegNoView.setText(studentRegNo);
-        studentEmailView.setText(regular);
+        studentRegularDropper.setText(regular);
 
         if(showPresentAbsentRadio)
         {
@@ -130,7 +137,9 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
             if(presentFlagMap.size()>0)
             {
-                if(presentFlagMap.get(studentId).equals(new Integer(0)))
+                Log.e("Size",presentFlagMap.size()+"");
+                Log.e("Student Id",studentId+"");
+                if(presentFlagMap.get(studentId)!=null && presentFlagMap.get(studentId).equals(new Integer(0)))
                 {
                     absentRadio.setChecked(true);
                     student.setPresent(0);
@@ -163,8 +172,6 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             presentRadio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    //Toast.makeText(context,"Present : "+studentRegNo,Toast.LENGTH_SHORT).show();
                     flagMap.put(studentRegNo,true);
                     student.setPresent(1);
                     Log.e("Updated to","Present "+student.getPresent());
@@ -176,13 +183,75 @@ public class StudentAdapter extends ArrayAdapter<Student> {
             absentRadio.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast.makeText(context,"Absent : "+student.getRegNo(),Toast.LENGTH_SHORT).show();
                     flagMap.put(studentRegNo,false);
                     student.setPresent(0);
                     Log.e("Putting False ",studentRegNo);
 
                 }
             });
+        }
+
+        if(showPreviousRecordCard)
+        {
+
+
+            previosRecordCard = (CardView) row.findViewById(R.id.previous_record_card);
+            previosRecordCard.setVisibility(View.VISIBLE);
+
+            pastRecordContainer = (LinearLayout) row.findViewById(R.id.card_view_container);
+            ArrayList<StudentPreviousRecord> pastRecord = student.getPastRecord();
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
+            float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+            dpWidth-=52.0; //padding (12+12=24) card margin (8+8=16) dot margin extra left first + right last (6+6=12)
+            int numOfDots = (int)Math.floor((double)dpWidth / 23)-1;
+            int totalRecords = pastRecord.size();
+            int numOfLinearLayout = (int)Math.ceil((double)totalRecords/numOfDots);
+            int puttedDot = 0;
+            Log.e("Student Past Record",student.getPastRecord().toString());
+            if(previousRecordFlagMap.get(student.getStudentId())==null)
+            {
+                previousRecordFlagMap.put(student.getStudentId(),student.getPastRecord());
+                pastRecord = student.getPastRecord();
+            }
+            else
+            {
+                pastRecord = (ArrayList<StudentPreviousRecord>) previousRecordFlagMap.get(student.getStudentId());
+
+            }
+            pastRecordContainer.removeAllViews();
+            for(int i=0;i<numOfLinearLayout;i++)
+            {
+
+                LinearLayout linearLayout = new LinearLayout(context);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                linearLayout.setLayoutParams(layoutParams);
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                for(int j=0;j<numOfDots;j++)
+                {
+                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    TextView textView = (TextView)inflater.inflate(R.layout.single_dot,linearLayout,false);
+                    StudentPreviousRecord currentDot = pastRecord.get(puttedDot);
+                    if(currentDot.getIsPresent()==0)
+                    {
+                        textView.setBackgroundResource(R.drawable.round_red);
+                        textView.setText(currentDot.getClassWeight()+"");
+                    }
+                    else  {
+                        textView.setBackgroundResource(R.drawable.round_green2);
+                        textView.setText(currentDot.getClassWeight()+"");
+                    }
+                    linearLayout.addView(textView);
+                    puttedDot++;
+                    if(puttedDot>=totalRecords)
+                        break;
+                }
+                pastRecordContainer.addView(linearLayout);
+            }
+
+            Log.e("Dimension","Width : "+dpWidth+" Height : "+dpHeight);
+
+
         }
 
         return row;
@@ -219,5 +288,14 @@ public class StudentAdapter extends ArrayAdapter<Student> {
 
     public void setPresentFlagMap(Map presentFlagMap) {
         this.presentFlagMap = presentFlagMap;
+        Log.e("PrsentFlagMap",presentFlagMap.toString());
+    }
+
+    public boolean getShowPreviousRecordCard() {
+        return showPreviousRecordCard;
+    }
+
+    public void setShowPreviousRecordCard(boolean showPreviousRecordCard) {
+        this.showPreviousRecordCard = showPreviousRecordCard;
     }
 }

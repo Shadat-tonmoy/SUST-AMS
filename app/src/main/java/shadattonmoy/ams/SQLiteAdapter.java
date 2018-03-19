@@ -241,13 +241,16 @@ public class SQLiteAdapter {
         }
 
         result = deleteStudents(courseId);
-        if (result > 0) {
-            Log.e("Deleted", "Student Deleted" + result);
-            result = db.delete(sqLiteHelper.COURSE, whereClause, whereArgs);
-            if (result > 0) {
-                Log.e("Deleted", "Course Deleted" + result);
-            }
-        }
+        Log.e("Deleted", "Student Deleted" + result);
+        result = db.delete(sqLiteHelper.COURSE, whereClause, whereArgs);
+
+//        if (result > 0) {
+//            Log.e("Deleted", "Student Deleted" + result);
+//            result = db.delete(sqLiteHelper.COURSE, whereClause, whereArgs);
+//            if (result > 0) {
+//                Log.e("Deleted", "Course Deleted" + result);
+//            }
+//        }
         return result;
 
     }

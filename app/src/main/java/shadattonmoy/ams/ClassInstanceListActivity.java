@@ -380,6 +380,8 @@ public class ClassInstanceListActivity extends AppCompatActivity {
             csvHeader[j++]="Registration Number";
             for(ClassInstance classInstance:classInstances)
                 csvHeader[j++]=classInstance.getDate();
+            csvHeader[j++]="Total Present";
+            csvHeader[j++]="Total Absent";
             data.add(csvHeader);
 
             Collections.sort(students, new Comparator<Student>() {
@@ -411,9 +413,12 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                 int i=0;
                 String[] infoToExport = new String[500];
                 infoToExport[i++]=student.getRegNo();
+                int totalPresent = 0;
+                int totalAbsent = 0;
                 for(ClassInstance classInstance:classInstances)
                 {
                     int classInstanceId = classInstance.getClassInstanceid();
+                    int classInstanceWeight = classInstance.getWeight();
                     Cursor attendanceInfo = sqLiteAdapter.getAttendance(String.valueOf(classInstanceId),String.valueOf(student_id));
                     while (attendanceInfo.moveToNext())
                     {
@@ -422,10 +427,16 @@ public class ClassInstanceListActivity extends AppCompatActivity {
                         int studentId = attendanceInfo.getInt(indexOfStudentId);
                         int isPresent = attendanceInfo.getInt(indexOfPresent);
                         //Log.e("Detail","Class ID = "+classInstanceId+" Date = "+classInstance.getDate()+" isPresent = "+isPresent);
+                        if(isPresent!=0)
+                            totalPresent+=isPresent;
+                        else totalAbsent+=classInstanceWeight;
+
                         infoToExport[i++]=String.valueOf(isPresent);
                         //infoToExport[i++]=
                     }
                 }
+                infoToExport[i++]=String.valueOf(totalPresent);
+                infoToExport[i++]=String.valueOf(totalAbsent);
                 data.add(infoToExport);
             }
 
@@ -442,10 +453,12 @@ public class ClassInstanceListActivity extends AppCompatActivity {
 
     public void openFolder()
     {
-        Uri uri = Uri.parse(ClassInstanceListActivity.this.getFilesDir()
-                + "/SUSTAMSExportedFiles/");
-        Log.e("Opening",ClassInstanceListActivity.this.getFilesDir()
-                + "/SUSTAMSExportedFiles/");
+
+//        Uri uri = Uri.parse(ClassInstanceListActivity.this.getFilesDir()
+//                + "/SUSTAMSExportedFiles/");
+
+        Uri uri = Uri.parse(myExternalFile.getAbsolutePath());
+        Log.e("Opening",uri.toString());
 //        intent.setDataAndType(uri, "text/csv");
 //        startActivity(Intent.createChooser(intent, "Open folder"));
 
