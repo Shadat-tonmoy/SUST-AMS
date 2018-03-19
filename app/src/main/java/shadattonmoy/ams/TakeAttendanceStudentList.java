@@ -181,8 +181,6 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
             int studentId = attendanceCursor.getInt(indexOfStudentId);
             int isPresent = attendanceCursor.getInt(indexOfStudentPresent);
             int attendanceId = attendanceCursor.getInt(indexOfAttendanceId);
-            //Pair<Integer,Integer> key = new Pair<>(new Integer(studentId),new Integer(classInstanceId));
-            //presentMap.put(key,isPresent);
             presentMap.put((long)studentId,isPresent);
             for(Student student:students)
             {
@@ -191,7 +189,6 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
                     break;
                 }
             }
-            //Log.e("Present ","ID "+studentId+" Present "+presentMap.get(studentId));
         }
         Log.e("Mapping",presentMap.toString());
     }
@@ -308,6 +305,7 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
                 studentAdapter.setFragmentManager(getSupportFragmentManager());
                 studentAdapter.setShowVertIcon(false);
                 studentAdapter.setShowPresentAbsentRadio(true);
+                studentAdapter.setShowPreviousRecordCard(true);
 
                 studentList.setAdapter(studentAdapter);
             }
@@ -406,6 +404,7 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
         studentAdapter.setFragmentManager(getSupportFragmentManager());
         studentAdapter.setShowVertIcon(false);
         studentAdapter.setShowPresentAbsentRadio(true);
+        studentAdapter.setShowPreviousRecordCard(true);
         studentList.setAdapter(studentAdapter);
         studentAdapter.notifyDataSetChanged();
     }

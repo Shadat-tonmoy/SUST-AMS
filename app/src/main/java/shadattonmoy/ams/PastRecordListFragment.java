@@ -57,7 +57,6 @@ public class PastRecordListFragment extends Fragment {
 
         while (pastRecordCursor.moveToNext())
         {
-            String[] columns = pastRecordCursor.getColumnNames();
             int indexOfClassDate = pastRecordCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_DATE);
             int indexOfClassWeight = pastRecordCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.CLASS_WEIGHT);
             int indexOfIsPresent = pastRecordCursor.getColumnIndex(sqLiteAdapter.sqLiteHelper.IS_PRESENT);

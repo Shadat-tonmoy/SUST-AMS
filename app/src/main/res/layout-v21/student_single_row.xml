@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:orientation="vertical"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="15dp">
 
             <RadioGroup
                 android:id="@+id/radio_present_absent"
@@ -101,12 +101,12 @@
                 <RadioButton
                     android:id="@+id/present_radio"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="26dp"
                     android:text="Present"/>
                 <RadioButton
                     android:id="@+id/absent_radio"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
+                    android:layout_height="26dp"
                     android:layout_marginTop="10dp"
                     android:text="Absent"/>
             </RadioGroup>

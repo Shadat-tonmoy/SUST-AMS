@@ -83,7 +83,7 @@ public class PastRecordCalendarActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PastRecordListFragment(course,student,PastRecordCalendarActivity.this), "Class Instnces");
-        adapter.addFragment(new PastRecordGraphFragment(), "Graph");
+        adapter.addFragment(new PastRecordGraphFragment(course,student,PastRecordCalendarActivity.this), "Graph");
         //adapter.addFragment(new ThreeFragment(), "THREE");
         viewPager.setAdapter(adapter);
     }
