@@ -29,7 +29,7 @@
             android:name=".PastRecord"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserManual"
+            android:name=".UserManualActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CourseAddActivity"

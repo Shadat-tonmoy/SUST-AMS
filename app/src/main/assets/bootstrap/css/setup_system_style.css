@@ -1,0 +1,37 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+#myBtn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Fixed/sticky position */
+    bottom: 12%; /* Place the button at the bottom of the page */
+    right: 2%; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #FFC107; /* Set a background color */
+    color: white; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    width:60px;
+    height:60px;
+    border-radius: 50%; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+
+    -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 1);
+}
+
+#myBtn:hover {
+    background-color: #555; /* Add a dark-grey background on hover */
+}
+
+#menu_list li{
+    padding:10px;
+    list-style:none;
+
+}
+.zoomable_image:hover {
+    transform: scale(2.5);
+}

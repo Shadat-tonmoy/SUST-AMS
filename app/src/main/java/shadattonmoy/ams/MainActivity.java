@@ -1,17 +1,10 @@
 package shadattonmoy.ams;
 
 import android.content.Intent;
-import android.hardware.camera2.TotalCaptureResult;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -65,11 +58,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-    * method to open UserManual activity
+    * method to open UserManualActivity activity
     * */
     public void openUserManualActivity(View view)
     {
-        Intent intent = new Intent(this,UserManual.class);
+        Intent intent = new Intent(this,UserManualActivity.class);
         startActivity(intent);
     }
 

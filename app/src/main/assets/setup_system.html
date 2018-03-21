@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bootstrap/css/setup_system_style.css">
+
+        <!-- jQuery library -->
+        <script src="bootstrap/js/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/js/setup_system.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">What can be done here....</div>
+            <div class="panel-body">
+                <ul id="menu_list">
+                    <li>
+                        <a class="btn btn-primary" href="#courseAddDiv">
+                            <span class="glyphicon glyphicon-plus"></span> Add course
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary" href="#courseEditDiv">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit course</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary" href="#courseRemoveDiv">
+                            <span class="glyphicon glyphicon-remove"></span> Remove course</a>
+                    </li>
+
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <span class="glyphicon glyphicon-plus"></span> Add student
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#spreadSheetStudentAddDiv">From Google Spreadsheet</a></li>
+                                <li><a href="#manualStudentAddDiv">Manual Student</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="panel panel-success">
+            <div class="panel-heading" id="courseAddDiv">Add a course....</div>
+            <div class="panel-body">
+                <p>
+                    In order to add a course in the <b>"Setup System"</b> screen press the <b>"+"</b> Button highlighted in the image.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/add_course_icon.png" class="img img-responsive" width="200" height="500"><br>Fig - Add Course Button
+                    </span>
+
+                    After pressing the <b>"+"</b> Button you will see a screen with a form for the course information. After filling the form with suitable information press the <b>"&#x2713"</b> Button highlighted in the image. Note that <span style="color:red;">All the fields are required here. Without filling this form you can't go further.</span>
+
+
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/add_course_screen.png" class="img img-responsive" width="200" height="500"><br>Fig - Add Course Screen
+                    </span>
+
+                    Once you pressed the <b>"&#x2713"</b> Button you redirect to the previous screen with a <b>"New Course"</b> added with the existing course list. Following these simple steps you can easily add a new course to your record. Once you add a new course you can <a href="#courseEditDiv">Edit the course</a> or even can <a href="#courseRemoveDiv">Delete the course</a>. If you are Okay with the added course then you can go forward and
+
+                <div class="dropdown" style="display:inline;">
+                    <a class="dropdown-toggle" type="button" data-toggle="dropdown">Add student</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#spreadSheetStudentAddDiv">From Google Spreadsheet</a></li>
+                        <li><a href="#manualStudentAddDiv">Manual Student</a></li>
+                    </ul>
+                </div>
+                    to that course.
+                </p>
+
+
+            </div>
+        </div>
+
+
+
+
+
+        <div class="panel panel-warning">
+            <div class="panel-heading" id="courseEditDiv">Edit a course....</div>
+            <div class="panel-body">
+
+                <p>
+                    In order to edit a course in the <b>"Setup System"</b> screen press the <b>": (More Option)"</b> Button highlighted in the image.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/edit_delete_option.png" class="img img-responsive" width="200" height="500"><br>Fig - Course Edit Option Button
+                    </span>
+
+                    After pressing the <b>": (More Option)"</b> Button you will see a dialog (Sliding From Bottom of Screen) with <b>"Edit"</b> option (Highlighted in the image). Pressing the <b>"Edit"</b> option will show you another screen with a form for the necessary information for editing the course. After re-filling the form with suitable information press the <b>"&#x2713"</b> Button highlighted in the image. Here also, <span style="color:red;">All the fields are required here. Without filling this form you can't go further.</span>
+
+
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/add_course_screen.png" class="img img-responsive" width="200" height="500"><br>Fig - Edit Course Screen
+                    </span>
+
+                    Once you pressed the <b>"&#x2713"</b> Button you redirect to the previous screen with a <b>"Updated Course"</b> updated with the new information provided by you.
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/course_updated.png" class="img img-responsive" width="200" height="500"><br>Fig - Updated Course
+                    </span>
+
+                    Here note that <b>Only one course is highlighted in "Blue Icon"</b> This indicates that the highlighted course is updated with new information. These are the simple steps that you can follow to update the information of a existing course in your records. Besides editing you can also <a href="#courseRemoveDiv">Delete the course</a>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="panel panel-danger">
+            <div class="panel-heading" id="courseRemoveDiv">Remove a course....</div>
+            <div class="panel-body">
+                <p>
+                    In order to remove a course from your record in the <b>"Setup System"</b> screen press the <b>": (More Option)"</b> Button highlighted in the image.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/edit_delete_option.png" class="img img-responsive" width="200" height="500"><br>Fig - Course Remove Option Button
+                    </span>
+
+                    After pressing the <b>": (More Option)"</b> Button you will see a dialog (Sliding From Bottom of Screen) with <b>"Delete"</b> option (Highlighted in the image). Pressing the <b>"Delete"</b> option will show you another screen with a form for the necessary information for editing the course. After re-filling the form with suitable information press the <b>"&#x2713"</b> Button highlighted in the image. Here also, <span style="color:red;">All the fields are required here. Without filling this form you can't go further.</span>
+
+
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/delete_menu.png" class="img img-responsive" width="200" height="500"><br>Fig - Delete Course Menu
+                    </span>
+
+                    Once you pressed the <b>"Delete Menu"</b> you will prompt a confirmation dialog. Once you press the <b>"Yes"</b> button in the dialog all the course related record will be deleted permanently. Note that <span style="color:red;">Once you press the <b>"Yes"</b> button all the information related to that course like All Class Instance, Student Data and Attendance Record will be permanently deleted and you will not be able to recover those data</span>  provided by you.
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/delete_confirmation_dialog.png" class="img img-responsive" width="200" height="500"><br>Fig - Delete confirmation dialog
+                    </span>
+
+                    After pressing the  <b>"Yes"</b> button in the dialog the dialog will be closed and the selected course will be erased from the <b>"Course List"</b> as well as from the database of the Application. <b>Delete</b> Operation may sometimes cause you to loose your important data. Be careful while performing a delete operation.</p>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading" id="spreadSheetStudentAddDiv">Import Student List From Spread Sheet</div>
+            <div class="panel-body">
+
+                <p>
+                    In order to add students for a course from your record in the <b>"Setup System"</b> screen you need to select the particular course and then press the <b>"+"</b> Button highlighted in the image.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/add_student_spreadsheet.png" class="img img-responsive" width="200" height="500"><br>Fig - Add Student Icon
+                    </span>
+
+                    After pressing the <b>"+"</b> Button you will see some option (Pop Up) for adding student.  Choose the <b>"Import From Google Sheet"</b> option (Highlighted in the image). After pressing the button you will need to provide <b>Google Account Credential ("First time only")</b> After providing the account information you will find a screen with the list of all <b>SpreadSheet</b> available in your <b>Google Drive/Google Sheet</b> The screen will look like the image aside.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/spreadsheet_list.png" class="img img-responsive" width="200" height="500"><br>Fig - Spread Sheet List
+                    </span>
+
+                    To choose a SpreadSheet just press on the <b>"SpreadSheet Icon"</b>. Then you will find all the student list from that SpreadSheet. <b style="color:red;">Please Note That, Only predefined and formatted SpreadSheet can be parsed by the App. The following image shows the "Required Format" of the SpreadSheet to parse data. Any other formatted spreadsheet will not parsed correctly and will result in a wrong output.</b>
+
+                    <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/spreadsheet_format.JPG" class="img img-responsive zoomable_image" width="200" height="500"><br>Fig - SpreadSheet Format
+                    </span>
+
+                    As the image suggests the <b>"1A"</b> cell must be <b>"Name"</b>,<b>"1B"</b> cell must be <b>"Registration"</b> and <b>"1C"</b> cell must be <b>"Regular"</b> <br>
+
+                    <span style="color:#74b9ff">Name - </span> All the cell below this cell will represent the <b>"Name"</b> of a student.<br>
+
+                    <span style="color:#74b9ff">Registration - </span> All the cell below this cell will represent the <b>"Registration Number"</b> of a student.<br>
+
+                    <span style="color:#74b9ff">Regular - </span> All the cell below this cell will represent the <b>"Regularity"</b> of a student. The values in the cell must be either <b>"0"</b> or <b>"1"</b>. Here <b>"1"</b> indicates that the student is registered with the current course taking batch i.e. the student is regular and <b>"0"</b> indicates that the student is not regular i.e. <b>"Dropper"</b> <br>
+
+                </p>
+
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading" id="manualStudentAddDiv">Add student manually....</div>
+            <div class="panel-body">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+
+        <button onclick="topFunction()" id="myBtn" title="Go to top"><img src="images/up.png"></button>
+
+
+    </body>
+
+</html>
