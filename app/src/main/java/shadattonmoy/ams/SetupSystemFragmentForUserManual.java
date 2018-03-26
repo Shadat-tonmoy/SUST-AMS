@@ -1,5 +1,6 @@
 package shadattonmoy.ams;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,15 +11,23 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 
 public class SetupSystemFragmentForUserManual extends Fragment {
     private View view;
     private WebView webView;
+    private Context context;
 
 
     public SetupSystemFragmentForUserManual() {
         // Required empty public constructor
+        context = getActivity().getApplicationContext();
+    }
+
+    public SetupSystemFragmentForUserManual(Context context) {
+        // Required empty public constructor
+        this.context = context;
     }
 
     @Override
@@ -35,12 +44,37 @@ public class SetupSystemFragmentForUserManual extends Fragment {
         webView = (WebView) view.findViewById(R.id.setup_system_web_view);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webView.setWebViewClient(new WebViewClient());
+        AppWebViewClients appWebViewClients = new AppWebViewClients(context);
+        webView.setWebViewClient(appWebViewClients);
         webView.setVerticalScrollBarEnabled(false);
         webView.loadUrl("file:///android_asset/setup_system.html");
 
         return view;
     }
+}
+class AppWebViewClients extends WebViewClient {
+    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
 
+    public AppWebViewClients(Context context) {
+        this.progressBar=progressBar;
+        //progressBar.setVisibility(View.VISIBLE);
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+    }
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        // TODO Auto-generated method stub
+        view.loadUrl(url);
+        return true;
+    }
 
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        // TODO Auto-generated method stub
+        super.onPageFinished(view, url);
+        //progressBar.setVisibility(View.GONE);
+        progressDialog.dismiss();
+    }
 }

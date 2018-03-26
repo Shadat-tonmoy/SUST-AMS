@@ -92,7 +92,7 @@ public class DynamicTabActivity extends AppCompatActivity
 
         course = (Course) getIntent().getSerializableExtra("Course");
 
-        Toast.makeText(DynamicTabActivity.this,"Add Sudent For "+course.getCourseCode()+" with ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(DynamicTabActivity.this,"Add Students For "+course.getCourseCode()+" with ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
 
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -423,8 +423,9 @@ public class DynamicTabActivity extends AppCompatActivity
                         String regular = "1";
                         for(int i=0;i<row.size();i++)
                         {
-                            if(i==0)
+                            if(i==0){
                                 name = row.get(i).toString();
+                            }
                             else if(i==1)
                                 regNo = row.get(i).toString();
                             else if(i==2)

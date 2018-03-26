@@ -1,5 +1,6 @@
 package shadattonmoy.ams;
 
+import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +19,7 @@ public class UserManualActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class UserManualActivity extends AppCompatActivity {
 
     public void initialize()
     {
+        context = UserManualActivity.this;
         /*
         * find toolbar by id and set title
         * */
@@ -61,7 +64,7 @@ public class UserManualActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         UserManualActivity.ViewPagerAdapter adapter = new UserManualActivity.ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SetupSystemFragmentForUserManual(), "Setup System");
+        adapter.addFragment(new SetupSystemFragmentForUserManual(context), "Setup System");
         adapter.addFragment(new TakeAttendanceFragmentForUserManual(), "Take Attendance");
         adapter.addFragment(new PastRecordFragmentForUserManual(), "Past Records");
         viewPager.setAdapter(adapter);

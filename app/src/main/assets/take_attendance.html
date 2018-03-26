@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/take_attendance_style.css">
+
+    <!-- jQuery library -->
+    <script src="bootstrap/js/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/setup_system.js"></script>
+
+</head>
+
+<body>
+
+<div class="panel panel-success">
+    <div class="panel-heading">Take attendance here....</div>
+
+    <div class="panel-body">
+        <p>
+            Once you setup your system with <b>Courses and Students</b> you can easily take attendance from this menu. The system provide you a more convenient way to take attendance in a <b>Course Wise</b> manner. All the <b>Courses</b> added by you in the <b>Setup System</b> menu will be listed in this menu screen. You just need to select your desired course to take attendance. The screen will look like the image aside.
+            <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/take_attendacne_course_list.png" class="img img-responsive" width="200" height="500"><br>Fig - Add Course Button
+            </span>
+            Now select a course from the course list. On selecting a course you will see a screen with all the <b>"Class Instance"</b> of the course. <b>"Class Instance"</b> represents a single class of the selected course. Every class instance has a <b>"Weight"</b>. By default the weight is <b>"1"</b>. You can set the weight upto <b>"5"</b> The value of the "Class Weight" will be treated as multiple class if it is set greater then "1". You can also add a class instance by pressing the <b>"+"</b> button in the screen aside.
+            <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/class_instance_list.png" class="img img-responsive" width="200" height="500"><br>Fig - Class Instance List
+            </span>
+            Once you press the <b>"+"</b> button you will see a Dialog Window which allow you to set your class weight. Just press the <b>"Class Weight Value"</b> (Here is 1) and you can choose it upto 5.
+            <br>
+            After setting the <b>"Class Weight"</b> press the <b>"Set"</b> button in the Dialog and you will see a new class instance is added to the list. By default the class instance is added with the <b>Current Date</b>. The Dialog window will look like the image aside
+
+            <span style="display:inline; float:right;margin-left:10px;">
+                        <img src="images/class_weight_dialog.png" class="img img-responsive" width="200" height="500"><br>Fig - Class Instance Weight
+            </span>
+
+            You can also save all the class instance record as a <b>CSV File/SpreadSheet</b> by pressing the <span class="	glyphicon glyphicon-floppy-saved"></span> (Save) Icon.
+
+            After adding a class instance you will need to select a class instance from the list to take attendance <b>For the selected course of selected class instance</b>. Upon selecting a class instance you will see a screen with all the Students added in that course. From the list you just press the <b>Present</b> or <b>Absent</b> button to mark the student as Present or Absent. The image aside is representing the student list with present/absent option. Each Student row has also a list of <b>Green/Red</b> circle representing the last classes records. Here Green indicates Present and Red indicates absent. You can also search for specific student by pressing the <span class="glyphicon glyphicon-search"></span> (Search) icon. You can also sort the data by pressing the <span class="glyphicon glyphicon-align-left"></span> (Sort) icon
+
+            <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/take_attendance_student_list.png" class="img img-responsive" width="200" height="500"><br>Fig - Student List
+            </span>
+
+
+            Once added you can easily change the class instance <b>"Date and Weight"</b> by pressing the More Option Icon. You can also delete the class instance from the More Option Icon. <span style="color:red;">Once you choose to delete a class instance all the information related to that class instance like All Attendance Record will be permanently deleted and you will not be able to recover those data <b>Delete</b> Operation may sometimes cause you to loose your important data. Be careful while performing a delete operation. </span>
+        </p>
+    </div>
+</div>
+
+
+<button onclick="topFunction()" id="myBtn" title="Go to top"><img src="images/up.png"></button>
+
+
+</body>
+
+</html>

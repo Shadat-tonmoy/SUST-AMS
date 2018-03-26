@@ -263,6 +263,8 @@ public class SQLiteAdapter {
         int result = 1;
         Log.e("Delete", "Will Delete " + classInstanceId);
         result = db.delete(sqLiteHelper.CLASS_INSTANCE, whereClause, whereArgs);
+        Log.e("Delete","Class Instance deleted");
+        result = deleteAttendance(classInstanceId);
         return result;
     }
 
@@ -274,6 +276,7 @@ public class SQLiteAdapter {
         int result = 1;
         Log.e("Delete", "Will Delete " + classId);
         result = db.delete(sqLiteHelper.ATTENDANCE,whereClause,whereArgs);
+        Log.e("Delete","Attendanc deleted");
         return result;
     }
 

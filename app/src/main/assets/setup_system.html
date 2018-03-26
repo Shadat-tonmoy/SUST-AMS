@@ -19,33 +19,82 @@
         <div class="panel panel-success">
             <div class="panel-heading">What can be done here....</div>
             <div class="panel-body">
-                <ul id="menu_list">
-                    <li>
-                        <a class="btn btn-primary" href="#courseAddDiv">
-                            <span class="glyphicon glyphicon-plus"></span> Add course
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn btn-primary" href="#courseEditDiv">
-                            <span class="glyphicon glyphicon-pencil"></span> Edit course</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-primary" href="#courseRemoveDiv">
-                            <span class="glyphicon glyphicon-remove"></span> Remove course</a>
-                    </li>
 
-                    <li>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+
+                        <center>
+                            <a  href="#courseAddDiv">
+                                <div id="add_course_icon">
+                                    <center>
+                                        <img width="35dp" height="35dp" src="images/add_icon.png"></center>
+                                </div>
+                                <br>
+                                Add course
+                            </a>
+                        </center>
+
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+                        <center>
+                            <a  href="#courseEditDiv">
+                                <div id="edit_course_icon">
+                                    <center>
+                                        <img width="35dp" height="35dp" src="images/edit_icon.png"></center>
+                                </div>
+                                <br>
+                                Edit course
+                            </a>
+                        </center>
+
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
+
+                        <center>
+                            <a  href="#courseRemoveDiv">
+                                <div id="remove_course_icon">
+                                    <center>
+                                        <img width="35dp" height="35dp" src="images/delete_icon.png"></center>
+                                </div>
+                                <br>
+                                Remove course
+                            </a>
+                        </center>
+
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+
                         <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <span class="glyphicon glyphicon-plus"></span> Add student
-                                <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#spreadSheetStudentAddDiv">From Google Spreadsheet</a></li>
-                                <li><a href="#manualStudentAddDiv">Manual Student</a></li>
-                            </ul>
-                        </div>
-                    </li>
 
-                </ul>
+                            <center>
+                                <a  class="dropdown-toggle" type="button" data-toggle="dropdown" >
+                                    <div id="add_student_icon">
+                                        <center>
+                                            <img width="35dp" height="35dp" src="images/add_icon.png"></center>
+                                    </div>
+                                    <br>
+                                    Add Student
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#spreadSheetStudentAddDiv">From Google Spreadsheet</a></li>
+                                        <li><a href="#manualStudentAddDiv">Manual Student</a></li>
+                                    </ul>
+                                </a>
+                            </center>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -176,9 +225,27 @@
         <div class="panel panel-success">
             <div class="panel-heading" id="manualStudentAddDiv">Add student manually....</div>
             <div class="panel-body">
+
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    In order to add students for a course from your record in the <b>"Setup System"</b> screen you need to select the particular course and then press the <b>"+"</b> Button highlighted in the image.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/custom_student_add_button.jpg" class="img img-responsive" width="200" height="500"><br>Fig - Add Student Icon
+                    </span>
+
+                    After pressing the <b>"+"</b> Button you will see some option (Pop Up) for adding student.  Choose the <b>"Add Custom Student"</b> option (Highlighted in the image). After pressing the button you will see an screen with a form for the necessary information for adding student through your app. The screen will look like the image aside.
+                    <span style="display:inline; float:left;margin-right:10px;">
+                        <img src="images/custom_student_add_form.png" class="img img-responsive" width="200" height="500"><br>Fig - Student add form
+                    </span>
+
+                    After filling the form with <b>Student Name</b> and <b>Registration Number</b> press the <b>"&#x2713"</b> Button highlighted in the image. Here also, <span style="color:red;">All the fields are required here. Without filling this form you can't go further.</span>
+                </p>
+
             </div>
+
+
+
+
+
         </div>
 
         <button onclick="topFunction()" id="myBtn" title="Go to top"><img src="images/up.png"></button>
