@@ -172,7 +172,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
     public void getClassInstances()
     {
         classInstanceCursor = sqLiteAdapter.getClassInstances(Long.toString(course.getCourseId()));
-        Toast.makeText(ClassInstanceListActivity.this,"Total Class "+classInstanceCursor.getCount(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ClassInstanceListActivity.this,"Total Class "+classInstanceCursor.getCount(),Toast.LENGTH_SHORT).show();
 
         if(classInstanceCursor.getCount()<=0)
         {
@@ -370,7 +370,7 @@ public class ClassInstanceListActivity extends AppCompatActivity {
             myExternalFile = new File(getExternalFilesDir(filepath), filename);
         }
         try {
-            Toast.makeText(ClassInstanceListActivity.this,myExternalFile.toString(),Toast.LENGTH_SHORT).show();
+            //.makeText(ClassInstanceListActivity.this,myExternalFile.toString(),Toast.LENGTH_SHORT).show();
 
             Log.e("Path",myExternalFile.toString());
             CSVWriter writer = new CSVWriter(new FileWriter(myExternalFile));
@@ -506,7 +506,7 @@ class ClassInstanceClickHandler implements AdapterView.OnItemClickListener{
 
 
         ClassInstance classInstance= (ClassInstance) parent.getItemAtPosition(position);
-        Toast.makeText(context,"Opening : ",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context,"Opening : ",Toast.LENGTH_SHORT).show();
         ClassInstanceStudentList classInstanceStudentList = new ClassInstanceStudentList();
         classInstanceStudentList.setStudents(students);
         String[] dateArray = classInstance.getDate().split(",");

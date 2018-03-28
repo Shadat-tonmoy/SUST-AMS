@@ -47,7 +47,7 @@ public class StudentBottomSheet extends BottomSheetDialogFragment {
         bottomSheetEditMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Edit Student",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(),"Edit Student",Toast.LENGTH_SHORT).show();
 
 //                Intent intent = new Intent(getActivity(),CourseEditActivity.class);
 //                CourseEditActivity.setCourse(course);

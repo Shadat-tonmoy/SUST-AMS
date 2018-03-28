@@ -58,7 +58,7 @@ public class AddFromSpreadSheetConfirmationDialog extends DialogFragment {
                     long id = sqLiteAdapter.addStudentToDB(student,course.getCourseId());
                     if(id>0)
                         isAdded = true;
-                    Toast.makeText(getActivity().getApplicationContext(),"Student Added with ID "+id+" against course ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity().getApplicationContext(),"Student Added with ID "+id+" against course ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
                 }
                 if(isAdded)
                 {

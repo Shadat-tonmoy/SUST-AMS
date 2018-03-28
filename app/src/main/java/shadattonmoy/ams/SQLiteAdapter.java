@@ -353,26 +353,26 @@ public class SQLiteAdapter {
         public SQLiteHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
             this.context = context;
-            Toast.makeText(context, "OOO Called", Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "OOO Called", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            Toast.makeText(context, "OnCreate was called", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "OnCreate was called", Toast.LENGTH_SHORT).show();
             try {
                 db.execSQL(CREATE_TABLE_STUDENT);
                 db.execSQL(CREATE_TABLE_COURSE);
                 db.execSQL(CREATE_TABLE_CLASS_INSTANCE);
                 db.execSQL(CREATE_TABLE_ATTENDANCE);
             } catch (SQLException e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                 //e.printStackTrace();
             }
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Toast.makeText(context, "onUpgrade was called", Toast.LENGTH_SHORT).show();
+            //.makeText(context, "onUpgrade was called", Toast.LENGTH_SHORT).show();
             try {
                 db.execSQL(DROP_TABLE_STUDENT);
                 db.execSQL(DROP_TABLE_COURSE);
@@ -380,7 +380,7 @@ public class SQLiteAdapter {
                 db.execSQL(DROP_TABLE_ATTENDANCE);
                 onCreate(db);
             } catch (SQLException e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                 //dde.printStackTrace();
             }
         }

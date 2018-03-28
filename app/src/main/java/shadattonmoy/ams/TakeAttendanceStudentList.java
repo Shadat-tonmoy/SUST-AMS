@@ -319,7 +319,7 @@ public class TakeAttendanceStudentList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.search_menu:
-                Toast.makeText(TakeAttendanceStudentList.this,"Search",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(TakeAttendanceStudentList.this,"Search",Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.sort_menu:
             {

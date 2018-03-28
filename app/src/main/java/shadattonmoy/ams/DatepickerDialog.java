@@ -60,7 +60,7 @@ public class DatepickerDialog extends DialogFragment implements DatePickerDialog
         Log.e("Raw Date",rawDate);
         ClassInstanceEditActivity.classInstance.setDate(rawDate);
         classInstance.setDate(rawDate);
-        Toast.makeText(getActivity().getApplicationContext(),chosen,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity().getApplicationContext(),chosen,Toast.LENGTH_SHORT).show();
         editDateView.setText(chosen);
     }
 

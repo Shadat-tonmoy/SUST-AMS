@@ -92,7 +92,7 @@ public class DynamicTabActivity extends AppCompatActivity
 
         course = (Course) getIntent().getSerializableExtra("Course");
 
-        Toast.makeText(DynamicTabActivity.this,"Add Students For "+course.getCourseCode()+" with ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(DynamicTabActivity.this,"Add Students For "+course.getCourseCode()+" with ID "+course.getCourseId(),Toast.LENGTH_SHORT).show();
 
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -114,7 +114,7 @@ public class DynamicTabActivity extends AppCompatActivity
             TabHost.TabSpec spec=tabs.newTabSpec(title);
 
             List<Student> studentList = spreadSheetDataList.get(i).getStudentList();
-            Toast.makeText(DynamicTabActivity.this,"List Size is "+studentList.size()+" For i = "+i,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(DynamicTabActivity.this,"List Size is "+studentList.size()+" For i = "+i,Toast.LENGTH_SHORT).show();
             if(studentList.size()>0)
                 spec.setContent(new TabCreator(studentList));
             else {
@@ -457,7 +457,7 @@ public class DynamicTabActivity extends AppCompatActivity
         protected void onPostExecute(List<SpreadSheetData> spreadSheetData) {
             mProgress.hide();
             if (spreadSheetData == null || spreadSheetData.size() == 0) {
-                Toast.makeText(DynamicTabActivity.this,"Null",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(DynamicTabActivity.this,"Null",Toast.LENGTH_SHORT).show();
                 nothingFoundMsg.setText("No results returned.");
             } else {
                 createTab(spreadSheetData);

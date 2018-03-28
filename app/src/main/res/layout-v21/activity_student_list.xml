@@ -98,15 +98,15 @@ tools:context="shadattonmoy.ams.StudentListActivity">
             android:visibility="visible"
             />
 
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/csv_file_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/add"
-            fab:fab_label="Import From CSV File"
-            fab:fab_size="mini"
-            android:visibility="visible"
-            />
+        <!--<com.github.clans.fab.FloatingActionButton-->
+            <!--android:id="@+id/csv_file_fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/add"-->
+            <!--fab:fab_label="Import From CSV File"-->
+            <!--fab:fab_size="mini"-->
+            <!--android:visibility="visible"-->
+            <!--/>-->
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/google_sheet_fab"

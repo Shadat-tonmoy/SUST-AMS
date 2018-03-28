@@ -117,7 +117,7 @@ public class Setup extends AppCompatActivity {
     public void getCourse(boolean isUpdated)
     {
         courseCursor = sqLiteAdapter.getCourse();
-        Toast.makeText(Setup.this,"Found "+courseCursor.getCount(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(Setup.this,"Found "+courseCursor.getCount(),Toast.LENGTH_LONG).show();
         if(courseCursor.getCount()<=0)
         {
             noCourseFoundMsg.setVisibility(View.VISIBLE);
@@ -158,7 +158,7 @@ public class Setup extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     Course course = (Course) parent.getItemAtPosition(position);
-                    Toast.makeText(Setup.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Setup.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Setup.this,StudentListActivity.class);
                     intent.putExtra("Course", course);
                     startActivity(intent);
@@ -171,7 +171,7 @@ public class Setup extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(this,"On Resume is Called",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"On Resume is Called",Toast.LENGTH_SHORT).show();
         if(isUpdated)
         {
             CourseAdapter.hideBottomSheet();

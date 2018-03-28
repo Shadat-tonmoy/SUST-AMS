@@ -62,7 +62,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".ClassInstanceEditActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".spreadsheetapi.SplashScreen"
+        <activity android:name=".SplashScreen"
             android:screenOrientation="portrait">
 
             <intent-filter>

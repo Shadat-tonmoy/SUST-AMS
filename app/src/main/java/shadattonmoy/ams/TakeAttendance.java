@@ -134,7 +134,7 @@ public class TakeAttendance extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     Course course = (Course) parent.getItemAtPosition(position);
-                    Toast.makeText(TakeAttendance.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(TakeAttendance.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(TakeAttendance.this,ClassInstanceListActivity.class);
                     intent.putExtra("Course", course);
                     startActivity(intent);
@@ -191,7 +191,7 @@ public class TakeAttendance extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                         Course course = (Course) parent.getItemAtPosition(position);
-                        Toast.makeText(TakeAttendance.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(TakeAttendance.this,"Opening : "+course.toString(),Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(TakeAttendance.this,ClassInstanceListActivity.class);
                         intent.putExtra("Course", course);
                         startActivity(intent);

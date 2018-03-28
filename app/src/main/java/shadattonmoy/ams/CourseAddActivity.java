@@ -143,7 +143,7 @@ public class CourseAddActivity extends AppCompatActivity {
         }
         if(isValid)
         {
-            Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -166,7 +166,7 @@ public class CourseAddActivity extends AppCompatActivity {
         long id = sqLiteAdapter.addCourseToDB(courseCode,courseTitle,session);
         if(id>=0)
         {
-            Toast.makeText(CourseAddActivity.this,"Course is added with id "+id,Toast.LENGTH_LONG).show();
+            //Toast.makeText(CourseAddActivity.this,"Course is added with id "+id,Toast.LENGTH_LONG).show();
             ArrayList<Course> courses = new ArrayList<Course>();
             courses.add(new Course(courseCode,courseTitle,session,id));
             if(Setup.courseAdapter==null)
@@ -180,7 +180,7 @@ public class CourseAddActivity extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(CourseAddActivity.this,"Error "+id,Toast.LENGTH_LONG).show();
+            //Toast.makeText(CourseAddActivity.this,"Error "+id,Toast.LENGTH_LONG).show();
         }
     }
 }

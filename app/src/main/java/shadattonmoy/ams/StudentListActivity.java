@@ -85,7 +85,7 @@ public class StudentListActivity extends AppCompatActivity {
         });
 
         customStudentFab = (FloatingActionButton) findViewById(R.id.custom_student_fab);
-        csvFileFab = (FloatingActionButton) findViewById(R.id.csv_file_fab);
+//        csvFileFab = (FloatingActionButton) findViewById(R.id.csv_file_fab);
         googleSheetFab= (FloatingActionButton) findViewById(R.id.google_sheet_fab);
 
 
@@ -102,12 +102,12 @@ public class StudentListActivity extends AppCompatActivity {
 
             }
         });
-        csvFileFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //TODO something when floating action menu second item clicked
-
-            }
-        });
+//        csvFileFab.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                //TODO something when floating action menu second item clicked
+//
+//            }
+//        });
         googleSheetFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(StudentListActivity.this, SpreadSheetActivity.class);
@@ -180,7 +180,7 @@ public class StudentListActivity extends AppCompatActivity {
     public void getStudents(boolean isUpdated)
     {
         studentCursor = sqLiteAdapter.getStudents(Long.toString(course.getCourseId()));
-        Toast.makeText(StudentListActivity.this,"Found "+studentCursor.getCount(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(StudentListActivity.this,"Found "+studentCursor.getCount(),Toast.LENGTH_LONG).show();
         if(studentCursor.getCount()<=0)
         {
             noStudentFoundMsg.setVisibility(View.VISIBLE);

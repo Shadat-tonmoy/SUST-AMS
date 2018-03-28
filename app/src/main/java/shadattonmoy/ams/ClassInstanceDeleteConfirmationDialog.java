@@ -68,7 +68,7 @@ public class ClassInstanceDeleteConfirmationDialog extends DialogFragment {
             ClassInstanceAdapter.hideBottomSheet();
             classInstances.remove(viewPosition);
             adapter.notifyDataSetChanged();
-            Toast.makeText(getActivity().getApplicationContext(),"Class instance Records Deleted",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity().getApplicationContext(),"Class instance Records Deleted",Toast.LENGTH_SHORT).show();
 
         }
 //

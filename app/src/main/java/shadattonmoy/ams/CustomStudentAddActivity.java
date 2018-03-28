@@ -78,7 +78,7 @@ public class CustomStudentAddActivity extends AppCompatActivity {
                     int regular = 1;
                     if(studentRegularRadioButton.getCheckedRadioButtonId()==R.id.radio_dropper)
                         regular = 0;
-                    Toast.makeText(CustomStudentAddActivity.this,"Name : "+studentName+" RegNo : "+ studentRegNo + " and "+regular,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(CustomStudentAddActivity.this,"Name : "+studentName+" RegNo : "+ studentRegNo + " and "+regular,Toast.LENGTH_SHORT).show();
                     Student student = new Student(studentName,studentRegNo,regular);
                     long id = sqLiteAdapter.addStudentToDB(student,course.getCourseId());
                     if(id>0)

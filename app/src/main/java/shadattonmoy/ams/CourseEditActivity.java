@@ -144,7 +144,7 @@ public class CourseEditActivity extends AppCompatActivity {
         }
         if(isValid)
         {
-            Toast.makeText(this,"All Data are valied. Updating....",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"All Data are valied. Updating....",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -160,11 +160,11 @@ public class CourseEditActivity extends AppCompatActivity {
         String courseSession = courseSessionEditField.getText().toString();
         long id = courseToEdit.getCourseId();
         Course updatedCourse = new Course(courseCode,courseTitle,courseSession,id);
-        Toast.makeText(this,"Will updated to "+updatedCourse.toString(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"Will updated to "+updatedCourse.toString(),Toast.LENGTH_SHORT).show();
         int updatedId = sqLiteAdapter.update(updatedCourse);
         if(updatedId>0)
         {
-            Toast.makeText(this,"Updated with ID "+updatedId,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Record is updated..",Toast.LENGTH_SHORT).show();
             Setup.setIsUpdated(true);
             Setup.setUpdatedCourseId(id);
             finish();

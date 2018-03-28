@@ -67,7 +67,7 @@ public class ClassInstanceBottomsheet extends BottomSheetDialogFragment {
         bottomSheetEditMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(),"Edit Class Instance "+classInstance.getDate(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(),"Edit Class Instance "+classInstance.getDate(),Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(getActivity(),ClassInstanceEditActivity.class);
                 ClassInstanceEditActivity.setClassInstance(classInstance);
@@ -85,7 +85,7 @@ public class ClassInstanceBottomsheet extends BottomSheetDialogFragment {
                 classInstanceDeleteConfirmationDialog.setClassInstances(classInstances);
                 classInstanceDeleteConfirmationDialog.setViewPosition(position);
                 classInstanceDeleteConfirmationDialog.show(getActivity().getFragmentManager(),"Confirmation");
-                Toast.makeText(getActivity().getApplicationContext(),"Delete Class Instance "+classInstance.getDate()+" ID "+classInstance.getClassInstanceid(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(),"Delete Class Instance "+classInstance.getDate()+" ID "+classInstance.getClassInstanceid(),Toast.LENGTH_SHORT).show();
 
 
             }
