@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     tools:context="shadattonmoy.ams.PastRecordFragmentForUserManual">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+        android:id="@+id/past_record_web_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Past Record User Manual" />
+        android:layout_margin="8dp"></WebView>
 
 </FrameLayout>
